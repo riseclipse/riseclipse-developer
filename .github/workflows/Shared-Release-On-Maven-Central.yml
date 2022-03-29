@@ -6,6 +6,15 @@ name: Release on OSSRH and Maven Central
 
 on:
   workflow_call:
+    secrets:
+      RISECLIPSE_PGP_KEY_PRIVATE:
+        required: true
+      RISECLIPSE_PGP_KEY_PASSWORD:
+        required: true
+      RISECLIPSE_OSSRH_USERNAME:
+        required: true
+      RISECLIPSE_OSSRH_PASSWORD:
+        required: true
 
 jobs:
   maven_release:
