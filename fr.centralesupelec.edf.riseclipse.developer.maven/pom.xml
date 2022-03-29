@@ -32,6 +32,17 @@
     All common properties should be defined here.
   -->
  
+  <groupId>io.github.riseclipse</groupId>
+  <artifactId>fr.centralesupelec.edf.riseclipse.developer.maven</artifactId>
+  <version>1.2.2</version>
+  <packaging>pom</packaging>
+  
+  <!-- Requirements from https://central.sonatype.org/publish/requirements/ -->
+  <name>RiseClipse</name>
+  <description>RiseClipse is an umbrella name for tools based on Model Driven Engineering 
+               (MDE) technologies and dedicated to IEC standards.</description>
+  <url>https://riseclipse.github.io</url>
+
   <licenses>
     <license>
       <name>Eclipse Public License - v 2.0</name>
@@ -40,10 +51,12 @@
     </license>
   </licenses>
 
-  <groupId>fr.centralesupelec.edf.riseclipse</groupId>
-  <artifactId>fr.centralesupelec.edf.riseclipse.developer.maven</artifactId>
-  <version>1.1.0-SNAPSHOT</version>
-  <packaging>pom</packaging>
+  <scm>
+    <connection>scm:git:git@github.com:riseclipse/riseclipse-developer.git</connection>
+    <developerConnection>scm:git:git@github.com:riseclipse/riseclipse-developer.git</developerConnection>
+    <url>https://github.com/riseclipse/riseclipse-developer</url>
+    <tag>riseclipse-developer-1.2.2</tag>
+  </scm>
   
   <repositories>
     <repository>
