@@ -1,12 +1,20 @@
-name: Release manual
+name: Release on OSSRH and Maven Central
+
+# This CD workflow releases packages to OSSRH Nexus repository and to Maven Central
+# It should only be MANUALLY triggered on MASTER branch
+# NOTE: Maven central needs aproval in Nexus OSSRH before being released
 
 on:
-  workflow_dispatch: # Triggered manually for Release
+  workflow_call:
+    inputs:
+      build-path:
+        required: true
+        type: string
 
 jobs:
   maven_release:
     runs-on: ubuntu-latest
-    name: Release with Maven
+    name: Release on OSSRH and Maven Central with Maven
 
     steps:
     - name: Checkout ${{ github.event.repository.name }}
@@ -14,7 +22,7 @@ jobs:
 
     # Adapted from
     # https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#Publishing-using-Apache-Maven
-    - name: Set up Environment
+    - name: Setup Environment
       uses: actions/setup-java@v2
       with:
         distribution: 'temurin'
@@ -44,8 +52,8 @@ jobs:
     - name: Perform Maven Release and Publish to OSSRH/Apache Maven Central
       run: mvn --batch-mode release:perform
       env:
-        MAVEN_USERNAME: ${{ secrets.RISECLIPSE_OSSRH_USERNAME }}
-        MAVEN_PASSWORD: ${{ secrets.RISECLIPSE_OSSRH_PASSWORD }}
+        MAVEN_USERNAME:       ${{ secrets.RISECLIPSE_OSSRH_USERNAME }}
+        MAVEN_PASSWORD:       ${{ secrets.RISECLIPSE_OSSRH_PASSWORD }}
         MAVEN_GPG_PASSPHRASE: ${{ secrets.RISECLIPSE_PGP_KEY_PASSWORD }}
 
     - name: Clean before creating PR and push tag
