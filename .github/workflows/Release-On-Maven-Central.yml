@@ -9,7 +9,6 @@ env:
 jobs:
   call-release-on-ossrh-and-maven-central-workflow:
     name: Release on OSSRH and Maven Central with Maven
-    # CHANGE TO master BEFORE MERGING
-    uses: ./.github/workflows/Shared-Release-On-Maven-Central.yml@deploy-to-maven-central-on-github
+    uses: ./.github/workflows/Shared-Release-On-Maven-Central.yml
     with:
       build-path: ${{ env.BUILD_PATH }}
