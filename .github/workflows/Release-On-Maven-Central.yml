@@ -9,6 +9,7 @@ env:
 jobs:
   call-release-on-ossrh-and-maven-central-workflow:
     name: Release on OSSRH and Maven Central with Maven
-    uses: riseclipse/riseclipse-developer/fr.centralesupelec.edf.riseclipse.developer.github/workflows/Release-On-Maven-Central.yml
+    # CHANGE TO master BEFORE MERGING
+    uses: riseclipse/riseclipse-developer/fr.centralesupelec.edf.riseclipse.developer.github/workflows/Release-On-Maven-Central.yml@deploy-to-maven-central-on-github
     with:
       build-path: ${{ env.BUILD_PATH }}
