@@ -6,10 +6,6 @@ name: Release on OSSRH and Maven Central
 
 on:
   workflow_call:
-    inputs:
-      build-path:
-        required: true
-        type: string
 
 jobs:
   maven_release:

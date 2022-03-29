@@ -3,12 +3,7 @@ name: Release on OSSRH and Maven Central
 on:
   workflow_dispatch: # Triggered manually for Release
 
-env:
-  BUILD_PATH: fr.centralesupelec.edf.riseclipse.developer
-
 jobs:
   call-release-on-ossrh-and-maven-central-workflow:
     name: Release on OSSRH and Maven Central with Maven
     uses: ./.github/workflows/Shared-Release-On-Maven-Central.yml
-    with:
-      build-path: ${{ env.BUILD_PATH }}
