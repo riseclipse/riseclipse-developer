@@ -1,7 +1,6 @@
 name: Release manual
 
 on: 
-  push:              # workflow initially not visible in Actions
   workflow_dispatch: # Triggered manually for Release
 
 jobs:
