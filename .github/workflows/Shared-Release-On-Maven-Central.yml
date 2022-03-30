@@ -63,6 +63,7 @@ jobs:
         git config user.email github-actions@github.com
         git config user.name "GitHub Actions"
 
+    # master branch is protected: work in another branch and do a PR
     - name: Switch branch to do Release
       run: |
         git branch do_release
@@ -74,7 +75,8 @@ jobs:
         mvn --batch-mode release:prepare
 
     - name: Perform Maven Release and Publish to OSSRH/Apache Maven Central
-      run: mvn --batch-mode release:perform
+      run: |
+        mvn --batch-mode release:perform
       env:
         MAVEN_USERNAME:       ${{ secrets.RISECLIPSE_OSSRH_USERNAME }}
         MAVEN_PASSWORD:       ${{ secrets.RISECLIPSE_OSSRH_PASSWORD }}
