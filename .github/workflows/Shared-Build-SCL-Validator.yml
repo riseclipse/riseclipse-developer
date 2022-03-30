@@ -17,24 +17,18 @@
 # **      https://riseclipse.github.io
 # *************************************************************************
 
-name: Build
+name: Build SCL Validator
 
-# This CI workflow builds the components or the tool of any RiseClipse repository
-# It requires the boolean input <isRiseClipseTool> to know if it has to install P2_to_M2 dependencies first (for RiseClipse tools)
+# This CI workflow builds the SCL tool specificaly 
 # It is called by the main workflow of the repository
 
 on:
   workflow_call:
-    inputs:
-      isRiseClipseTool:
-        required: false
-        default: false
-        type: boolean
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Build project
+    name: Build
 
     steps:
     - name: Checkout ${{ github.event.repository.name }}
@@ -43,8 +37,6 @@ jobs:
         path: ${{ github.event.repository.name }}
         ref: ${{ github.ref_name }}
 
-    # Adapted from
-    # https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#Publishing-using-Apache-Maven
     - name: Setup Environment
       uses: actions/setup-java@v2
       with:
@@ -52,22 +44,37 @@ jobs:
         java-version: '11'
         cache: 'maven'
 
-    #################################### For RiseClipse tools ####################################
     - name: Checkout riseclipse-developper
       uses: actions/checkout@v3
-      if: ${{ inputs.isRiseClipseTool }} # Only runs if it's a RiseClipse tool
       with:
-        path: riseclipse-developper
+        repository: riseclipse/riseclipse-developer
+        path: riseclipse-developer
         ref: master
 
-    - name: Install P2_to_M2 if RiseClipse tool
-      if: ${{ inputs.isRiseClipseTool }} # Only runs if it's a RiseClipse tool
+    - name: Install P2_to_M2
       run: |
         cd riseclipse-developer/fr.centralesupelec.edf.riseclipse.developer.p2_to_m2
         mvn install -U
-    #################################### For RiseClipse tools ####################################
 
     - name: Execute build (maven package)
       run: |
         cd ${{ github.event.repository.name }}
         mvn package -U
+
+    - name: Extract Maven project version
+      run: |
+        cd ${{ github.event.repository.name }}
+        echo ::set-output name=project_version::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
+      id: get_version
+    
+    - name: Upload artifact Validator SCL CLI
+      uses: actions/upload-artifact@v2
+      with:
+        name: RiseClipseValidatorSCL-${{ steps.get_version.outputs.project_version }}.jar
+        path: riseclipse-validator-scl2003/fr.centralesupelec.edf.riseclipse.iec61850.scl.validator/target/RiseClipseValidatorSCL-${{ steps.get_version.outputs.project_version }}.jar
+
+    - name: Upload artifact Validator SCL UI
+      uses: actions/upload-artifact@v2
+      with:
+        name: RiseClipseValidatorSCLApplication-${{ steps.get_version.outputs.project_version }}.jar
+        path: riseclipse-validator-scl2003/fr.centralesupelec.edf.riseclipse.iec61850.scl.validator.ui/target/RiseClipseValidatorSCLApplication-${{ steps.get_version.outputs.project_version }}.jar
