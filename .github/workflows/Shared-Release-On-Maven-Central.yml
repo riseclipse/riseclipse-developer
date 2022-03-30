@@ -1,0 +1,97 @@
+# *************************************************************************
+# **  Copyright (c) 2022 CentraleSupélec & EDF.
+# **  All rights reserved. This program and the accompanying materials
+# **  are made available under the terms of the Eclipse Public License v2.0
+# **  which accompanies this distribution, and is available at
+# **  https://www.eclipse.org/legal/epl-v20.html
+# ** 
+# **  This file is part of the RiseClipse tool
+# **  
+# **  Contributors:
+# **      Computer Science Department, CentraleSupélec
+# **      EDF R&D
+# **  Contacts:
+# **      dominique.marcadet@centralesupelec.fr
+# **      aurelie.dehouck-neveu@edf.fr
+# **  Web site:
+# **      https://riseclipse.github.io
+# *************************************************************************
+
+name: Release on OSSRH and Maven Central
+
+# This CD workflow releases packages to OSSRH Nexus repository and to Maven Central
+# It should only be MANUALLY triggered on MASTER branch
+# NOTE: Maven central needs approval in Nexus OSSRH before being released
+
+on:
+  workflow_call:
+    secrets:
+      RISECLIPSE_PGP_KEY_PRIVATE:
+        required: true
+      RISECLIPSE_PGP_KEY_PASSWORD:
+        required: true
+      RISECLIPSE_OSSRH_USERNAME:
+        required: true
+      RISECLIPSE_OSSRH_PASSWORD:
+        required: true
+
+jobs:
+  maven_release:
+    runs-on: ubuntu-latest
+    name: Release on OSSRH and Maven Central with Maven
+
+    steps:
+    - name: Checkout ${{ github.event.repository.name }}
+      uses: actions/checkout@v3
+
+    # Adapted from
+    # https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#Publishing-using-Apache-Maven
+    - name: Setup Environment
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'temurin'
+        java-version: '11'
+        cache: 'maven'
+        server-id: ossrh # Value of the distributionManagement/repository/id field of the pom.xml
+        server-username: MAVEN_USERNAME
+        server-password: MAVEN_PASSWORD
+        gpg-private-key: ${{ secrets.RISECLIPSE_PGP_KEY_PRIVATE }}
+        gpg-passphrase: MAVEN_GPG_PASSPHRASE
+
+    - name: Configure Git User
+      run: |
+        git config user.email github-actions@github.com
+        git config user.name "GitHub Actions"
+
+    # master branch is protected: work in another branch and do a PR
+    - name: Switch branch to do Release
+      run: |
+        git branch do_release
+        git switch do_release
+        git push --set-upstream origin do_release
+
+    - name: Prepare Maven Release
+      run: |
+        mvn --batch-mode release:prepare
+
+    - name: Perform Maven Release and Publish to OSSRH/Apache Maven Central
+      run: |
+        mvn --batch-mode release:perform
+      env:
+        MAVEN_USERNAME:       ${{ secrets.RISECLIPSE_OSSRH_USERNAME }}
+        MAVEN_PASSWORD:       ${{ secrets.RISECLIPSE_OSSRH_PASSWORD }}
+        MAVEN_GPG_PASSPHRASE: ${{ secrets.RISECLIPSE_PGP_KEY_PASSWORD }}
+
+    - name: Clean before creating PR and push tag
+      run: |
+        mvn clean
+        git push --tags
+
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v4
+      with:
+        base: master
+        branch: do_release
+        labels: automated pr
+        title: '[maven-release-plugin] prepare for next development iteration after release'
+

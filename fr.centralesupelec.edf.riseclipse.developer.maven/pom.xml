@@ -20,10 +20,7 @@
 *************************************************************************
 -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
  
@@ -31,7 +28,24 @@
     This is the root POM for RiseClipse.
     All common properties should be defined here.
   -->
+  
+  <!--
+    Any update to project.version must be propagated to the property
+        <riseclipse-target-platform-version>
+    (without -SNAPSHOT)
+  -->
  
+  <groupId>io.github.riseclipse</groupId>
+  <artifactId>fr.centralesupelec.edf.riseclipse.developer.maven</artifactId>
+  <version>1.2.2-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  
+  <!-- Requirements from https://central.sonatype.org/publish/requirements/ -->
+  <name>RiseClipse</name>
+  <description>RiseClipse is an umbrella name for tools based on Model Driven Engineering 
+               (MDE) technologies and dedicated to IEC standards.</description>
+  <url>https://riseclipse.github.io</url>
+
   <licenses>
     <license>
       <name>Eclipse Public License - v 2.0</name>
@@ -40,11 +54,29 @@
     </license>
   </licenses>
 
-  <groupId>fr.centralesupelec.edf.riseclipse</groupId>
-  <artifactId>fr.centralesupelec.edf.riseclipse.developer.maven</artifactId>
-  <version>1.1.0-SNAPSHOT</version>
-  <packaging>pom</packaging>
+  <scm>
+    <connection>scm:git:git@github.com:riseclipse/riseclipse-developer.git</connection>
+    <developerConnection>scm:git:git@github.com:riseclipse/riseclipse-developer.git</developerConnection>
+    <url>https://github.com/riseclipse/riseclipse-developer</url>
+    <tag>HEAD</tag>
+  </scm>
   
+  <developers>
+    <developer>
+      <name>Dominique Marcadet</name>
+      <email>dominique.marcadet@centralesupelec.fr</email>
+      <organization>CentraleSupélec</organization>
+      <organizationUrl>https://www.centralesupelec.fr</organizationUrl>
+    </developer>
+    <developer>
+      <name>Aurélie Dehouck</name>
+      <email>aurelie.dehouck-neveu@edf.fr</email>
+      <organization>EDF</organization>
+      <organizationUrl>https://www.edf.fr</organizationUrl>
+    </developer>
+  </developers>
+
+  <!-- Usage of <repositories> is discouraged, but this is needed for tycho -->
   <repositories>
     <repository>
       <id>eclipse-2021-12</id>
@@ -52,22 +84,47 @@
       <layout>p2</layout>
     </repository>
   </repositories>
+  
+  <!-- See https://central.sonatype.org/publish/publish-maven/ -->
+  <distributionManagement>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+    <repository>
+      <id>ossrh</id>
+      <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+  </distributionManagement>  
 
   <properties>
+    <riseclipse-target-platform-version>1.2.1</riseclipse-target-platform-version>
+    
+    <maven-group-id>org.apache.maven.plugins</maven-group-id>
+    <maven-clean-plugin-version>3.1.0</maven-clean-plugin-version>
+    <maven-resources-plugin-version>3.2.0</maven-resources-plugin-version>
+    <maven-compiler-plugin-version>3.9.0</maven-compiler-plugin-version>
+    <maven-toolchain-plugin-version>3.0.0</maven-toolchain-plugin-version>
+    <maven-surefire-plugin-version>3.0.0-M5</maven-surefire-plugin-version>
+    <maven-jar-plugin-version>3.2.2</maven-jar-plugin-version>
+    <maven-shade-plugin-version>3.2.4</maven-shade-plugin-version>
+    <maven-install-plugin-version>3.0.0-M1</maven-install-plugin-version>
+    <maven-release-plugin-version>3.0.0-M5</maven-release-plugin-version>
+    <maven-deploy-plugin-version>3.0.0-M2</maven-deploy-plugin-version>
+    <maven-scm-plugin-version>2.0.0-M1</maven-scm-plugin-version>
+    <maven-source-plugin-version>3.2.0</maven-source-plugin-version>
+    <maven-javadoc-plugin-version>3.3.1</maven-javadoc-plugin-version>
+    <maven-gpg-plugin-version>3.0.1</maven-gpg-plugin-version>
+
+    <tycho-group-id>org.eclipse.tycho</tycho-group-id>
+    <tycho-version>2.6.0</tycho-version>
+    
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
     <jdk.version>11</jdk.version>
     <jdk.vendor>temur</jdk.vendor>
     
-    <tycho-version>2.5.0</tycho-version>
-    
-    <!--unleash-maven-plugin-version>2.9.3</unleash-maven-plugin-version-->
-    <!--unleash-scm-provider-git-version>2.2.0</unleash-scm-provider-git-version-->
-    
-    <maven-toolchain-plugin-version>3.0.0</maven-toolchain-plugin-version>
-    <maven-shade-plugin-version>3.2.4</maven-shade-plugin-version>
-
     <!-- These version numbers are those used with an Eclipse build -->
     <!-- They are obtained by checking "Copy required libraries into a sub-folder next
          to the generated JAR" when exporting as Runnable JAR -->
@@ -362,7 +419,55 @@
       <plugins>
       
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
+          <groupId>${maven-group-id}</groupId>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>${maven-clean-plugin-version}</version>
+        </plugin>
+        <plugin>
+          <groupId>${maven-group-id}</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>${maven-resources-plugin-version}</version>
+        </plugin>
+        <plugin>
+          <groupId>${maven-group-id}</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>${maven-compiler-plugin-version}</version>
+        </plugin>
+        <plugin>
+          <groupId>${maven-group-id}</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>${maven-surefire-plugin-version}</version>
+        </plugin>
+        <plugin>
+          <groupId>${maven-group-id}</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>${maven-jar-plugin-version}</version>
+        </plugin>
+        <plugin>
+          <groupId>${maven-group-id}</groupId>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>${maven-install-plugin-version}</version>
+        </plugin>
+        <plugin>
+          <groupId>${maven-group-id}</groupId>
+          <artifactId>maven-release-plugin</artifactId>
+          <version>${maven-release-plugin-version}</version>
+          <!-- See https://central.sonatype.org/publish/publish-maven/ -->
+          <configuration>
+            <autoVersionSubmodules>true</autoVersionSubmodules>
+            <useReleaseProfile>false</useReleaseProfile>
+            <releaseProfiles>release</releaseProfiles>
+            <goals>deploy</goals>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>${maven-group-id}</groupId>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>${maven-deploy-plugin-version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>${maven-group-id}</groupId>
           <artifactId>maven-toolchains-plugin</artifactId>
           <version>${maven-toolchain-plugin-version}</version>
           <executions>
@@ -382,35 +487,16 @@
           </configuration>
         </plugin>
 
-        <plugin>
-          <!-- It is prefered over the standard release maven plugin -->
-          <groupId>com.itemis.maven.plugins</groupId>
-          <artifactId>unleash-maven-plugin</artifactId>
-          <version>${unleash-maven-plugin-version}</version>
-          <configuration>
-            <tagNamePattern>v@{project.version}</tagNamePattern>
-            <commitBeforeTagging>true</commitBeforeTagging>
-            <allowLocalReleaseArtifacts>false</allowLocalReleaseArtifacts>
-          </configuration>
-          <dependencies>
-            <dependency>
-              <groupId>com.itemis.maven.plugins</groupId>
-              <artifactId>unleash-scm-provider-git</artifactId>
-              <version>${unleash-scm-provider-git-version}</version>
-            </dependency>
-          </dependencies>
-        </plugin>
-
         <!-- Tycho is used to build eclipse plugins and update-site -->
         <plugin>
-          <groupId>org.eclipse.tycho</groupId>
+          <groupId>${tycho-group-id}</groupId>
           <artifactId>tycho-maven-plugin</artifactId>
           <version>${tycho-version}</version>
           <extensions>true</extensions>
         </plugin>
 
         <plugin>
-          <groupId>org.eclipse.tycho</groupId>
+          <groupId>${tycho-group-id}</groupId>
           <artifactId>tycho-compiler-plugin</artifactId>
           <version>${tycho-version}</version>
           <configuration>
@@ -419,7 +505,7 @@
         </plugin>
 
         <plugin>
-          <groupId>org.eclipse.tycho</groupId>
+          <groupId>${tycho-group-id}</groupId>
           <artifactId>target-platform-configuration</artifactId>
           <version>${tycho-version}</version>
           <configuration>
@@ -460,12 +546,12 @@
         </plugin>
 
         <plugin>
-          <groupId>org.eclipse.tycho</groupId>
+          <groupId>${tycho-group-id}</groupId>
           <artifactId>tycho-packaging-plugin</artifactId>
           <version>${tycho-version}</version>
           <dependencies>
             <dependency>
-              <groupId>org.eclipse.tycho.extras</groupId>
+              <groupId>${tycho-group-id}.extras</groupId>
                 <artifactId>tycho-buildtimestamp-jgit</artifactId>
                 <version>${tycho-version}</version>
             </dependency>
@@ -474,11 +560,13 @@
             <timestampProvider>jgit</timestampProvider>
             <jgit.ignore>pom.xml</jgit.ignore>
             <jgit.dirtyWorkingTree>ignore</jgit.dirtyWorkingTree>
+            <!-- tycho-packaging:validate-version will fail during release otherwise -->
+            <strictVersions>false</strictVersions>
           </configuration>
         </plugin>
 
         <plugin>
-          <groupId>org.eclipse.tycho</groupId>
+          <groupId>${tycho-group-id}</groupId>
           <artifactId>tycho-source-plugin</artifactId>
           <version>${tycho-version}</version>
           <executions>
@@ -497,12 +585,24 @@
     <plugins>
 
       <plugin>
-        <groupId>org.eclipse.tycho</groupId>
+        <!-- Maven don't have access to GITHUB_TOKEN to allow git commands in GitHub actions -->
+        <!-- The workflow take care of pushing tag and creating PR -->
+        <!-- Does not work if set in pluginManagement ? -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <configuration>
+          <pushChanges>false</pushChanges>
+          <localCheckout>true</localCheckout>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>${tycho-group-id}</groupId>
         <artifactId>tycho-maven-plugin</artifactId>
       </plugin>
 
       <plugin>
-        <groupId>org.eclipse.tycho</groupId>
+        <groupId>${tycho-group-id}</groupId>
         <artifactId>target-platform-configuration</artifactId>
         <!-- see above, does not work either
         <configuration>
@@ -512,26 +612,150 @@
         <configuration>
           <target>
             <artifact>
-              <groupId>fr.centralesupelec.edf.riseclipse</groupId>
+              <groupId>io.github.riseclipse</groupId>
               <artifactId>fr.centralesupelec.edf.riseclipse.developer.eclipse</artifactId>
-              <version>1.1.0-SNAPSHOT</version>
+              <version>${riseclipse-target-platform-version}</version>
             </artifact>
           </target>
         </configuration>
       </plugin>
 
-      <plugin>
-        <groupId>org.eclipse.tycho</groupId>
-        <artifactId>tycho-packaging-plugin</artifactId>
-      </plugin>
-
-      <plugin>
-        <groupId>org.eclipse.tycho</groupId>
-        <artifactId>tycho-source-plugin</artifactId>
-      </plugin>
-
     </plugins>
 
   </build>
+  
+  <profiles>
+
+    <profile>
+      <id>release</id>
+      
+      <activation>
+        <property>
+          <name>performRelease</name>
+          <value>true</value>
+        </property>
+      </activation>
+
+      <build>
+        <plugins>
+        
+          <plugin>
+            <groupId>${maven-group-id}</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>${maven-source-plugin-version}</version>
+            <!-- See https://central.sonatype.org/publish/publish-maven/ -->
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>${maven-group-id}</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>${maven-javadoc-plugin-version}</version>
+            <configuration>
+              <!--
+                Many Eclipse plugins are not using modules of Java 9.
+                Automatic modules are used instead.
+                However, some java packages are split in several jars, and this
+                leads to errors like "module M reads package P from both J1 and J2".
+                To avoid this, we tell javadoc to use Java 1.8.
+              -->
+              <source>1.8</source>          
+            </configuration>
+            <!-- See https://central.sonatype.org/publish/publish-maven/ -->
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          
+          <plugin>
+            <groupId>${maven-group-id}</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>${maven-gpg-plugin-version}</version>
+            <!-- See https://central.sonatype.org/publish/publish-maven/ -->
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+                <configuration>
+                  <keyname>${gpg.keyname}</keyname>
+                  <passphraseServerId>${gpg.keyname}</passphraseServerId>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <!-- An error is produced by maven-scm-plugin if no file is modified by tycho-versions-plugin.
+         We use a profile to enable this step only when a file that will be modified is present -->
+    <profile>
+      <id>tycho-enabled-for-release</id>
+      
+      <activation>
+        <file>
+          <exists>META-INF/MANIFEST.MF</exists>
+        </file>
+      </activation>
+      
+      <build>
+        <plugins>
+          <!-- See https://wiki.eclipse.org/Tycho/Release_Workflow -->
+          <plugin>
+            <groupId>${maven-group-id}</groupId>
+            <artifactId>maven-release-plugin</artifactId>
+            <version>${maven-release-plugin-version}</version>
+            <configuration>
+              <preparationGoals>
+                ${tycho-group-id}:tycho-versions-plugin:${tycho-version}:update-eclipse-metadata
+                ${maven-group-id}:maven-scm-plugin:${maven-scm-plugin-version}:add
+                ${maven-group-id}:maven-scm-plugin:${maven-scm-plugin-version}:checkin
+              </preparationGoals>
+              <completionGoals>
+                ${tycho-group-id}:tycho-versions-plugin:${tycho-version}:update-eclipse-metadata
+                ${maven-group-id}:maven-scm-plugin:${maven-scm-plugin-version}:add
+                ${maven-group-id}:maven-scm-plugin:${maven-scm-plugin-version}:checkin
+              </completionGoals>
+            </configuration>
+          </plugin>
+          
+          <plugin>
+            <groupId>${maven-group-id}</groupId>
+            <artifactId>maven-scm-plugin</artifactId>
+            <version>${maven-scm-plugin-version}</version>
+            <executions>
+              <execution>
+                <id>default-cli</id>
+                <goals>
+                  <goal>add</goal>
+                  <goal>checkin</goal>
+                </goals>
+                <configuration>
+                  <includes>**/META-INF/MANIFEST.MF, **/feature.xml, **/*.product,**/category.xml</includes>
+                  <excludes>**/target/**</excludes>
+                  <message>Changing the Eclipse files versions</message>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+  
 
 </project>
