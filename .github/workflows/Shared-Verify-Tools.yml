@@ -82,7 +82,7 @@ jobs:
         ARTIFACT_1_NO_EXT="${jarPath1%.*}"
         ARTIFACT_2_NO_EXT="${jarPath2%.*}"
         ARTIFACT_1_FILENAME=$( echo $(basename "${jarPath1%.*}"))
-        ARTIFACT_2_BASE_DIR=$( echo $(basename "${jarPath2%.*}"))
+        ARTIFACT_2_FILENAME=$( echo $(basename "${jarPath2%.*}"))
         echo "::set-output name=artifact_1_no_ext::$ARTIFACT_1_NO_EXT"
         echo "::set-output name=artifact_2_no_ext::$ARTIFACT_2_NO_EXT"
         echo "::set-output name=artifact_1_filename::$ARTIFACT_1_FILENAME"
@@ -92,12 +92,12 @@ jobs:
     - name: Upload artifact 1
       uses: actions/upload-artifact@v3
       with:
-        name: ${{ steps.artifact_name.outputs.artifact_1_no_ext }}-${{ steps.get_version.outputs.project_version }}.jar
-        path: ${{ github.workspace }}/${{ steps.artifact_name.outputs.artifact_1_base_dir }}/${{ steps.artifact_name.outputs.artifact_2_no_ext }}-${{ steps.get_version.outputs.project_version }}.jar
+        name: ${{ steps.artifact_name.outputs.artifact_1_filename }}-${{ steps.get_version.outputs.project_version }}.jar
+        path: ${{ github.workspace }}/${{ steps.artifact_name.outputs.artifact_1_no_ext }}-${{ steps.get_version.outputs.project_version }}.jar
 
     - name: Upload artifact 2 if exists
       if: "${{ inputs.jarPath2 != '' }}"
       uses: actions/upload-artifact@v3
       with:
-        name: ${{ steps.artifact_name.outputs.artifact_2_no_ext }}-${{ steps.get_version.outputs.project_version }}.jar
-        path: ${{ github.workspace }}/${{ steps.artifact_name.outputs.artifact_2_base_dir }}/${{ steps.artifact_name.outputs.artifact_2_no_ext }}-${{ steps.get_version.outputs.project_version }}.jar
+        name: ${{ steps.artifact_name.outputs.artifact_2_filename }}-${{ steps.get_version.outputs.project_version }}.jar
+        path: ${{ github.workspace }}/${{ steps.artifact_name.outputs.artifact_2_no_ext }}-${{ steps.get_version.outputs.project_version }}.jar
