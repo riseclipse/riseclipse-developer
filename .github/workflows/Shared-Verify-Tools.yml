@@ -81,8 +81,8 @@ jobs:
         jarPath2="${{ inputs.jarPath2 }}"
         ARTIFACT_1_NO_EXT="${jarPath1%.*}"
         ARTIFACT_2_NO_EXT="${jarPath2%.*}"
-        ARTIFACT_1_FILENAME=$( $(echo $(basename "${jarPath1%.*}")) )
-        ARTIFACT_2_BASE_DIR=$( $(echo $(basename "${jarPath1%.*}")) )
+        ARTIFACT_1_FILENAME=$( echo $(basename "${jarPath1%.*}"))
+        ARTIFACT_2_BASE_DIR=$( echo $(basename "${jarPath2%.*}"))
         echo "::set-output name=artifact_1_no_ext::$ARTIFACT_1_NO_EXT"
         echo "::set-output name=artifact_2_no_ext::$ARTIFACT_2_NO_EXT"
         echo "::set-output name=artifact_1_filename::$ARTIFACT_1_FILENAME"
