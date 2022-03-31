@@ -77,8 +77,8 @@ jobs:
     # This step is tricky but allows to keep the version in the uploaded artifacts
     - name: Get artifact name et basedir from jarPath
       run: |
-        jarPath1=${{ inputs.jarPath1 }}
-        jarPath2=${{ inputs.jarPath2 }}
+        jarPath1="${{ inputs.jarPath1 }}"
+        jarPath2="${{ inputs.jarPath2 }}"
         ARTIFACT_1_NO_EXT="${jarPath1%.*}"
         ARTIFACT_2_NO_EXT="${jarPath2%.*}"
         ARTIFACT_1_FILENAME=$( $(echo $(basename "${jarPath1%.*}")) )
