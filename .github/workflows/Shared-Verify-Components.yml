@@ -17,9 +17,9 @@
 # **      https://riseclipse.github.io
 # *************************************************************************
 
-name: Build Components
+name: Verify components
 
-# This CI workflow builds the components or the tool of any RiseClipse repository
+# This CI workflow builds the components or the tool of any RiseClipse component repository and run Sonar + Unit tests
 # It is called by the main workflow of the repository
 
 on:
@@ -46,4 +46,4 @@ jobs:
     - name: Execute build (maven package)
       run: |
         cd ${{ github.event.repository.name }}
-        mvn package
+        mvn verify

@@ -17,9 +17,9 @@
 # **      https://riseclipse.github.io
 # *************************************************************************
 
-name: Build SCL Validator
+name: Verify tools
 
-# This CI workflow builds the SCL tool specificaly 
+# This CI workflow builds the components or the tool of any RiseClipse tool repository and run Sonar + Unit tests
 # It is called by the main workflow of the repository
 
 on:
@@ -65,7 +65,7 @@ jobs:
     - name: Execute build (maven package)
       run: |
         cd ${{ github.event.repository.name }}
-        mvn package
+        mvn verify
 
     - name: Extract Maven project version
       run: |
@@ -74,17 +74,26 @@ jobs:
         echo "::set-output name=project_version::$VERSION"
       id: get_version
     
-    - uses: jungwinter/split@v2
-      id: jarName
-      with:
-        msg: ${{ inputs.jarPath1 }}
-        separator: '/'
+    - name: Get artifact name from jarPath
+      run: |
+        ARTIFACT_1=$( filename="${${{ inputs.jarPath1 }}%.*}" )
+        ARTIFACT_2=$( filename="${${{ inputs.jarPath2 }}%.*}" )
+        echo "::set-output name=artifact_1::$ARTIFACT_1"
+        echo "::set-output name=artifact_2::$ARTIFACT_2"
+      id: artifact_name
 
     - name: Upload artifact 1
       uses: actions/upload-artifact@v2
       with:
-        name: ${{ steps.jarName.outputs._${{ steps.jarName.outputs.length }} }}-${{ steps.get_version.outputs.project_version }}.jar
+        name: ${{ steps.artifact_name.outputs.artifact_1 }}-${{ steps.get_version.outputs.project_version }}.jar
         path: ${{ inputs.jarPath1 }}-${{ steps.get_version.outputs.project_version }}.jar
+
+    - name: Upload artifact 2
+      if: "${{ inputs.jarPath2 != '' }}"
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ steps.artifact_name.outputs.artifact_2 }}-${{ steps.get_version.outputs.project_version }}.jar
+        path: ${{ inputs.jarPath2 }}-${{ steps.get_version.outputs.project_version }}.jar
 
     - name: Upload artifact Validator SCL UI
       uses: actions/upload-artifact@v2
