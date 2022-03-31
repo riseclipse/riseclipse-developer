@@ -24,6 +24,13 @@ name: Build SCL Validator
 
 on:
   workflow_call:
+    inputs:
+      jarPath1:
+        type: string
+        required: true
+      jarPath2:
+        type: string
+        required: false
 
 jobs:
   build:
@@ -53,24 +60,31 @@ jobs:
     - name: Install P2_to_M2
       run: |
         cd riseclipse-developer/fr.centralesupelec.edf.riseclipse.developer.p2_to_m2
-        mvn install -U
+        mvn install
 
     - name: Execute build (maven package)
       run: |
         cd ${{ github.event.repository.name }}
-        mvn package -U
+        mvn package
 
     - name: Extract Maven project version
       run: |
         cd ${{ github.event.repository.name }}
-        echo ::set-output name=project_version::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
+        VERSION=$( mvn help:evaluate -Dexpression=project.version -q -DforceStdout )
+        echo "::set-output name=project_version::$VERSION"
       id: get_version
     
-    - name: Upload artifact Validator SCL CLI
+    - uses: jungwinter/split@v2
+      id: jarName
+      with:
+        msg: ${{ inputs.jarPath1 }}
+        separator: '/'
+
+    - name: Upload artifact 1
       uses: actions/upload-artifact@v2
       with:
-        name: RiseClipseValidatorSCL-${{ steps.get_version.outputs.project_version }}.jar
-        path: riseclipse-validator-scl2003/fr.centralesupelec.edf.riseclipse.iec61850.scl.validator/target/RiseClipseValidatorSCL-${{ steps.get_version.outputs.project_version }}.jar
+        name: ${{ steps.jarName.outputs._${{ steps.jarName.outputs.length }} }}-${{ steps.get_version.outputs.project_version }}.jar
+        path: ${{ inputs.jarPath1 }}-${{ steps.get_version.outputs.project_version }}.jar
 
     - name: Upload artifact Validator SCL UI
       uses: actions/upload-artifact@v2

@@ -46,4 +46,4 @@ jobs:
     - name: Execute build (maven package)
       run: |
         cd ${{ github.event.repository.name }}
-        mvn package -U
+        mvn package
