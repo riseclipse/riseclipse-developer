@@ -43,7 +43,7 @@ jobs:
         java-version: '11'
         cache: 'maven'
 
-    - name: Execute build (maven package)
+    - name: Execute verify (mvn verify)
       run: |
         cd ${{ github.event.repository.name }}
         mvn verify
