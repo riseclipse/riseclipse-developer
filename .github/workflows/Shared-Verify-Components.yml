@@ -28,7 +28,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Build
+    name: Verify
 
     steps:
     - name: Checkout ${{ github.event.repository.name }}
