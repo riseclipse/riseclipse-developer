@@ -74,25 +74,28 @@ jobs:
         echo "::set-output name=project_version::$VERSION"
       id: get_version
     
-    - name: Get artifact name from jarPath
+    # This step is tricky but allows to keep the version in the uploaded artifacts
+    - name: Get artifact name et basedir from jarPath
       run: |
-        ARTIFACT_1_FULL=$( basename ${{ inputs.jarPath1 }} )
-        ARTIFACT_2_FULL=$( basename ${{ inputs.jarPath2 }} )
-        ARTIFACT_1="${ARTIFACT_1_FULL%.*}"
-        ARTIFACT_2="${ARTIFACT_2_FULL%.*}"
-        echo "::set-output name=artifact_1::$ARTIFACT_1"
-        echo "::set-output name=artifact_2::$ARTIFACT_2"
+        ARTIFACT_1="${${{ inputs.jarPath1 }}##*/}"
+        ARTIFACT_2="${${{ inputs.jarPath2 }}##*/}"
+        ARTIFACT_1_BASE_DIR=$( echo "${{ inputs.jarPath1 }}" | rev | cut -d"/" -f2-  | rev )
+        ARTIFACT_2_BASE_DIR=$( echo "${{ inputs.jarPath2 }}" | rev | cut -d"/" -f2-  | rev )
+        echo "::set-output name=artifact_1_filename::$ARTIFACT_1"
+        echo "::set-output name=artifact_2_filename::$ARTIFACT_2"
+        echo "::set-output name=artifact_1_base_dir::$ARTIFACT_1_BASE_DIR"
+        echo "::set-output name=artifact_2_base_dir::$ARTIFACT_2_BASE_DIR"
       id: artifact_name
 
     - name: Upload artifact 1
       uses: actions/upload-artifact@v2
       with:
-        name: ${{ steps.artifact_name.outputs.artifact_1 }}-${{ steps.get_version.outputs.project_version }}.jar
-        path: ${{ inputs.jarPath1 }}-${{ steps.get_version.outputs.project_version }}.jar
+        name: ${{ steps.artifact_name.outputs.artifact_1_filename }}-${{ steps.get_version.outputs.project_version }}.jar
+        path: ${{ steps.artifact_name.outputs.artifact_1_base_dir }}/${{ steps.artifact_name.outputs.artifact_2_filename }}-${{ steps.get_version.outputs.project_version }}.jar
 
-    - name: Upload artifact 2
+    - name: Upload artifact 2 if exists
       if: "${{ inputs.jarPath2 != '' }}"
       uses: actions/upload-artifact@v2
       with:
-        name: ${{ steps.artifact_name.outputs.artifact_2 }}-${{ steps.get_version.outputs.project_version }}.jar
-        path: ${{ inputs.jarPath2 }}-${{ steps.get_version.outputs.project_version }}.jar
+        name: ${{ steps.artifact_name.outputs.artifact_2_filename }}-${{ steps.get_version.outputs.project_version }}.jar
+        path: ${{ steps.artifact_name.outputs.artifact_1_base_dir }}/${{ steps.artifact_name.outputs.artifact_2_filename }}-${{ steps.get_version.outputs.project_version }}.jar
