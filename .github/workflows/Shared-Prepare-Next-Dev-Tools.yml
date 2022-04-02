@@ -48,13 +48,6 @@ jobs:
       with:
         path: ${{ github.event.repository.name }}
 
-    - name: Setup Environment
-      uses: actions/setup-java@v2
-      with:
-        distribution: 'temurin'
-        java-version: '11'
-        cache: 'maven'
-
     - name: Checkout riseclipse-developper
       uses: actions/checkout@v3
       with:
@@ -62,6 +55,13 @@ jobs:
         path: riseclipse-developer
         ref: master
 
+    - name: Setup Environment
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'temurin'
+        java-version: '11'
+        cache: 'maven'
+        
     - name: Install P2_to_M2
       run: |
         cd riseclipse-developer/fr.centralesupelec.edf.riseclipse.developer.p2_to_m2
@@ -74,15 +74,13 @@ jobs:
         git config user.name "GitHub Actions"
 
     # master branch is protected: work in another branch and do a PR
-    - name: Switch branch to do Release
+    - name: Push version changes to do_release (or create branch)
       run: |
         cd ${{ github.event.repository.name }}
-        git branch do_release
+        git push origin --force ${{ github.ref }}:do_release
         git switch do_release
-        git push --set-upstream origin do_release
 
     - name: Prepare for Release version (remove snapshot)
-
       run: |
         cd ${{ github.event.repository.name }}
         mvn versions:set -DremoveSnapshot=true
