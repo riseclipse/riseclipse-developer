@@ -79,7 +79,7 @@ jobs:
         git push --set-upstream origin do_release
 
     - name: Prepare for Release version (remove snapshot)
-      if: ${{ inputs.isTool == "true" }}
+
       run: |
         cd ${{ github.event.repository.name }}
         mvn versions:set -DremoveSnapshot=true
