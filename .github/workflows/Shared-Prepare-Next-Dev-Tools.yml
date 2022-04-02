@@ -21,20 +21,11 @@ name: Prepare for next developement version
 
 # This CD workflow prepares the next developement for riseclipse tools
 # It creates 2 commits with release and next developement versions and then creates a PR
-# It also generates artifacts
+# It also generates artifacts between the 2 commits to have the correct version of the generated package
 # Should be called by a trigger on master branch of RiseClipse tools repositories
 
 on:
   workflow_call:
-    secrets:
-      RISECLIPSE_PGP_KEY_PRIVATE:
-        required: true
-      RISECLIPSE_PGP_KEY_PASSWORD:
-        required: true
-      RISECLIPSE_OSSRH_USERNAME:
-        required: true
-      RISECLIPSE_OSSRH_PASSWORD:
-        required: true
     inputs:
       jarPath1:
         type: string
@@ -54,19 +45,12 @@ jobs:
       with:
         path: ${{ github.event.repository.name }}
 
-    # Adapted from
-    # https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#Publishing-using-Apache-Maven
     - name: Setup Environment
       uses: actions/setup-java@v2
       with:
         distribution: 'temurin'
         java-version: '11'
         cache: 'maven'
-        server-id: ossrh # Value of the distributionManagement/repository/id field of the pom.xml
-        server-username: MAVEN_USERNAME
-        server-password: MAVEN_PASSWORD
-        gpg-private-key: ${{ secrets.RISECLIPSE_PGP_KEY_PRIVATE }}
-        gpg-passphrase: MAVEN_GPG_PASSPHRASE
 
     - name: Checkout riseclipse-developper
       uses: actions/checkout@v3
