@@ -17,10 +17,10 @@
 # **      https://riseclipse.github.io
 # *************************************************************************
 
-name: Prepare for next developement version
+name: Prepare for next development version
 
-# This CD workflow prepares the next developement for riseclipse tools
-# It creates 2 commits with release and next developement versions and then creates a PR
+# This CD workflow prepares the next development for riseclipse tools
+# It creates 2 commits with release and next development versions and then creates a PR
 # It also generates artifacts between the 2 commits to have the correct version of the generated package
 # Should be called by a trigger on master branch of RiseClipse tools repositories
 
@@ -33,6 +33,9 @@ on:
       jarPath2:
         type: string
         required: false
+      toolVersionPath:
+        type: string
+        required: true
 
 jobs:
   prepare_next_dev:
@@ -103,14 +106,14 @@ jobs:
         cd ${{ github.event.repository.name }}
         mvn package
 
-    - name: Prepare for next developement version
+    - name: Prepare next development version attributes
       run: |
         cd ${{ github.event.repository.name }}
         VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
         DATE=$(date "+(%d %B %Y)")
-        sed -i -r "s/String TOOL_VERSION = .*$/String TOOL_VERSION=\"$VERSION $DATE\";/"  RiseClipseValidatorSCL.java
+        sed -i -r "s/String TOOL_VERSION = .*$/String TOOL_VERSION=\"$VERSION $DATE\";/" ${{ inputs.toolVersionPath }}
 
-    - name: Commit next developpement version and push all changes
+    - name: Commit next developpement version and push all changes (including tags)
       run: |
         cd ${{ github.event.repository.name }}
         git add --all
