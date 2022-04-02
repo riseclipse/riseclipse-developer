@@ -74,11 +74,12 @@ jobs:
         git config user.name "GitHub Actions"
 
     # master branch is protected: work in another branch and do a PR
-    - name: Push version changes to do_release (or create branch)
+    - name: Create and switch to branch do_release
       run: |
         cd ${{ github.event.repository.name }}
-        git push origin --force ${{ github.ref }}:do_release
+        git branch do_release
         git switch do_release
+        git push --set-upstream origin do_release
 
     - name: Prepare for Release version (remove snapshot)
       run: |
