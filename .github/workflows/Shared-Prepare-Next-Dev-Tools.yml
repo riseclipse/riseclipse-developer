@@ -128,6 +128,7 @@ jobs:
         branch: do_release
         labels: automated pr
         title: '[action] Prepare for next development iteration after release'
+        path: ${{ github.event.repository.name }}
 
     # This step is tricky but allows to keep the version in the uploaded artifacts
     - name: Get artifact name et basedir from jarPath
