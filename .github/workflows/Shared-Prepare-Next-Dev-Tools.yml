@@ -81,10 +81,13 @@ jobs:
         git switch do_release
         git push --set-upstream origin do_release
 
-    - name: Prepare for Release version (remove snapshot)
+    - name: Prepare for Release version (remove snapshot and update file)
       run: |
         cd ${{ github.event.repository.name }}
         mvn versions:set -DremoveSnapshot=true
+        VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+        DATE=$(date "+(%d %B %Y)")
+        sed -i -r "s/String TOOL_VERSION = .*$/String TOOL_VERSION=\"$VERSION $DATE\";/" ${{ inputs.toolVersionPath }}
 
     - name: Extract Maven project version
       run: |
@@ -137,10 +140,9 @@ jobs:
     - name: Clean and prepare next development version attributes
       run: |
         cd ${{ github.event.repository.name }}
+        mvn versions:set -DremoveSnapshot=false
         mvn clean
-        VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
-        DATE=$(date "+(%d %B %Y)")
-        sed -i -r "s/String TOOL_VERSION = .*$/String TOOL_VERSION=\"$VERSION $DATE\";/" ${{ inputs.toolVersionPath }}
+# NEED TO INCREMENT VERSION HERE
 
     - name: Commit and push next developpement version
       run: |
