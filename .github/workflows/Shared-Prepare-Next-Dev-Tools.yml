@@ -141,7 +141,7 @@ jobs:
       run: |
         cd ${{ github.event.repository.name }}
         mvn clean
-        mvn build-helper:parse-version versions:set -DnextSnapshot=true -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion}
+        mvn build-helper:parse-version versions:set -DnextSnapshot=true -DgenerateBackupPoms=false -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion}
         VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
         DATE=$(date "+(%d %B %Y)")
         sed -i -r "s/String TOOL_VERSION = .*$/String TOOL_VERSION=\"$VERSION $DATE\";/" ${{ inputs.toolVersionPath }}
