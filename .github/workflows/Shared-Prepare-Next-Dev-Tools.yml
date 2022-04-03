@@ -105,35 +105,6 @@ jobs:
         cd ${{ github.event.repository.name }}
         mvn package
 
-    - name: Prepare next development version attributes
-      run: |
-        cd ${{ github.event.repository.name }}
-        VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
-        DATE=$(date "+(%d %B %Y)")
-        sed -i -r "s/String TOOL_VERSION = .*$/String TOOL_VERSION=\"$VERSION $DATE\";/" ${{ inputs.toolVersionPath }}
-
-    - name: Commit and push next developpement version
-      run: |
-        cd ${{ github.event.repository.name }}
-        mvn clean
-        git add --all
-        git commit -m "[actions] prepare release ${{ github.event.repository.name }}-${{ steps.get_version.outputs.project_version }}"
-        git push
-
-    - name: Clean before creating PR and push tag
-      run: |
-        mvn clean
-        git push --tags
-
-    - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v4
-      with:
-        base: master
-        branch: do_release
-        labels: automated pr
-        title: '[action] Prepare for next development iteration after release'
-        path: ${{ github.event.repository.name }}
-
     # This step is tricky but allows to keep the version in the uploaded artifacts
     - name: Get artifact name et basedir from jarPath
       run: |
@@ -161,3 +132,28 @@ jobs:
       with:
         name: ${{ steps.artifact_name.outputs.artifact_2_filename }}-${{ steps.get_version.outputs.project_version }}.jar
         path: ${{ github.workspace }}/${{ steps.artifact_name.outputs.artifact_2_no_ext }}-${{ steps.get_version.outputs.project_version }}.jar
+
+    - name: Clean and prepare next development version attributes
+      run: |
+        cd ${{ github.event.repository.name }}
+        mvn clean
+        VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+        DATE=$(date "+(%d %B %Y)")
+        sed -i -r "s/String TOOL_VERSION = .*$/String TOOL_VERSION=\"$VERSION $DATE\";/" ${{ inputs.toolVersionPath }}
+
+    - name: Commit and push next developpement version (including tag)
+      run: |
+        cd ${{ github.event.repository.name }}
+        git add --all
+        git commit -m "[actions] prepare release ${{ github.event.repository.name }}-${{ steps.get_version.outputs.project_version }}"
+        git push
+        git push --tags
+
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v4
+      with:
+        base: master
+        branch: do_release
+        labels: automated pr
+        title: '[action] Prepare for next development iteration after release'
+        path: ${{ github.event.repository.name }}
