@@ -81,7 +81,7 @@ jobs:
         git switch do_release
         git push --set-upstream origin do_release
 
-    - name: Prepare for Release version (remove snapshot and update file)
+    - name: Prepare and commit Release version (remove snapshot and update file)
       run: |
         cd ${{ github.event.repository.name }}
         mvn versions:set -DremoveSnapshot=true -DgenerateBackupPoms=false
@@ -89,15 +89,11 @@ jobs:
         DATE=$(date "+(%d %B %Y)")
         sed -i -r "s/String TOOL_VERSION = .*$/String TOOL_VERSION = \"$VERSION $DATE\";/" ${{ inputs.toolVersionPath }}
         echo "::set-output name=project_version::$VERSION"
-      id: get_version
-
-    - name: Commit this new version and create tag
-      run: |
-        cd ${{ github.event.repository.name }}
         git add --all
         git commit -m "[actions] prepare release ${{ github.event.repository.name }}-${{ steps.get_version.outputs.project_version }}"
         git tag ${{ github.event.repository.name }}-${{ steps.get_version.outputs.project_version }}
         git push --tags
+      id: get_version
 
     - name: Package application
       run: |
