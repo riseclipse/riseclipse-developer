@@ -93,13 +93,12 @@ jobs:
         echo "::set-output name=project_version::$VERSION"
       id: get_version
 
-    - name: Commit and push this new version and create tag
+    - name: Commit this new version and create tag
       run: |
         cd ${{ github.event.repository.name }}
         git add --all
         git commit -m "[actions] prepare release ${{ github.event.repository.name }}-${{ steps.get_version.outputs.project_version }}"
         git tag ${{ github.event.repository.name }}-${{ steps.get_version.outputs.project_version }}
-        git push
         git push --tags
 
     - name: Package application
@@ -148,8 +147,6 @@ jobs:
         cd ${{ github.event.repository.name }}
         git add --all
         git commit -m "[actions] prepare next development version ${{ github.event.repository.name }}-${{ steps.get_version.outputs.project_version }}"
-        git push
-        sleep 120s
 
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v4
