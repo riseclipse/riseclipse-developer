@@ -1,0 +1,155 @@
+# *************************************************************************
+# **  Copyright (c) 2022 CentraleSupélec & EDF.
+# **  All rights reserved. This program and the accompanying materials
+# **  are made available under the terms of the Eclipse Public License v2.0
+# **  which accompanies this distribution, and is available at
+# **  https://www.eclipse.org/legal/epl-v20.html
+# ** 
+# **  This file is part of the RiseClipse tool
+# **  
+# **  Contributors:
+# **      Computer Science Department, CentraleSupélec
+# **      EDF R&D
+# **  Contacts:
+# **      dominique.marcadet@centralesupelec.fr
+# **      aurelie.dehouck-neveu@edf.fr
+# **  Web site:
+# **      https://riseclipse.github.io
+# *************************************************************************
+
+name: Prepare for next development version
+
+# This CD workflow prepares the next development for riseclipse tools
+# It creates 2 commits with release and next development versions and then creates a PR
+# It also generates artifacts between the 2 commits to have the correct version of the generated package
+# Should be called by a trigger on master branch of RiseClipse tools repositories
+
+on:
+  workflow_call:
+    inputs:
+      jarPath1:
+        type: string
+        required: true
+      jarPath2:
+        type: string
+        required: false
+      toolVersionPath:
+        type: string
+        required: true
+
+jobs:
+  prepare_next_dev:
+    runs-on: ubuntu-latest
+    name: Prepare for next developpement version
+
+    steps:
+    - name: Checkout ${{ github.event.repository.name }}
+      uses: actions/checkout@v3
+      with:
+        path: ${{ github.event.repository.name }}
+
+    - name: Checkout riseclipse-developper
+      uses: actions/checkout@v3
+      with:
+        repository: riseclipse/riseclipse-developer
+        path: riseclipse-developer
+        ref: master
+
+    - name: Setup Environment
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'temurin'
+        java-version: '11'
+        cache: 'maven'
+        
+    - name: Install P2_to_M2
+      run: |
+        cd riseclipse-developer/fr.centralesupelec.edf.riseclipse.developer.p2_to_m2
+        mvn install
+
+    - name: Configure Git User
+      run: |
+        cd ${{ github.event.repository.name }}
+        git config user.email github-actions@github.com
+        git config user.name "GitHub Actions"
+
+    # master branch is protected: work in another branch and do a PR
+    - name: Create and switch to branch do_release
+      run: |
+        cd ${{ github.event.repository.name }}
+        git branch do_release
+        git switch do_release
+        git push --set-upstream origin do_release
+
+    - name: Prepare and commit Release version (remove snapshot and update file)
+      run: |
+        cd ${{ github.event.repository.name }}
+        mvn versions:set -DremoveSnapshot=true -DgenerateBackupPoms=false
+        VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+        DATE=$(date "+(%d %B %Y)")
+        sed -i -r "s/String TOOL_VERSION = .*$/String TOOL_VERSION = \"$VERSION $DATE\";/" ${{ inputs.toolVersionPath }}
+        echo "::set-output name=project_version::$VERSION"
+        git add --all
+        git commit -m "[actions] prepare release ${{ github.event.repository.name }}-${{ steps.get_version.outputs.project_version }}"
+        git tag ${{ github.event.repository.name }}-${{ steps.get_version.outputs.project_version }}
+        git push --tags
+      id: get_version
+
+    - name: Package application
+      run: |
+        cd ${{ github.event.repository.name }}
+        mvn package
+
+    # This step is tricky but allows to keep the version in the uploaded artifacts
+    - name: Get artifact name et basedir from jarPath
+      run: |
+        jarPath1="${{ inputs.jarPath1 }}"
+        jarPath2="${{ inputs.jarPath2 }}"
+        ARTIFACT_1_NO_EXT="${jarPath1%.*}"
+        ARTIFACT_2_NO_EXT="${jarPath2%.*}"
+        ARTIFACT_1_FILENAME=$( echo $(basename "${jarPath1%.*}"))
+        ARTIFACT_2_FILENAME=$( echo $(basename "${jarPath2%.*}"))
+        echo "::set-output name=artifact_1_no_ext::$ARTIFACT_1_NO_EXT"
+        echo "::set-output name=artifact_2_no_ext::$ARTIFACT_2_NO_EXT"
+        echo "::set-output name=artifact_1_filename::$ARTIFACT_1_FILENAME"
+        echo "::set-output name=artifact_2_filename::$ARTIFACT_2_FILENAME"
+      id: artifact_name
+
+    - name: Upload artifact 1
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ steps.artifact_name.outputs.artifact_1_filename }}-${{ steps.get_version.outputs.project_version }}.jar
+        path: ${{ github.workspace }}/${{ steps.artifact_name.outputs.artifact_1_no_ext }}-${{ steps.get_version.outputs.project_version }}.jar
+
+    - name: Upload artifact 2 if exists
+      if: "${{ inputs.jarPath2 != '' }}"
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ steps.artifact_name.outputs.artifact_2_filename }}-${{ steps.get_version.outputs.project_version }}.jar
+        path: ${{ github.workspace }}/${{ steps.artifact_name.outputs.artifact_2_no_ext }}-${{ steps.get_version.outputs.project_version }}.jar
+
+    - name: Clean and increment next development version attributes
+      run: |
+        cd ${{ github.event.repository.name }}
+        mvn clean
+        mvn build-helper:parse-version versions:set -DnextSnapshot=true -DgenerateBackupPoms=false -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion}
+        VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+        DATE=$(date "+(%d %B %Y)")
+        sed -i -r "s/String TOOL_VERSION = .*$/String TOOL_VERSION = \"$VERSION $DATE\";/" ${{ inputs.toolVersionPath }}
+        echo "::set-output name=project_version::$VERSION"
+      id: next_version
+        
+    - name: Commit and push next developpement version
+      run: |
+        cd ${{ github.event.repository.name }}
+        git add --all
+        git commit -m "[actions] prepare next development version ${{ github.event.repository.name }}-${{ steps.next_version.outputs.project_version }}"
+
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v4
+      with:
+        base: master
+        branch: do_release
+        labels: automated pr
+        title: '[action] Prepare for next development iteration after release'
+        path: ${{ github.event.repository.name }}
