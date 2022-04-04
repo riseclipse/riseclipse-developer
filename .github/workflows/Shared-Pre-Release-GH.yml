@@ -45,8 +45,9 @@ jobs:
 
     - name: Add rc suffix to artifacts
       run: |
-        cd ${{ github.workspace }}/artifacts
         sudo apt-get install -y rename
+        cd ${{ github.workspace }}/artifacts
+        ls
         find . -iname "*.jar" -exec rename 's/.jar/rc.jar/' '{}' \;
 
     - uses: ncipollo/release-action@v1
