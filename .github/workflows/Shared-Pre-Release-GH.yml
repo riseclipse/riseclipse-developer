@@ -25,10 +25,6 @@ name: Create pre-release on GitHub
 on:
   workflow_call:
     inputs:
-      isTool:
-        type: boolean
-        required: false
-        default: false
       release_version:
         type: string
         required: true
@@ -42,29 +38,22 @@ jobs:
     - name: Checkout ${{ github.event.repository.name }}
       uses: actions/checkout@v3
 
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.event.repository.name }}-${{ inputs.release_version }}
-        release_name: ${{ github.event.repository.name }} v${{ inputs.release_version }}
-        body: This RiseClipse release contains the latest changes available. You can learn more by reading the documentation.
-        draft: false
-        prerelease: true
-
-    #################### FOR TOOLS ONLY ####################
     - name: Download artifacts
-      if: ${{ inputs.isTool }}
       uses: actions/download-artifact@v3
       with:
         path: ${{ github.workspace }}/artifacts
 
-    - name: Upload binaries to release
-      if: ${{ inputs.isTool }}
-      uses: AButler/upload-release-assets@v2.0
+    - name: Add rc suffix to artifacts
+      run: |
+        cd ${{ github.workspace }}/artifacts
+        sudo apt-get install -y rename
+        find . -iname "*.jar" -exec rename 's/.jar/rc.jar/' '{}' \;
+
+    - uses: ncipollo/release-action@v1
       with:
-        files: ${{ github.workspace }}/artifacts/*.jar;${{ github.workspace }}/artifacts/*.jar/*.jar
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        release-tag: ${{ github.event.repository.name }}-${{ inputs.release_version }}
+        artifacts: "${{ github.workspace }}/artifacts/*.jar,${{ github.workspace }}/artifacts/*.jar/*.jar"
+        bodyFile: "This pre-release contains the latest build of this RiseClipse tool."
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: ${{ github.event.repository.name }}-${{ inputs.release_version }}
+        prerelease: true
+        name: ${{ github.event.repository.name }} v${{ inputs.release_version }}
