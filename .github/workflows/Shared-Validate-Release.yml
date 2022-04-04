@@ -1,0 +1,58 @@
+# *************************************************************************
+# **  Copyright (c) 2022 CentraleSupélec & EDF.
+# **  All rights reserved. This program and the accompanying materials
+# **  are made available under the terms of the Eclipse Public License v2.0
+# **  which accompanies this distribution, and is available at
+# **  https://www.eclipse.org/legal/epl-v20.html
+# ** 
+# **  This file is part of the RiseClipse tool
+# **  
+# **  Contributors:
+# **      Computer Science Department, CentraleSupélec
+# **      EDF R&D
+# **  Contacts:
+# **      dominique.marcadet@centralesupelec.fr
+# **      aurelie.dehouck-neveu@edf.fr
+# **  Web site:
+# **      https://riseclipse.github.io
+# *************************************************************************
+
+name: Validate release on GitHub
+
+# This CD workflow switch from pre-release to release on GitHub
+# It aslo uploads artifacts without the nc
+
+on:
+  workflow_call:
+    inputs:
+      release_version:
+        type: string
+        required: true
+
+jobs:
+  pre-release:
+    runs-on: ubuntu-latest
+    name: Deploy pre-release
+
+    steps:
+    - name: Checkout ${{ github.event.repository.name }}
+      uses: actions/checkout@v3
+
+    - name: Download artifact from other workflow
+      uses: dawidd6/action-download-artifact@v2
+      with:
+        github_token: ${{secrets.GITHUB_TOKEN}}
+        workflow: Prepare-Next-Dev.yml
+        workflow_conclusion: success
+        path: ${{ github.workspace }}
+
+    - uses: ncipollo/release-action@v1.10.0
+      with:
+        replacesArtifacts: true
+        allowUpdates: true
+        artifacts: "${{ github.workspace }}/artifacts/**/*.jar"
+        body: "This release contains the latest build of this RiseClipse tool."
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: ${{ github.event.repository.name }}-${{ inputs.release_version }}
+        prerelease: false
+        name: ${{ github.event.repository.name }} v${{ inputs.release_version }}
