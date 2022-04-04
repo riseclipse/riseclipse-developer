@@ -55,13 +55,10 @@ jobs:
         prerelease: true
 
     #################### FOR TOOLS ONLY ####################
-    - name: Download artifact
+    - name: Download artifacts
       if: ${{ inputs.isTool }}
-      uses: dawidd6/action-download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
-        github_token: ${{secrets.GITHUB_TOKEN}}
-        workflow: Shared-Prepare-Next-Dev-Tools.yml
-        workflow_conclusion: success
         path: ${{ github.workspace }}/artifacts
 
     - name: Upload binaries to release
