@@ -52,7 +52,7 @@ jobs:
     - uses: ncipollo/release-action@v1
       with:
         artifacts: "${{ github.workspace }}/artifacts/*.jar"
-        bodyFile: "This pre-release contains the latest build of this RiseClipse tool."
+        body: "This pre-release contains the latest build of this RiseClipse tool."
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: ${{ github.event.repository.name }}-${{ inputs.release_version }}
         prerelease: true
