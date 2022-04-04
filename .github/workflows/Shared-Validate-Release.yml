@@ -20,19 +20,14 @@
 name: Validate release on GitHub
 
 # This CD workflow switch from pre-release to release on GitHub
-# It aslo uploads artifacts without the nc
+# It aslo uploads artifacts without the rc
 
-on:
-  workflow_call:
-    inputs:
-      release_version:
-        type: string
-        required: true
+on: workflow_call
 
 jobs:
-  pre-release:
+  release:
     runs-on: ubuntu-latest
-    name: Deploy pre-release
+    name: Validate release
 
     steps:
     - name: Checkout ${{ github.event.repository.name }}
@@ -46,6 +41,15 @@ jobs:
         workflow_conclusion: success
         path: ${{ github.workspace }}
 
+    - name: Get version from any artifact name
+      run: |
+        cd artifacts
+        filename=$(basename */*.jar )
+        version=${filename##*-}
+        version=${version%.jar}
+        echo "::set-output name=project_version::$version"
+      id: get_version
+
     - uses: ncipollo/release-action@v1.10.0
       with:
         replacesArtifacts: true
@@ -53,6 +57,6 @@ jobs:
         artifacts: "${{ github.workspace }}/artifacts/**/*.jar"
         body: "This release contains the latest build of this RiseClipse tool."
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: ${{ github.event.repository.name }}-${{ inputs.release_version }}
+        tag: ${{ github.event.repository.name }}-${{ steps.get_version.outputs.project_version }}
         prerelease: false
-        name: ${{ github.event.repository.name }} v${{ inputs.release_version }}
+        name: ${{ github.event.repository.name }} v${{ steps.get_version.outputs.project_version }}
