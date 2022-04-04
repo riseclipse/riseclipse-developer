@@ -1,0 +1,62 @@
+# *************************************************************************
+# **  Copyright (c) 2022 CentraleSupélec & EDF.
+# **  All rights reserved. This program and the accompanying materials
+# **  are made available under the terms of the Eclipse Public License v2.0
+# **  which accompanies this distribution, and is available at
+# **  https://www.eclipse.org/legal/epl-v20.html
+# ** 
+# **  This file is part of the RiseClipse tool
+# **  
+# **  Contributors:
+# **      Computer Science Department, CentraleSupélec
+# **      EDF R&D
+# **  Contacts:
+# **      dominique.marcadet@centralesupelec.fr
+# **      aurelie.dehouck-neveu@edf.fr
+# **  Web site:
+# **      https://riseclipse.github.io
+# *************************************************************************
+
+name: Create pre-release on GitHub
+
+# This CD workflow creates a pre-release on GitHub
+# It aslo uploads artifacts if it's a tool
+
+on:
+  workflow_call:
+    inputs:
+      release_version:
+        type: string
+        required: true
+
+jobs:
+  pre-release:
+    runs-on: ubuntu-latest
+    name: Deploy pre-release
+
+    steps:
+    - name: Setup Environment
+      run: sudo apt-get install -y rename
+
+    - name: Checkout ${{ github.event.repository.name }}
+      uses: actions/checkout@v3
+
+    - name: Download artifacts
+      uses: actions/download-artifact@v3
+      with:
+        path: ${{ github.workspace }}/artifacts
+
+    - name: Add rc suffix to artifacts
+      run: |
+        cd ${{ github.workspace }}/artifacts
+        rename 's/.jar//' *.jar
+        find . -iname "*.jar" -exec rename 's/.jar/rc.jar/' '{}' \;
+
+    - uses: ncipollo/release-action@v1
+      with:
+        artifacts: "${{ github.workspace }}/artifacts/**/*.jar"
+        body: "This pre-release contains the latest build of this RiseClipse tool."
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: ${{ github.event.repository.name }}-${{ inputs.release_version }}
+        prerelease: true
+        name: ${{ github.event.repository.name }} v${{ inputs.release_version }}rc
