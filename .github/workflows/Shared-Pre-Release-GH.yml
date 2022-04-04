@@ -35,6 +35,9 @@ jobs:
     name: Deploy pre-release
 
     steps:
+    - name: Setup Environment
+      run: sudo apt-get install -y rename
+
     - name: Checkout ${{ github.event.repository.name }}
       uses: actions/checkout@v3
 
@@ -45,7 +48,6 @@ jobs:
 
     - name: Add rc suffix to artifacts
       run: |
-        sudo apt-get install -y rename
         cd ${{ github.workspace }}/artifacts
         rename 's/.jar//' *.jar
         find . -iname "*.jar" -exec rename 's/.jar/rc.jar/' '{}' \;
@@ -57,4 +59,4 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: ${{ github.event.repository.name }}-${{ inputs.release_version }}
         prerelease: true
-        name: ${{ github.event.repository.name }} v${{ inputs.release_version }}
+        name: ${{ github.event.repository.name }} v${{ inputs.release_version }}rc
