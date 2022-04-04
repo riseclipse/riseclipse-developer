@@ -47,11 +47,12 @@ jobs:
       run: |
         sudo apt-get install -y rename
         cd ${{ github.workspace }}/artifacts
-        rename 's/.jar/rc.jar/' *.jar
+        rename 's/.jar//' *.jar
+        find . -iname "*.jar" -exec rename 's/.jar/rc.jar/' '{}' \;
 
     - uses: ncipollo/release-action@v1
       with:
-        artifacts: "${{ github.workspace }}/artifacts/*.jar"
+        artifacts: "${{ github.workspace }}/artifacts/*.jar,${{ github.workspace }}/artifacts/**/*.jar,${{ github.workspace }}/artifacts/*/*.jar"
         body: "This pre-release contains the latest build of this RiseClipse tool."
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: ${{ github.event.repository.name }}-${{ inputs.release_version }}
