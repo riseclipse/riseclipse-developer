@@ -37,7 +37,7 @@ jobs:
       uses: dawidd6/action-download-artifact@v2
       with:
         github_token: ${{secrets.GITHUB_TOKEN}}
-        workflow: Prepare-Next-Dev.yml
+        workflow: Pre-Release-and-Prepare-Next-Dev.yml
         workflow_conclusion: success
         path: ${{ github.workspace }}
 
