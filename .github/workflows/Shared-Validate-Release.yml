@@ -39,7 +39,7 @@ jobs:
         github_token: ${{secrets.GITHUB_TOKEN}}
         workflow: Pre-Release-and-Prepare-Next-Dev.yml
         workflow_conclusion: success
-        path: ${{ github.workspace }}
+        path: ${{ github.workspace }}/artifacts
 
     - name: Get version from any artifact name
       run: |
