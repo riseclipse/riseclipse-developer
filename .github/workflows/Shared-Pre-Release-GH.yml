@@ -29,6 +29,9 @@ on:
         type: boolean
         required: false
         default: false
+      release_version:
+        type: string
+        required: true
 
 jobs:
   pre-release:
@@ -39,27 +42,14 @@ jobs:
     - name: Checkout ${{ github.event.repository.name }}
       uses: actions/checkout@v3
 
-    - name: Setup Environment
-      uses: actions/setup-java@v2
-      with:
-        distribution: 'temurin'
-        java-version: '11'
-        cache: 'maven'
-
-    - name: Extract Maven project version
-      run: |
-        mvn versions:set -DremoveSnapshot=true -DgenerateBackupPoms=false
-        echo ::set-output name=project_version::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
-      id: get_version
-        
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.event.repository.name }}-${{ steps.get_version.outputs.project_version }}
-        release_name: ${{ github.event.repository.name }} v${{ steps.get_version.outputs.project_version }}
+        tag_name: ${{ github.event.repository.name }}-${{ inputs.release_version }}
+        release_name: ${{ github.event.repository.name }} v${{ inputs.release_version }}
         body: This RiseClipse release contains the latest changes available. You can learn more by reading the documentation.
         draft: false
         prerelease: true
@@ -80,4 +70,4 @@ jobs:
       with:
         files: ${{ github.workspace }}/artifacts/*.jar;${{ github.workspace }}/artifacts/*.jar/*.jar
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-        release-tag: ${{ github.event.repository.name }}-${{ steps.get_version.outputs.project_version }}
+        release-tag: ${{ github.event.repository.name }}-${{ inputs.release_version }}
