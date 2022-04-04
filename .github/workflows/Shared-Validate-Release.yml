@@ -30,6 +30,9 @@ jobs:
     name: Validate release
 
     steps:
+    - name: Setup Environment
+      run: sudo apt-get install -y rename
+
     - name: Checkout ${{ github.event.repository.name }}
       uses: actions/checkout@v3
 
@@ -49,6 +52,11 @@ jobs:
         version=${version%.jar}
         echo "::set-output name=project_version::$version"
       id: get_version
+
+    - name: Rename folder to avoid errors
+      run: |
+        cd ${{ github.workspace }}/artifacts
+        rename 's/.jar//' *.jar
 
     - uses: ncipollo/release-action@v1.10.0
       with:
