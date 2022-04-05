@@ -1,0 +1,71 @@
+# *************************************************************************
+# **  Copyright (c) 2022 CentraleSupélec & EDF.
+# **  All rights reserved. This program and the accompanying materials
+# **  are made available under the terms of the Eclipse Public License v2.0
+# **  which accompanies this distribution, and is available at
+# **  https://www.eclipse.org/legal/epl-v20.html
+# ** 
+# **  This file is part of the RiseClipse tool
+# **  
+# **  Contributors:
+# **      Computer Science Department, CentraleSupélec
+# **      EDF R&D
+# **  Contacts:
+# **      dominique.marcadet@centralesupelec.fr
+# **      aurelie.dehouck-neveu@edf.fr
+# **  Web site:
+# **      https://riseclipse.github.io
+# *************************************************************************
+
+name: Validate release on GitHub
+
+# This CD workflow switch from pre-release to release on GitHub
+# It aslo uploads artifacts without the rc
+
+on: workflow_call
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    name: Validate release
+
+    steps:
+    - name: Setup Environment
+      run: sudo apt-get install -y rename
+
+    - name: Checkout ${{ github.event.repository.name }}
+      uses: actions/checkout@v3
+
+    - name: Download artifact from other workflow
+      uses: dawidd6/action-download-artifact@v2
+      with:
+        github_token: ${{secrets.GITHUB_TOKEN}}
+        workflow: Pre-Release-and-Prepare-Next-Dev.yml
+        workflow_conclusion: success
+        path: ${{ github.workspace }}/artifacts
+
+    - name: Get version from any artifact name
+      run: |
+        cd artifacts
+        filename=$(basename */*.jar )
+        version=${filename##*-}
+        version=${version%.jar}
+        echo "::set-output name=project_version::$version"
+      id: get_version
+
+    - name: Rename folder to avoid errors
+      run: |
+        cd ${{ github.workspace }}/artifacts
+        rename 's/.jar//' *.jar
+
+    - uses: ncipollo/release-action@v1.10.0
+      with:
+        replacesArtifacts: true
+        allowUpdates: true
+        artifacts: "${{ github.workspace }}/artifacts/**/*.jar"
+        body: "This release contains the latest build of this RiseClipse tool."
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: ${{ github.event.repository.name }}-${{ steps.get_version.outputs.project_version }}
+        prerelease: false
+        name: ${{ github.event.repository.name }} v${{ steps.get_version.outputs.project_version }}
+        removeArtifacts: true
