@@ -22,14 +22,15 @@ name: Release on DockerHub
 # This CD workflow releases a Docker version of CLI tool
 
 # Secrets are not passed when calling reusable workflows, so you must pass them from caller
-on: workflow_call
-  secrets:
-    DOCKER_USER:
-      required: true
-      type: string
-    DOCKER_PASSWORD:
-      required: true
-      type: string
+on: 
+  workflow_call:
+    secrets:
+      DOCKER_USER:
+        required: true
+        type: string
+      DOCKER_PASSWORD:
+        required: true
+        type: string
 
 jobs:
   publish_dockerhub:
