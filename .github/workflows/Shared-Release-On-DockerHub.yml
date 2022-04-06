@@ -28,12 +28,13 @@ on:
       release_version:
         type: string
         required: true
+      docker_repository:
+        type: string
+        required: true
     secrets:
       DOCKER_USER:
         required: true
       DOCKER_PASSWORD:
-        required: true
-      DOCKER_REPOSITORY:
         required: true
 
 jobs:
