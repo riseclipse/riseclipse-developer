@@ -56,13 +56,13 @@ jobs:
       uses: dawidd6/action-download-artifact@v2
       with:
         github_token: ${{secrets.GITHUB_TOKEN}}
-        workflow: Prepare-Next-Dev.yml
+        workflow: Pre-Release-and-Prepare-Next-Dev.yml
         workflow_conclusion: success
-        path: ${{ github.workspace }}/artifacts
+        path: ${{ github.workspace }}/${{ github.event.repository.name }}/artifacts
 
     - name: Rename folder to avoid errors
       run: |
-        cd ${{ github.workspace }}/artifacts
+        cd ${{ github.workspace }}/${{ github.event.repository.name }}/artifacts
         ls
         cd RiseClipseValidatorSCL-*.jar
         ls
