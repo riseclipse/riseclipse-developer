@@ -25,9 +25,9 @@ name: Validate release on GitHub
 on: 
   workflow_call:
     outputs:
-    release_version:
-      description: "Version of the release"
-      value: ${{ jobs.release.outputs.release_version }}
+      release_version:
+        description: "Version of the release"
+        value: ${{ jobs.release.outputs.release_version }}
 
 jobs:
   release:
