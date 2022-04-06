@@ -31,19 +31,28 @@ on:
       DOCKER_PASSWORD:
         required: true
         type: string
+      DOCKER_REPOSITORY:
+        required: true
+        type: string
 
 jobs:
   publish_dockerhub:
     runs-on: ubuntu-latest
 
     steps: 
+    - name: Setup Environment
+      run: sudo apt-get install rename
+
+    - name: Setup Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
     # NB: Needs to contain a Dockerfile at root of repository
     - name: Checkout ${{ github.event.repository.name }}
       uses: actions/checkout@v2
       with:
         path: ${{ github.event.repository.name }}
 
-    - name: Download artifact
+    - name: Download artifacts
       uses: dawidd6/action-download-artifact@v2
       with:
         github_token: ${{secrets.GITHUB_TOKEN}}
@@ -64,20 +73,10 @@ jobs:
       with:
         username: ${{ secrets.DOCKER_USER }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-    
-    - name: Extract metadata (tags, labels) for Docker
-      id: meta
-      uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
-      with:
-        images: alsoares59/riseclipse # USE RISECLIPSE REPOSITORY
-
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v1
 
     - name: Build and push Docker image
       uses: docker/build-push-action@v2.10.0
       with:
         context: ${{ github.workspace }}/${{ github.event.repository.name }}
         push: true
-        tags: alsoares59/${{ github.event.repository.name }}:${{ steps.get_version.outputs.project_version }} # TO BE CHANGED TO RISECLIPSE OWN REPOSITORY
-        labels: ${{ steps.meta.outputs.labels }}
+        tags: riseclipse/${{ inputs.DOCKER_REPOSITORY }}:${{ steps.get_version.outputs.project_version }},riseclipse/${{ inputs.DOCKER_REPOSITORY }}:latest
