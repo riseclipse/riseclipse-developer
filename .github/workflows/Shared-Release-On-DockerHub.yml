@@ -24,6 +24,10 @@ name: Release on DockerHub
 # Secrets are not passed when calling reusable workflows, so you must pass them from caller
 on: 
   workflow_call:
+    inputs:
+      release_version:
+        type: string
+        required: true
     secrets:
       DOCKER_USER:
         required: true
@@ -60,11 +64,7 @@ jobs:
     - name: Rename folder to avoid errors
       run: |
         cd ${{ github.workspace }}/${{ github.event.repository.name }}/artifacts
-        ls
-        cd RiseClipseValidatorSCL-*.jar
-        ls
         rename 's/.jar//' *.jar
-        ls
 
     - name: Log in to Docker Hub
       uses: docker/login-action@v1.14.1
@@ -77,4 +77,4 @@ jobs:
       with:
         context: ${{ github.workspace }}/${{ github.event.repository.name }}
         push: true
-        tags: riseclipse/${{ inputs.DOCKER_REPOSITORY }}:${{ steps.get_version.outputs.project_version }},riseclipse/${{ inputs.DOCKER_REPOSITORY }}:latest
+        tags: riseclipse/${{ inputs.DOCKER_REPOSITORY }}:${{ inputs.release_version }},riseclipse/${{ inputs.DOCKER_REPOSITORY }}:latest
