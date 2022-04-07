@@ -1,0 +1,86 @@
+# *************************************************************************
+# **  Copyright (c) 2022 CentraleSupélec & EDF.
+# **  All rights reserved. This program and the accompanying materials
+# **  are made available under the terms of the Eclipse Public License v2.0
+# **  which accompanies this distribution, and is available at
+# **  https://www.eclipse.org/legal/epl-v20.html
+# ** 
+# **  This file is part of the RiseClipse tool
+# **  
+# **  Contributors:
+# **      Computer Science Department, CentraleSupélec
+# **      EDF R&D
+# **  Contacts:
+# **      dominique.marcadet@centralesupelec.fr
+# **      aurelie.dehouck-neveu@edf.fr
+# **  Web site:
+# **      https://riseclipse.github.io
+# *************************************************************************
+
+name: Release on riseclipse.github.io
+
+on:
+  workflow_call:
+    inputs:
+      release_version:
+        type: string
+        required: true
+    secrets:
+      github_io_token:
+        required: true
+
+jobs:
+  release-github-io:
+    runs-on: ubuntu-latest
+    name: Release on riseclipse.github.io
+
+    steps:
+    - name: Configure Git User
+      run: |
+        git config user.email github-actions@github.com
+        git config user.name "GitHub Actions"
+
+    # NB: The default github token doesn't allow to push to riseclipse.github.io
+    - name: Download artifact
+      uses: dawidd6/action-download-artifact@v2
+      with:
+        github_token: ${{secrets.GITHUB_TOKEN}}
+        workflow: Pre-Release-and-Prepare-Next-Dev.yml
+        workflow_conclusion: success
+        path: ${{ github.workspace }}
+
+    - name: Checkout riseclipse github.io
+      uses: actions/checkout@v2
+      with:
+        path: riseclipse.github.io
+        repository: RiseClipse/riseclipse.github.io
+        ref: dev-ci # CHANGE TO MASTER ONCE MERGED
+        token: ${{ secrets.github_io_token }}
+
+    - name: Checkout ${{ github.event.repository.name }}
+      uses: actions/checkout@v2
+      with:
+        path: ${{ github.event.repository.name }}
+        ref: ${{ github.ref_name }}
+
+    # Update templates on GitHub.io
+    - name: Update downloads file with newer versions
+      run: |
+        cp ${{ github.workspace }}/RiseClipseValidatorSCL-${{ inputs.release_version }}.jar/RiseClipseValidatorSCL-${{ inputs.release_version }}.jar ${{ github.workspace }}/riseclipse.github.io/downloads/RiseClipseValidatorSCL-${{ inputs.release_version }}.jar
+        ls ${{ github.workspace }}
+
+    - name: Apply variables to template
+      run: |
+        export RiseClipseCLI="RiseClipseValidatorSCL-${{ inputs.release_version }}.jar"
+        export RiseClipseApp="RiseClipseValidatorSCLApplication-${{ inputs.release_version }}.jar"
+        cd ${{ github.workspace }}/riseclipse.github.io
+        rm downloads.md
+        cp templates/downloads-tp.md  downloads.md
+        envsubst < downloads.md
+
+    - name: Commit and push changes made to riseclipse.github.io
+      run: |
+        cd riseclipse.github.io
+        git add --all
+        git commit -m "[AUTO] Updating available versions" -a
+        git push
