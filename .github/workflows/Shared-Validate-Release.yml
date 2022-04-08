@@ -22,12 +22,19 @@ name: Validate release on GitHub
 # This CD workflow switch from pre-release to release on GitHub
 # It aslo uploads artifacts without the rc
 
-on: workflow_call
+on: 
+  workflow_call:
+    outputs:
+      release_version:
+        description: "Version of the release"
+        value: ${{ jobs.release.outputs.release_version }}
 
 jobs:
   release:
     runs-on: ubuntu-latest
     name: Validate release
+    outputs:
+      release_version: ${{ steps.get_version.outputs.project_version }}
 
     steps:
     - name: Setup Environment
