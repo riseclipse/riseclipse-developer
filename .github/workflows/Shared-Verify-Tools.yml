@@ -32,10 +32,10 @@ on:
         type: string
         required: false
     outputs:
-      artifact_1_name:
+      artifact1Name:
         description: "Name of the first artifact, originating from the 'jarPath1' input."
         value: ${{ jobs.build.outputs.artifact_1_name }}
-      artifact_2_name:
+      artifact2Name:
         description: "Name of the second artifact, originating from the 'jarPath2' input. Should not be used if the 'jarPath2' input was not provided."
         value: ${{ jobs.build.outputs.artifact_2_name }}
 
