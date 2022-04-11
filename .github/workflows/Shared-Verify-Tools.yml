@@ -4,9 +4,9 @@
 # **  are made available under the terms of the Eclipse Public License v2.0
 # **  which accompanies this distribution, and is available at
 # **  https://www.eclipse.org/legal/epl-v20.html
-# ** 
+# **
 # **  This file is part of the RiseClipse tool
-# **  
+# **
 # **  Contributors:
 # **      Computer Science Department, CentraleSupélec
 # **      EDF R&D
@@ -31,73 +31,86 @@ on:
       jarPath2:
         type: string
         required: false
+    outputs:
+      artifact_1_upload_path:
+        description: "Upload path to the first artifact, originating from the 'jarPath1' input."
+        value: ${{ jobs.build.outputs.artifact_1_upload_path }}
+      artifact_2_upload_path:
+        description: "Upload path to the second artifact, originating from the 'jarPath2' input. Should not be used if the 'jarPath2' input was not provided."
+        value: ${{ jobs.build.outputs.artifact_2_upload_path }}
 
 jobs:
   build:
     runs-on: ubuntu-latest
     name: Verify
+    outputs:
+      artifact_1_upload_path: ${{ steps.artifacts_metadata.outputs.artifact_1_upload_path }}
+      artifact_2_upload_path: ${{ steps.artifacts_metadata.outputs.artifact_2_upload_path }}
 
     steps:
-    - name: Checkout ${{ github.event.repository.name }}
-      uses: actions/checkout@v3
-      with:
-        path: ${{ github.event.repository.name }}
+      - name: Checkout ${{ github.event.repository.name }}
+        uses: actions/checkout@v3
+        with:
+          path: ${{ github.event.repository.name }}
 
-    - name: Setup Environment
-      uses: actions/setup-java@v2
-      with:
-        distribution: 'temurin'
-        java-version: '11'
-        cache: 'maven'
+      - name: Setup Environment
+        uses: actions/setup-java@v2
+        with:
+          distribution: "temurin"
+          java-version: "11"
+          cache: "maven"
 
-    - name: Checkout riseclipse-developper
-      uses: actions/checkout@v3
-      with:
-        repository: riseclipse/riseclipse-developer
-        path: riseclipse-developer
-        ref: master
+      - name: Checkout riseclipse-developper
+        uses: actions/checkout@v3
+        with:
+          repository: riseclipse/riseclipse-developer
+          path: riseclipse-developer
+          ref: master
 
-    - name: Install P2_to_M2
-      run: |
-        cd riseclipse-developer/fr.centralesupelec.edf.riseclipse.developer.p2_to_m2
-        mvn install
+      - name: Install P2_to_M2
+        run: |
+          cd riseclipse-developer/fr.centralesupelec.edf.riseclipse.developer.p2_to_m2
+          mvn install
 
-    - name: Execute verify (mvn verify)
-      run: |
-        cd ${{ github.event.repository.name }}
-        mvn verify
+      - name: Execute verify (mvn verify)
+        run: |
+          cd ${{ github.event.repository.name }}
+          mvn verify
 
-    - name: Extract Maven project version
-      run: |
-        cd ${{ github.event.repository.name }}
-        VERSION=$( mvn help:evaluate -Dexpression=project.version -q -DforceStdout )
-        echo "::set-output name=project_version::$VERSION"
-      id: get_version
-    
-    # This step is tricky but allows to keep the version in the uploaded artifacts
-    - name: Get artifact name et basedir from jarPath
-      run: |
-        jarPath1="${{ inputs.jarPath1 }}"
-        jarPath2="${{ inputs.jarPath2 }}"
-        ARTIFACT_1_NO_EXT="${jarPath1%.*}"
-        ARTIFACT_2_NO_EXT="${jarPath2%.*}"
-        ARTIFACT_1_FILENAME=$( echo $(basename "${jarPath1%.*}"))
-        ARTIFACT_2_FILENAME=$( echo $(basename "${jarPath2%.*}"))
-        echo "::set-output name=artifact_1_no_ext::$ARTIFACT_1_NO_EXT"
-        echo "::set-output name=artifact_2_no_ext::$ARTIFACT_2_NO_EXT"
-        echo "::set-output name=artifact_1_filename::$ARTIFACT_1_FILENAME"
-        echo "::set-output name=artifact_2_filename::$ARTIFACT_2_FILENAME"
-      id: artifact_name
+      - name: Extract Maven project version
+        run: |
+          cd ${{ github.event.repository.name }}
+          VERSION=$( mvn help:evaluate -Dexpression=project.version -q -DforceStdout )
+          echo "::set-output name=project_version::$VERSION"
+        id: get_version
 
-    - name: Upload artifact 1
-      uses: actions/upload-artifact@v3
-      with:
-        name: ${{ steps.artifact_name.outputs.artifact_1_filename }}-${{ steps.get_version.outputs.project_version }}.jar
-        path: ${{ github.workspace }}/${{ steps.artifact_name.outputs.artifact_1_no_ext }}-${{ steps.get_version.outputs.project_version }}.jar
+      # This step is tricky but allows to keep the version in the uploaded artifacts
+      - name: Get artifact name et basedir from jarPath
+        run: |
+          jarPath1="${{ inputs.jarPath1 }}"
+          jarPath2="${{ inputs.jarPath2 }}"
+          ARTIFACT_1_NO_EXT="${jarPath1%.*}"
+          ARTIFACT_2_NO_EXT="${jarPath2%.*}"
+          PROJECT_VERSION="${{ steps.get_version.outputs.project_version }}"
+          ARTIFACT_1_UPLOAD_PATH="${{ github.workspace }}/${ARTIFACT_1_NO_EXT}-${PROJECT_VERSION}.jar"
+          ARTIFACT_2_UPLOAD_PATH="${{ github.workspace }}/${ARTIFACT_2_NO_EXT}-${PROJECT_VERSION}.jar"
+          ARTIFACT_1_FILENAME="$(echo $(basename "$ARTIFACT_1_UPLOAD_PATH"))"
+          ARTIFACT_2_FILENAME="$(echo $(basename "$ARTIFACT_2_UPLOAD_PATH"))"
+          echo "::set-output name=artifact_1_upload_path::$ARTIFACT_1_UPLOAD_PATH"
+          echo "::set-output name=artifact_2_upload_path::$ARTIFACT_2_UPLOAD_PATH"
+          echo "::set-output name=artifact_1_filename::$ARTIFACT_1_FILENAME"
+          echo "::set-output name=artifact_2_filename::$ARTIFACT_2_FILENAME"
+        id: artifacts_metadata
 
-    - name: Upload artifact 2 if exists
-      if: "${{ inputs.jarPath2 != '' }}"
-      uses: actions/upload-artifact@v3
-      with:
-        name: ${{ steps.artifact_name.outputs.artifact_2_filename }}-${{ steps.get_version.outputs.project_version }}.jar
-        path: ${{ github.workspace }}/${{ steps.artifact_name.outputs.artifact_2_no_ext }}-${{ steps.get_version.outputs.project_version }}.jar
+      - name: Upload artifact 1
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ steps.artifacts_metadata.outputs.artifact_1_filename }}
+          path: ${{ steps.artifacts_metadata.outputs.artifact_1_upload_path }}
+
+      - name: Upload artifact 2 if exists
+        if: "${{ inputs.jarPath2 != '' }}"
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ steps.artifacts_metadata.outputs.artifact_2_filename }}
+          path: ${{ steps.artifacts_metadata.outputs.artifact_2_upload_path }}
