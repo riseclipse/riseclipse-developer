@@ -49,6 +49,8 @@
     <groupId>io.github.riseclipse</groupId>
     <artifactId>fr.centralesupelec.edf.riseclipse.developer.maven</artifactId>
     <version>1.2.1</version>
+    <!-- See https://maven.apache.org/ref/3.8.1/maven-model/maven.html#class_parent -->
+    <relativePath></relativePath>
   </parent>
 
   <description>
