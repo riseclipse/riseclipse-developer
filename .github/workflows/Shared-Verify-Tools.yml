@@ -32,20 +32,20 @@ on:
         type: string
         required: false
     outputs:
-      artifact_1_upload_path:
-        description: "Upload path to the first artifact, originating from the 'jarPath1' input."
-        value: ${{ jobs.build.outputs.artifact_1_upload_path }}
-      artifact_2_upload_path:
-        description: "Upload path to the second artifact, originating from the 'jarPath2' input. Should not be used if the 'jarPath2' input was not provided."
-        value: ${{ jobs.build.outputs.artifact_2_upload_path }}
+      artifact_1_name:
+        description: "Name of the first artifact, originating from the 'jarPath1' input."
+        value: ${{ jobs.build.outputs.artifact_1_name }}
+      artifact_2_name:
+        description: "Name of the second artifact, originating from the 'jarPath2' input. Should not be used if the 'jarPath2' input was not provided."
+        value: ${{ jobs.build.outputs.artifact_2_name }}
 
 jobs:
   build:
     runs-on: ubuntu-latest
     name: Verify
     outputs:
-      artifact_1_upload_path: ${{ steps.artifacts_metadata.outputs.artifact_1_upload_path }}
-      artifact_2_upload_path: ${{ steps.artifacts_metadata.outputs.artifact_2_upload_path }}
+      artifact_1_name: ${{ steps.artifacts_metadata.outputs.artifact_1_filename }}
+      artifact_2_name: ${{ steps.artifacts_metadata.outputs.artifact_2_filename }}
 
     steps:
       - name: Checkout ${{ github.event.repository.name }}
