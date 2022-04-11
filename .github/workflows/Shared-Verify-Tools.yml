@@ -31,6 +31,9 @@ on:
       jar_path_2:
         type: string
         required: false
+    secrets:
+      SONAR_TOKEN:
+        required: true
     outputs:
       artifact_1_name:
         description: "Name of the first artifact, originating from the 'jar_path_1' input."
@@ -76,6 +79,13 @@ jobs:
         run: |
           cd ${{ github.event.repository.name }}
           mvn verify
+
+      - name: Run analysis with Sonarqube
+        run: |
+          cd ${{ github.event.repository.name }}/${{ inputs.build-path }}
+          mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.organization=riseclipse\
+          -Dsonar.host.url=http://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }}\
+          -Dsonar.projectKey=riseclipse_${{ github.event.repository.name }}
 
       - name: Extract Maven project version
         run: |
