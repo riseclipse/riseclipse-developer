@@ -87,10 +87,10 @@ jobs:
       # This step is tricky but allows to keep the version in the uploaded artifacts
       - name: Get artifact name and basedir from jar path
         run: |
-          JAR_PATH_1="${{ inputs.jar_path_1 }}"
-          JAR_PATH_2="${{ inputs.jar_path_2 }}"
-          ARTIFACT_1_NO_EXT="${JAR_PATH_1%.*}"
-          ARTIFACT_2_NO_EXT="${JAR_PATH_2%.*}"
+          ARTIFACT_1_JAR="${{ inputs.jar_path_1 }}"
+          ARTIFACT_2_JAR="${{ inputs.jar_path_2 }}"
+          ARTIFACT_1_NO_EXT="${ARTIFACT_1_JAR%.*}"
+          ARTIFACT_2_NO_EXT="${ARTIFACT_2_JAR%.*}"
           PROJECT_VERSION="${{ steps.get_version.outputs.project_version }}"
           ARTIFACT_1_PATH="${{ github.workspace }}/${ARTIFACT_1_NO_EXT}-${PROJECT_VERSION}.jar"
           ARTIFACT_2_PATH="${{ github.workspace }}/${ARTIFACT_2_NO_EXT}-${PROJECT_VERSION}.jar"
