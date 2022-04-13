@@ -93,6 +93,7 @@ jobs:
           VERSION=$( mvn help:evaluate -Dexpression=project.version -q -DforceStdout )
           echo "::set-output name=project_version::$VERSION"
         id: get_version
+        if: ${{ always() }}
 
       # This step is tricky but allows to keep the version in the uploaded artifacts
       - name: Get artifact name and basedir from jar path
