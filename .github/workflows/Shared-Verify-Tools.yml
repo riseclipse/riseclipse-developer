@@ -83,8 +83,8 @@ jobs:
       - name: Run analysis with Sonarqube
         run: |
           cd ${{ github.event.repository.name }}/${{ inputs.build-path }}
-          mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.organization=riseclipse\
-          -Dsonar.host.url=http://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }}\
+          mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.organization=riseclipse \
+          -Dsonar.host.url=http://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
           -Dsonar.projectKey=riseclipse_${{ github.event.repository.name }}
 
       - name: Extract Maven project version
