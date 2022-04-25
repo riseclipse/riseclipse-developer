@@ -58,7 +58,7 @@ jobs:
         mvn verify
 
     - name: Run analysis with Sonarqube
-      if: run_sonarqube
+      if: inputs.run_sonarqube
       run: |
         cd ${{ github.event.repository.name }}
         mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.organization=riseclipse \
