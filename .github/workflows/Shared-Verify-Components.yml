@@ -24,6 +24,11 @@ name: Verify components
 
 on:
   workflow_call:
+    inputs:
+      run_sonarqube:
+        type: boolean
+        required: false
+        default: true
     secrets:
       SONAR_TOKEN:
         required: true
@@ -53,6 +58,7 @@ jobs:
         mvn verify
 
     - name: Run analysis with Sonarqube
+      if: run_sonarqube
       run: |
         cd ${{ github.event.repository.name }}
         mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.organization=riseclipse \
