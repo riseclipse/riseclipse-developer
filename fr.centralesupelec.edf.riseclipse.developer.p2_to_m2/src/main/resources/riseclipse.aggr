@@ -46,6 +46,7 @@
         <bundles name="org.antlr.runtime" versionRange="[3.2.0,3.3.0)"/>
         <bundles name="org.apache.commons.lang3" versionRange="3.1.0"/>
         <bundles name="org.apache.log4j" versionRange="1.2.15"/>
+        <bundles name="org.apache.commons.cli" versionRange="1.4.0"/>
       </repositories>
     </contributions>
     <validationRepositories location="https://download.eclipse.org/releases/2021-12/202112081000/"/>
