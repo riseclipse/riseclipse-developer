@@ -23,6 +23,7 @@ location "http://download.eclipse.org/releases/2021-12" {
 }
 
 location "https://download.eclipse.org/tools/orbit/downloads/drops/R20211213173813/repository" orbit-2021-12 {
+    org.apache.commons.cli
     org.apache.commons.lang3
     com.google.guava
     com.google.inject
