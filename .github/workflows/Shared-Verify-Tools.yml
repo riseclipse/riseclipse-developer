@@ -31,6 +31,9 @@ on:
       jar_path_2:
         type: string
         required: false
+    secrets:
+      SONAR_TOKEN:
+        required: true
     outputs:
       artifact_1_name:
         description: "Name of the first artifact, originating from the 'jar_path_1' input."
@@ -52,6 +55,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           path: ${{ github.event.repository.name }}
+          fetch-depth: 0
 
       - name: Setup Environment
         uses: actions/setup-java@v2
@@ -77,12 +81,22 @@ jobs:
           cd ${{ github.event.repository.name }}
           mvn verify
 
+      - name: Run analysis with Sonarqube
+        run: |
+          cd ${{ github.event.repository.name }}
+          mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.organization=riseclipse \
+            -Dsonar.host.url=http://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+            -Dsonar.projectKey=riseclipse_${{ github.event.repository.name }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Extract Maven project version
         run: |
           cd ${{ github.event.repository.name }}
           VERSION=$( mvn help:evaluate -Dexpression=project.version -q -DforceStdout )
           echo "::set-output name=project_version::$VERSION"
         id: get_version
+        if: ${{ always() }}
 
       # This step is tricky but allows to keep the version in the uploaded artifacts
       - name: Get artifact name and basedir from jar path

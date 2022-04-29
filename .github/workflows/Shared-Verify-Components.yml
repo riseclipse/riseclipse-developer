@@ -24,6 +24,14 @@ name: Verify components
 
 on:
   workflow_call:
+    inputs:
+      run_sonarqube:
+        type: boolean
+        required: false
+        default: true
+    secrets:
+      SONAR_TOKEN:
+        required: false
 
 jobs:
   build:
@@ -35,6 +43,7 @@ jobs:
       uses: actions/checkout@v3
       with:
         path: ${{ github.event.repository.name }}
+        fetch-depth: 0
 
     - name: Setup Environment
       uses: actions/setup-java@v2
@@ -47,3 +56,13 @@ jobs:
       run: |
         cd ${{ github.event.repository.name }}
         mvn verify
+
+    - name: Run analysis with Sonarqube
+      if: inputs.run_sonarqube
+      run: |
+        cd ${{ github.event.repository.name }}
+        mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.organization=riseclipse \
+          -Dsonar.host.url=http://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+          -Dsonar.projectKey=riseclipse_${{ github.event.repository.name }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
