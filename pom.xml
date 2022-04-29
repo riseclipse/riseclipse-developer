@@ -26,13 +26,13 @@
  
   <groupId>io.github.riseclipse</groupId>
   <artifactId>riseclipse-developer</artifactId>
-  <version>1.2.3-SNAPSHOT</version>
+  <version>1.2.3</version>
   <packaging>pom</packaging>
   
   <parent>
     <groupId>io.github.riseclipse</groupId>
     <artifactId>fr.centralesupelec.edf.riseclipse.developer.maven</artifactId>
-    <version>1.2.3-SNAPSHOT</version>
+    <version>1.2.3</version>
     <relativePath>fr.centralesupelec.edf.riseclipse.developer.maven/pom.xml</relativePath>
   </parent>
 
@@ -40,7 +40,7 @@
     <connection>scm:git:git@github.com:riseclipse/riseclipse-developer.git</connection>
     <developerConnection>scm:git:git@github.com:riseclipse/riseclipse-developer.git</developerConnection>
     <url>https://github.com/riseclipse/riseclipse-developer</url>
-    <tag>HEAD</tag>
+    <tag>riseclipse-developer-1.2.3</tag>
   </scm>
   
   <modules>
