@@ -80,7 +80,7 @@
   <repositories>
     <repository>
       <id>eclipse-2021-12</id>
-      <url>http://download.eclipse.org/releases/2021-12</url>
+      <url>http://download.eclipse.org/releases/2022-06</url>
       <layout>p2</layout>
     </repository>
   </repositories>
@@ -98,26 +98,26 @@
   </distributionManagement>  
 
   <properties>
-    <riseclipse-target-platform-version>1.2.1</riseclipse-target-platform-version>
+    <riseclipse-target-platform-version>1.2.4-SNAPSHOT</riseclipse-target-platform-version>
     
     <maven-group-id>org.apache.maven.plugins</maven-group-id>
-    <maven-clean-plugin-version>3.1.0</maven-clean-plugin-version>
+    <maven-clean-plugin-version>3.2.0</maven-clean-plugin-version>
     <maven-resources-plugin-version>3.2.0</maven-resources-plugin-version>
-    <maven-compiler-plugin-version>3.9.0</maven-compiler-plugin-version>
+    <maven-compiler-plugin-version>3.10.1</maven-compiler-plugin-version>
     <maven-toolchain-plugin-version>3.0.0</maven-toolchain-plugin-version>
-    <maven-surefire-plugin-version>3.0.0-M5</maven-surefire-plugin-version>
+    <maven-surefire-plugin-version>3.0.0-M7</maven-surefire-plugin-version>
     <maven-jar-plugin-version>3.2.2</maven-jar-plugin-version>
-    <maven-shade-plugin-version>3.2.4</maven-shade-plugin-version>
+    <maven-shade-plugin-version>3.3.0</maven-shade-plugin-version>
     <maven-install-plugin-version>3.0.0-M1</maven-install-plugin-version>
-    <maven-release-plugin-version>3.0.0-M5</maven-release-plugin-version>
+    <maven-release-plugin-version>3.0.0-M6</maven-release-plugin-version>
     <maven-deploy-plugin-version>3.0.0-M2</maven-deploy-plugin-version>
-    <maven-scm-plugin-version>2.0.0-M1</maven-scm-plugin-version>
+    <maven-scm-plugin-version>1.13.0</maven-scm-plugin-version>
     <maven-source-plugin-version>3.2.0</maven-source-plugin-version>
-    <maven-javadoc-plugin-version>3.3.1</maven-javadoc-plugin-version>
+    <maven-javadoc-plugin-version>3.4.0</maven-javadoc-plugin-version>
     <maven-gpg-plugin-version>3.0.1</maven-gpg-plugin-version>
 
     <tycho-group-id>org.eclipse.tycho</tycho-group-id>
-    <tycho-version>2.6.0</tycho-version>
+    <tycho-version>2.7.3</tycho-version>
     
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>11</maven.compiler.source>
@@ -126,33 +126,30 @@
     <jdk.vendor>temur</jdk.vendor>
     
     <!-- These version numbers are those used with an Eclipse build -->
-    <!-- They are obtained by checking "Copy required libraries into a sub-folder next
-         to the generated JAR" when exporting as Runnable JAR -->
     <!-- They should be aligned with target file (fr.centralesupelec.edf.riseclipse.developer.eclipse)
          and agregator file (fr.centralesupelec.edf.riseclipse.developer.p2_to_m2) -->
     <com-google-guava-version>30.1.0</com-google-guava-version>
     <com-google-inject-version>5.0.1</com-google-inject-version>
     <javax-inject-version>1.0.0</javax-inject-version>
     <org-antlr-runtime-version>3.2.0</org-antlr-runtime-version>
+    <org-aopalliance-version>1.0.0</org-aopalliance-version>
     <org-apache-commons-cli-version>1.4.0</org-apache-commons-cli-version>
-    <org-apache-commons-lang3-version>3.1.0</org-apache-commons-lang3-version>
-    <org-apache-log4j-version>1.2.15</org-apache-log4j-version>
-    <org-eclipse-core-commands-version>3.10.100</org-eclipse-core-commands-version>
+    <org-apache-log4j-version>1.2.19</org-apache-log4j-version>
+    <org-eclipse-core-commands-version>3.10.200</org-eclipse-core-commands-version>
     <org-eclipse-core-contenttype-version>3.8.100</org-eclipse-core-contenttype-version>
-    <org-eclipse-core-jobs-version>3.12.0</org-eclipse-core-jobs-version>
-    <org-eclipse-core-resources-version>3.16.0</org-eclipse-core-resources-version>
-    <org-eclipse-core-runtime-version>3.24.0</org-eclipse-core-runtime-version>
-    <org-eclipse-emf-common-version>2.23.0</org-eclipse-emf-common-version>
-    <org-eclipse-emf-ecore-change-version>2.14.0</org-eclipse-emf-ecore-change-version>
+    <org-eclipse-core-jobs-version>3.13.0</org-eclipse-core-jobs-version>
+    <org-eclipse-core-resources-version>3.17.0</org-eclipse-core-resources-version>
+    <org-eclipse-core-runtime-version>3.25.0</org-eclipse-core-runtime-version>
+    <org-eclipse-emf-common-version>2.25.0</org-eclipse-emf-common-version>
     <org-eclipse-emf-ecore-xmi-version>2.16.0</org-eclipse-emf-ecore-xmi-version>
-    <org-eclipse-emf-ecore-version>2.25.0</org-eclipse-emf-ecore-version>
-    <org-eclipse-emf-edit-version>2.16.0</org-eclipse-emf-edit-version>
+    <org-eclipse-emf-ecore-version>2.27.0</org-eclipse-emf-ecore-version>
+    <org-eclipse-emf-edit-version>2.17.0</org-eclipse-emf-edit-version>
     <org-eclipse-equinox-app-version>1.6.100</org-eclipse-equinox-app-version>
-    <org-eclipse-equinox-common-version>3.15.100</org-eclipse-equinox-common-version>
-    <org-eclipse-equinox-preferences-version>3.9.100</org-eclipse-equinox-preferences-version>
+    <org-eclipse-equinox-common-version>3.16.100</org-eclipse-equinox-common-version>
+    <org-eclipse-equinox-preferences-version>3.10.0</org-eclipse-equinox-preferences-version>
     <org-eclipse-equinox-registry-version>3.11.100</org-eclipse-equinox-registry-version>
     <org-eclipse-jdt-annotation-version>2.2.600</org-eclipse-jdt-annotation-version>
-    <org-eclipse-jface-version>3.24.0</org-eclipse-jface-version>
+    <org-eclipse-jface-version>3.26.0</org-eclipse-jface-version>
     <org-eclipse-ocl-common-version>1.17.0</org-eclipse-ocl-common-version>
     <org-eclipse-ocl-pivot-version>1.17.0</org-eclipse-ocl-pivot-version>
     <org-eclipse-ocl-xtext-base-version>1.17.0</org-eclipse-ocl-xtext-base-version>
@@ -160,11 +157,11 @@
     <org-eclipse-ocl-xtext-essentialocl-version>1.17.0</org-eclipse-ocl-xtext-essentialocl-version>
     <org-eclipse-ocl-xtext-oclinecore-version>1.17.0</org-eclipse-ocl-xtext-oclinecore-version>
     <org-eclipse-ocl-xtext-oclstdlib-version>1.17.0</org-eclipse-ocl-xtext-oclstdlib-version>
-    <org-eclipse-osgi-compatibility-state-version>1.2.500</org-eclipse-osgi-compatibility-state-version>
-    <org-eclipse-osgi-version>3.17.100</org-eclipse-osgi-version>
-    <org-eclipse-swt-version>3.118.0</org-eclipse-swt-version>
-    <org-eclipse-xtext-util-version>2.25.0</org-eclipse-xtext-util-version>
-    <org-eclipse-xtext-version>2.25.0</org-eclipse-xtext-version>
+    <org-eclipse-osgi-compatibility-state-version>1.2.600</org-eclipse-osgi-compatibility-state-version>
+    <org-eclipse-osgi-version>3.18.0</org-eclipse-osgi-version>
+    <org-eclipse-swt-version>3.120.0</org-eclipse-swt-version>
+    <org-eclipse-xtext-util-version>2.27.0</org-eclipse-xtext-util-version>
+    <org-eclipse-xtext-version>2.27.0</org-eclipse-xtext-version>
   </properties>
 
   <!-- Enforce versions of Eclipse used plugins  -->
@@ -197,15 +194,15 @@
       </dependency>
     
       <dependency>
-        <groupId>org.apache.commons</groupId>
-        <artifactId>org.apache.commons.cli</artifactId>
-        <version>${org-apache-commons-cli-version}</version>
+        <groupId>org.aopalliance</groupId>
+        <artifactId>org.aopalliance</artifactId>
+        <version>${org-aopalliance-version}</version>
       </dependency>
     
       <dependency>
         <groupId>org.apache.commons</groupId>
-        <artifactId>org.apache.commons.lang3</artifactId>
-        <version>${org-apache-commons-lang3-version}</version>
+        <artifactId>org.apache.commons.cli</artifactId>
+        <version>${org-apache-commons-cli-version}</version>
       </dependency>
     
       <dependency>
@@ -332,6 +329,13 @@
       <dependency>
         <groupId>org.eclipse.ocl</groupId>
         <artifactId>org.eclipse.ocl.xtext.base</artifactId>
+        <exclusions>
+          <exclusion>
+            <!-- optional dependency, not needed -->
+            <groupId>org.eclipse.emf</groupId>
+            <artifactId>org.eclipse.emf.codegen</artifactId>
+          </exclusion>
+        </exclusions>
         <version>${org-eclipse-ocl-xtext-base-version}</version>
       </dependency>
       
@@ -756,6 +760,22 @@
                   <excludes>**/target/**</excludes>
                   <message>Changing the Eclipse files versions</message>
                 </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          
+          <!-- To update versions in MANIFEST.MF after POM version has been updated -->
+          <plugin>
+            <groupId>${tycho-group-id}</groupId>
+            <artifactId>tycho-versions-plugin</artifactId>
+            <version>${tycho-version}</version>
+            <executions>
+              <execution>
+                <id>versions</id>
+                <phase>validate</phase>
+                <goals>
+                  <goal>update-eclipse-metadata</goal>
+                </goals>
               </execution>
             </executions>
           </plugin>
