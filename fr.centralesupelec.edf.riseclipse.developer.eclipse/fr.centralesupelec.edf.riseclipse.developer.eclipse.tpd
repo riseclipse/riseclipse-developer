@@ -3,30 +3,64 @@ target "fr.centralesupelec.edf.riseclipse.developer.eclipse"
 
 environment JavaSE-11
 
-location "http://download.eclipse.org/releases/2021-12" {
-	org.eclipse.core.commands
-	org.eclipse.core.resources
-	org.eclipse.platform.feature.group
-    org.eclipse.equinox.executable.feature.group
-    org.eclipse.jdt.annotation
-    org.eclipse.swt
-    org.eclipse.jface
-    org.eclipse.emf.ecore.feature.group
-    org.eclipse.emf.edit.feature.group
-    org.eclipse.emf.edit.ui.feature.group
-    org.eclipse.emf.common.feature.group
-    org.eclipse.emf.common.ui.feature.group
-    org.eclipse.ocl.unified.core.feature.group
+location "http://download.eclipse.org/releases/2022-06" {
+    com.google.guava
+    com.google.inject
+    javax.inject
+    org.antlr.runtime [3.2.0,3.2.1)
+    org.aopalliance
     org.apache.log4j
+    org.eclipse.core.contenttype
+    org.eclipse.core.commands
+    org.eclipse.core.expressions
+    org.eclipse.core.filesystem
+    org.eclipse.core.jobs
+    org.eclipse.core.runtime
+    org.eclipse.core.resources
+    org.eclipse.core.variables
+    org.eclipse.debug.core
+    org.eclipse.emf.codegen
+    org.eclipse.emf.codegen.ecore
+    org.eclipse.emf.common
+    org.eclipse.emf.ecore
+    org.eclipse.emf.ecore.xmi
+    org.eclipse.emf.edit
+    org.eclipse.emf.mapping.ecore2xml
+    org.eclipse.equinox.app
+    org.eclipse.equinox.common
+    org.eclipse.equinox.preferences
+    org.eclipse.equinox.registry
+    org.eclipse.jdt.annotation
+    org.eclipse.jdt.core
+    org.eclipse.jdt.debug
+    org.eclipse.jdt.launching
+    org.eclipse.jface
+    org.eclipse.ocl.common
+    org.eclipse.ocl.examples.xtext.serializer
+    org.eclipse.ocl.pivot
+    org.eclipse.ocl.pivot.uml
+    org.eclipse.ocl.xtext.base
+    org.eclipse.ocl.xtext.completeocl
+    org.eclipse.ocl.xtext.essentialocl
+    org.eclipse.ocl.xtext.oclstdlib
+    org.eclipse.osgi
+    org.eclipse.osgi.compatibility.state
+    org.eclipse.swt
+    org.eclipse.text
+    org.eclipse.uml2.codegen.ecore
+    org.eclipse.uml2.common
+    org.eclipse.uml2.uml
+    org.eclipse.uml2.uml.profile.standard
+    org.eclipse.uml2.uml.resources
+    org.eclipse.uml2.types
+    org.eclipse.xtend.lib
+    org.eclipse.xtend.lib.macro
     org.eclipse.xtext
+    org.eclipse.xtext.xbase.lib
     org.eclipse.xtext.util
 }
 
-location "https://download.eclipse.org/tools/orbit/downloads/drops/R20211213173813/repository" orbit-2021-12 {
+location "https://download.eclipse.org/tools/orbit/downloads/drops/R20220531185310/repository" orbit-2022-06 {
     org.apache.commons.cli
-    org.apache.commons.lang3
-    com.google.guava
-    com.google.inject
-    org.antlr.runtime [3.2.0,4.0.0)
 }
 
