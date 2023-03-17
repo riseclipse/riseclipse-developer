@@ -3,7 +3,7 @@ target "fr.centralesupelec.edf.riseclipse.developer.eclipse"
 
 environment JavaSE-11
 
-location "http://download.eclipse.org/releases/2022-06" {
+location "http://download.eclipse.org/releases/2023-03" {
     com.google.guava
     com.google.inject
     javax.inject
@@ -42,6 +42,7 @@ location "http://download.eclipse.org/releases/2022-06" {
     org.eclipse.ocl.xtext.base
     org.eclipse.ocl.xtext.completeocl
     org.eclipse.ocl.xtext.essentialocl
+    org.eclipse.ocl.xtext.oclinecore
     org.eclipse.ocl.xtext.oclstdlib
     org.eclipse.osgi
     org.eclipse.osgi.compatibility.state
@@ -60,7 +61,7 @@ location "http://download.eclipse.org/releases/2022-06" {
     org.eclipse.xtext.util
 }
 
-location "https://download.eclipse.org/tools/orbit/downloads/drops/R20220531185310/repository" orbit-2022-06 {
+location "https://download.eclipse.org/tools/orbit/downloads/drops/R20230302014618/repository" orbit-2023-03 {
     org.apache.commons.cli
 }
 
