@@ -54,10 +54,10 @@ jobs:
     - name: Get version from any artifact name
       run: |
         cd artifacts
-        filename=$(basename */*.jar )
-        version=${filename##*-}
-        version=${version%.jar}
-        echo "::set-output name=project_version::$version"
+        FILENAME=$(basename */*.jar )
+        VERSION=${FILENAME##*-}
+        VERSION=${version%.jar}
+        echo "project_version=$VERSION" >> $GITHUB_OUTPUT
       id: get_version
 
     - name: Rename folder to avoid errors

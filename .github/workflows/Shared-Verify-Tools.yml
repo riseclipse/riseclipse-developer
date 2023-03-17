@@ -58,7 +58,7 @@ jobs:
           fetch-depth: 0
 
       - name: Setup Environment
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           distribution: "temurin"
           java-version: "17"
@@ -94,7 +94,7 @@ jobs:
         run: |
           cd ${{ github.event.repository.name }}
           VERSION=$( mvn help:evaluate -Dexpression=project.version -q -DforceStdout )
-          echo "::set-output name=project_version::$VERSION"
+          echo "project_version=$VERSION" >> $GITHUB_OUTPUT
         id: get_version
         if: ${{ always() }}
 
@@ -110,10 +110,10 @@ jobs:
           ARTIFACT_2_PATH="${{ github.workspace }}/${ARTIFACT_2_NO_EXT}-${PROJECT_VERSION}.jar"
           ARTIFACT_1_FILENAME="$(echo $(basename "$ARTIFACT_1_PATH"))"
           ARTIFACT_2_FILENAME="$(echo $(basename "$ARTIFACT_2_PATH"))"
-          echo "::set-output name=artifact_1_path::$ARTIFACT_1_PATH"
-          echo "::set-output name=artifact_2_path::$ARTIFACT_2_PATH"
-          echo "::set-output name=artifact_1_filename::$ARTIFACT_1_FILENAME"
-          echo "::set-output name=artifact_2_filename::$ARTIFACT_2_FILENAME"
+          echo "artifact_1_path=$ARTIFACT_1_PATH" >> $GITHUB_OUTPUT
+          echo "artifact_2_path=$ARTIFACT_2_PATH" >> $GITHUB_OUTPUT
+          echo "artifact_1_filename=$ARTIFACT_1_FILENAME" >> $GITHUB_OUTPUT
+          echo "artifact_2_filename=$ARTIFACT_2_FILENAME" >> $GITHUB_OUTPUT
         id: artifacts_metadata
 
       - name: Upload artifact 1
