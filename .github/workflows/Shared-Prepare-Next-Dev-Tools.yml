@@ -62,7 +62,7 @@ jobs:
         ref: master
 
     - name: Setup Environment
-      uses: actions/setup-java@v2
+      uses: actions/setup-java@v3
       with:
         distribution: 'temurin'
         java-version: '11'
@@ -94,7 +94,7 @@ jobs:
         VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
         DATE=$(date "+(%d %B %Y)")
         sed -i -r "s/String TOOL_VERSION = .*$/String TOOL_VERSION = \"$VERSION $DATE\";/" ${{ inputs.toolSourcePath }}
-        echo "::set-output name=project_version::$VERSION"
+        echo "project_version=$VERSION" >> $GITHUB_OUTPUT
         git add --all
         git commit -m "[actions] prepare release ${{ github.event.repository.name }}-$VERSION"
         git tag ${{ github.event.repository.name }}-$VERSION
@@ -115,10 +115,10 @@ jobs:
         ARTIFACT_2_NO_EXT="${jarPath2%.*}"
         ARTIFACT_1_FILENAME=$( echo $(basename "${jarPath1%.*}"))
         ARTIFACT_2_FILENAME=$( echo $(basename "${jarPath2%.*}"))
-        echo "::set-output name=artifact_1_no_ext::$ARTIFACT_1_NO_EXT"
-        echo "::set-output name=artifact_2_no_ext::$ARTIFACT_2_NO_EXT"
-        echo "::set-output name=artifact_1_filename::$ARTIFACT_1_FILENAME"
-        echo "::set-output name=artifact_2_filename::$ARTIFACT_2_FILENAME"
+        echo "artifact_1_no_ext=$ARTIFACT_1_NO_EXT" >> $GITHUB_OUTPUT
+        echo "artifact_2_no_ext=$ARTIFACT_2_NO_EXT" >> $GITHUB_OUTPUT
+        echo "artifact_1_filename=$ARTIFACT_1_FILENAME" >> $GITHUB_OUTPUT
+        echo "artifact_2_filename=$ARTIFACT_2_FILENAME" >> $GITHUB_OUTPUT
       id: artifact_name
 
     - name: Upload artifact 1
@@ -142,7 +142,7 @@ jobs:
         VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
         DATE=$(date "+(%d %B %Y)")
         sed -i -r "s/String TOOL_VERSION = .*$/String TOOL_VERSION = \"$VERSION $DATE\";/" ${{ inputs.toolSourcePath }}
-        echo "::set-output name=project_version::$VERSION"
+        echo "project_version=$VERSION" >> $GITHUB_OUTPUT
       id: next_version
         
     - name: Commit and push next developpement version
