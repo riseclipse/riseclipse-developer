@@ -138,6 +138,7 @@
     <org-antlr-runtime-version>3.2.0</org-antlr-runtime-version>
     <org-aopalliance-version>1.0.0</org-aopalliance-version>
     <org-apache-commons-cli-version>1.4.0</org-apache-commons-cli-version>
+    <org-apache-commons-lang3-version>3.12.0</org-apache-commons-lang3-version>
     <org-apache-log4j-version>1.2.24</org-apache-log4j-version>
     <org-eclipse-core-commands-version>3.10.400</org-eclipse-core-commands-version>
     <org-eclipse-core-contenttype-version>3.8.200</org-eclipse-core-contenttype-version>
@@ -207,6 +208,12 @@
         <groupId>org.apache.commons</groupId>
         <artifactId>org.apache.commons.cli</artifactId>
         <version>${org-apache-commons-cli-version}</version>
+      </dependency>
+    
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>org.apache.commons.lang3</artifactId>
+        <version>${org-apache-commons-lang3-version}</version>
       </dependency>
     
       <dependency>

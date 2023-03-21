@@ -48,6 +48,7 @@
     <contributions label="From Orbit">
       <repositories location="https://download.eclipse.org/tools/orbit/downloads/drops/R20230302014618/repository">
         <bundles name="org.apache.commons.cli" versionRange="1.4.0"/>
+        <bundles name="org.apache.commons.lang3" versionRange="3.12.0"/>
       </repositories>
     </contributions>
   </validationSets>

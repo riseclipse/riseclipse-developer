@@ -63,5 +63,6 @@ location "http://download.eclipse.org/releases/2023-03" {
 
 location "https://download.eclipse.org/tools/orbit/downloads/drops/R20230302014618/repository" orbit-2023-03 {
     org.apache.commons.cli
+    org.apache.commons.lang3
 }
 
