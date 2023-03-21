@@ -26,13 +26,13 @@
  
   <groupId>io.github.riseclipse</groupId>
   <artifactId>fr.centralesupelec.edf.riseclipse.developer.eclipse</artifactId>
-  <version>1.2.7-SNAPSHOT</version>
+  <version>1.2.7</version>
   <packaging>eclipse-target-definition</packaging>
   
   <parent>
     <groupId>io.github.riseclipse</groupId>
     <artifactId>fr.centralesupelec.edf.riseclipse.developer.maven</artifactId>
-    <version>1.2.7-SNAPSHOT</version>
+    <version>1.2.7</version>
     <relativePath>../fr.centralesupelec.edf.riseclipse.developer.maven/pom.xml</relativePath>
   </parent>
 
