@@ -16,7 +16,7 @@
         <bundles name="org.eclipse.osgi.compatibility.state" versionRange="1.2.800"/>
         <bundles name="org.eclipse.osgi" versionRange="3.18.300"/>
         <bundles name="org.apache.log4j" versionRange="1.2.24"/>
-        <bundles name="com.google.guava" versionRange="31.1.0"/>
+        <bundles name="com.google.guava" versionRange="[30.1.0,31.0.0)"/>
         <bundles name="com.google.inject" versionRange="5.0.1"/>
         <bundles name="javax.inject" versionRange="1.0.0"/>
         <bundles name="org.antlr.runtime" versionRange="[3.2.0,3.3.0]"/>
