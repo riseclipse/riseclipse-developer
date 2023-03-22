@@ -128,7 +128,8 @@
     <!-- These version numbers are those used with an Eclipse build -->
     <!-- They should be aligned with target file (fr.centralesupelec.edf.riseclipse.developer.eclipse)
          and agregator file (fr.centralesupelec.edf.riseclipse.developer.p2_to_m2) -->
-    <com-google-guava-version>31.1.0</com-google-guava-version>
+    <!-- package com.google.common.util.concurrent.internal is missing in com.google.guava version 31.1.0 -->
+    <com-google-guava-version>30.1.0</com-google-guava-version>
     <com-google-inject-version>5.0.1</com-google-inject-version>
     <!-- com.google.inject:guice-parent depends on version 1, not 1.0.0
          which is the version referenced in Eclipse.
