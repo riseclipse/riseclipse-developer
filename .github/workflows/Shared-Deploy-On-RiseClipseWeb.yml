@@ -24,9 +24,15 @@ name: Deploy on RiseClipseWeb
 on:
   workflow_call:
     inputs:
-    dest_folder:
-      description: Destination folder on the remote machine
-      required: true
+      dest_folder:
+        description: Destination folder on the remote machine
+        required: true
+      artifact_path:
+        type: string
+        required: true
+      release_version:
+        type: string
+        required: true
 
 env:
   REMOTE_WEB_HOSTNAME: ${{ secrets.REMOTE_WEB_HOSTNAME }}
@@ -54,8 +60,7 @@ jobs:
         github_token: ${{secrets.GITHUB_TOKEN}}
         workflow: Pre-Release-and-Prepare-Next-Dev.yml
         workflow_conclusion: success
-        path: ${{ github.workspace }}/${{ github.event.repository.name }}/artifacts
-        ref: ${{ steps.latest-release.outputs.release-tag }}
+        path: ${{ inputs.artifact_path }-${{ inputs.release_version }}.jar
 
     - name: Rename folder to avoid errors
       run: |
