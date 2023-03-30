@@ -28,12 +28,6 @@ on:
       dest_folder:
         description: Destination folder on the remote machine
         required: true
-      artifact_path:
-        type: string
-        required: true
-      release_version:
-        type: string
-        required: true
     secrets:
       REMOTE_WEB_HOSTNAME:
         required: true
@@ -63,7 +57,7 @@ jobs:
         github_token: ${{secrets.GITHUB_TOKEN}}
         workflow: Pre-Release-and-Prepare-Next-Dev.yml
         workflow_conclusion: success
-        path: ${{ inputs.artifact_path }}-${{ inputs.release_version }}.jar
+        path: ${{ github.workspace }}/${{ github.event.repository.name }}/artifacts
 
     - name: Rename folder to avoid errors
       run: |
