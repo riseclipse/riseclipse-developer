@@ -33,7 +33,9 @@ on:
         required: true
       REMOTE_WEB_USERNAME:
         required: true
-      REMOTE_WEB_PASSWORD:
+      REMOTE_WEB_SSHKEY:
+        required: true
+      REMOTE_WEB_PASSPHRASE:
         required: true
       REMOTE_WEB_FOLDER:
         required: true
@@ -69,6 +71,7 @@ jobs:
       with:
         host: ${{ secrets.REMOTE_WEB_HOSTNAME }}
         username: ${{ secrets.REMOTE_WEB_USERNAME }}
-        password: ${{ secrets.REMOTE_WEB_PASSWORD }}
+        key: ${{ secrets.REMOTE_WEB_SSHKEY }}
+        passphrase: ${{ secrets.REMOTE_WEB_PASSPHRASE }}
         source: "*.jar !*Application*"
         target: ${{ secrets.REMOTE_WEB_FOLDER }}/${{ inputs.dest_folder }}
