@@ -73,8 +73,8 @@ jobs:
     - name: Copy JAR file
       uses: appleboy/scp-action@v1
       with:
-        host: ${{ env.REMOTE_WEB_HOSTNAME }}
-        username: ${{ env.REMOTE_WEB_USERNAME }}
-        password: ${{ env.REMOTE_WEB_PASSWORD }}
+        host: ${{ secrets.REMOTE_WEB_HOSTNAME }}
+        username: ${{ secrets.REMOTE_WEB_USERNAME }}
+        password: ${{ secrets.REMOTE_WEB_PASSWORD }}
         source: "*.jar !*Application*"
-        target: ${{ env.REMOTE_WEB_FOLDER }}/${{ inputs.dest_folder }}
+        target: ${{ secrets.REMOTE_WEB_FOLDER }}/${{ inputs.dest_folder }}
