@@ -29,15 +29,15 @@ on:
         description: Destination folder on the remote machine
         required: true
     secrets:
-      REMOTE_WEB_HOSTNAME:
+      RISECLIPSE_WEB_HOSTNAME:
         required: true
-      REMOTE_WEB_USERNAME:
+      RISECLIPSE_WEB_USERNAME:
         required: true
-      REMOTE_WEB_SSHKEY:
+      RISECLIPSE_WEB_SSHKEY:
         required: true
-      REMOTE_WEB_PASSPHRASE:
+      RISECLIPSE_WEB_PASSPHRASE:
         required: true
-      REMOTE_WEB_FOLDER:
+      RISECLIPSE_WEB_FOLDER:
         required: true
 
 jobs:
@@ -69,9 +69,9 @@ jobs:
     - name: Copy JAR file and Overwrite previous
       uses: appleboy/scp-action@v1
       with:
-        host: ${{ secrets.REMOTE_WEB_HOSTNAME }}
-        username: ${{ secrets.REMOTE_WEB_USERNAME }}
-        key: ${{ secrets.REMOTE_WEB_SSHKEY }}
-        passphrase: ${{ secrets.REMOTE_WEB_PASSPHRASE }}
+        host: ${{ secrets.RISECLIPSE_WEB_HOSTNAME }}
+        username: ${{ secrets.RISECLIPSE_WEB_USERNAME }}
+        key: ${{ secrets.RISECLIPSE_WEB_SSHKEY }}
+        passphrase: ${{ secrets.RISECLIPSE_WEB_PASSPHRASE }}
         source: "*.jar !*Application*"
-        target: ${{ secrets.REMOTE_WEB_FOLDER }}/${{ inputs.dest_folder }}
+        target: ${{ secrets.RISECLIPSE_WEB_FOLDER }}/${{ inputs.dest_folder }}
