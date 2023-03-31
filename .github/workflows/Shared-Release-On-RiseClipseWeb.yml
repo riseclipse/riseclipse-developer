@@ -61,12 +61,12 @@ jobs:
         workflow_conclusion: success
         path: ${{ github.workspace }}/${{ github.event.repository.name }}/artifacts
 
-    - name: Rename folder to avoid errors
+    - name: Rename file to remove release number
       run: |
         cd ${{ github.workspace }}/${{ github.event.repository.name }}/artifacts
-        rename 's/.jar//' *.jar
+        rename 's/-\d+\.\d+\.\d+//' *.jar 
 
-    - name: Copy JAR file
+    - name: Copy JAR file and Overwrite previous
       uses: appleboy/scp-action@v1
       with:
         host: ${{ secrets.REMOTE_WEB_HOSTNAME }}
