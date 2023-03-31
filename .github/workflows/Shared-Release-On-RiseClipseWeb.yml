@@ -73,5 +73,5 @@ jobs:
         username: ${{ secrets.RISECLIPSE_WEB_USERNAME }}
         key: ${{ secrets.RISECLIPSE_WEB_SSHKEY }}
         passphrase: ${{ secrets.RISECLIPSE_WEB_PASSPHRASE }}
-        source: "*.jar !*Application*"
+        source: "*.jar,!*Application*"
         target: ${{ secrets.RISECLIPSE_WEB_FOLDER }}/${{ inputs.dest_folder }}
