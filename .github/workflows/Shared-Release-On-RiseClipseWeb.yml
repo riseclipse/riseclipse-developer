@@ -27,6 +27,7 @@ on:
     inputs:
       dest_folder:
         description: Destination folder on the remote machine
+        type: string
         required: true
     secrets:
       RISECLIPSE_WEB_HOSTNAME:
