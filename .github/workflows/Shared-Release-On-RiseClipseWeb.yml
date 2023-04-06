@@ -59,17 +59,17 @@ jobs:
         workflow: Pre-Release-and-Prepare-Next-Dev.yml
         workflow_conclusion: success
         path: ${{ github.workspace }}/artifacts
+    
+    - name: Remove Application jar
+      run: |
+        cd ${{ github.workspace }}/artifacts
+        rm -rf *Application*/
 
     - name: Rename folder to avoid errors and file to remove release number
       run: |
         cd ${{ github.workspace }}/artifacts
         rename 's/.jar//' *.jar
         rename 's/-\d+\.\d+\.\d+.jar/.jar/' */*.jar
-
-    - name: Remove Application jar
-      run: |
-        cd ${{ github.workspace }}/artifacts
-        rm -rf *Application*/
 
     - name: Copy JAR file and Overwrite previous
       uses: appleboy/scp-action@master
