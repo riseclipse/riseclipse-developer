@@ -48,7 +48,7 @@ jobs:
       run: sudo apt-get install rename
 
     - name: Checkout ${{ github.event.repository.name }}
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         path: ${{ github.event.repository.name }}
 
@@ -59,19 +59,26 @@ jobs:
         workflow: Pre-Release-and-Prepare-Next-Dev.yml
         workflow_conclusion: success
         path: ${{ github.workspace }}/artifacts
+    
+    - name: Remove Application jar
+      run: |
+        cd ${{ github.workspace }}/artifacts
+        rm -rf *Application*/
 
     - name: Rename folder to avoid errors and file to remove release number
       run: |
         cd ${{ github.workspace }}/artifacts
         rename 's/.jar//' *.jar
-        rename 's/-\d+\.\d+\.\d+//' */*.jar 
+        rename 's/-\d+\.\d+\.\d+.jar/.jar/' */*.jar
 
     - name: Copy JAR file and Overwrite previous
-      uses: appleboy/scp-action@v1
+      uses: appleboy/scp-action@master
       with:
         host: ${{ secrets.RISECLIPSE_WEB_HOSTNAME }}
         username: ${{ secrets.RISECLIPSE_WEB_USERNAME }}
         key: ${{ secrets.RISECLIPSE_WEB_SSHKEY }}
         passphrase: ${{ secrets.RISECLIPSE_WEB_PASSPHRASE }}
-        source: "${{ github.workspace }}/artifacts/**/*.jar,!*Application*"
-        target: ${{ inputs.dest_folder }}
+        source: "${{ github.workspace }}/artifacts/**/*.jar"
+        target: "${{ inputs.dest_folder }}"
+        strip_components: 4
+        overwrite: true
