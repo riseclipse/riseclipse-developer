@@ -52,7 +52,7 @@ jobs:
 
     steps:
       - name: Checkout ${{ github.event.repository.name }}
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: ${{ github.event.repository.name }}
           fetch-depth: 0
@@ -65,7 +65,7 @@ jobs:
           cache: "maven"
 
       - name: Checkout riseclipse-developper
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: riseclipse/riseclipse-developer
           path: riseclipse-developer

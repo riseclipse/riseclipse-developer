@@ -41,7 +41,7 @@ jobs:
       run: sudo apt-get install -y rename
 
     - name: Checkout ${{ github.event.repository.name }}
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Download artifact from other workflow
       uses: dawidd6/action-download-artifact@v2
@@ -65,7 +65,7 @@ jobs:
         cd ${{ github.workspace }}/artifacts
         rename 's/.jar//' *.jar
 
-    - uses: ncipollo/release-action@v1.10.0
+    - uses: ncipollo/release-action@v1
       with:
         replacesArtifacts: true
         allowUpdates: true

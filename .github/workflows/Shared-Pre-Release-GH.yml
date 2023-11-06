@@ -39,7 +39,7 @@ jobs:
       run: sudo apt-get install -y rename
 
     - name: Checkout ${{ github.event.repository.name }}
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Download artifacts
       uses: actions/download-artifact@v3
