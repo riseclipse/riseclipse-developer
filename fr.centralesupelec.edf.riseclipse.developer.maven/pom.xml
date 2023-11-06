@@ -120,9 +120,9 @@
     <tycho-version>3.0.3</tycho-version>
     
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>11</maven.compiler.source>
-    <maven.compiler.target>11</maven.compiler.target>
-    <jdk.version>11</jdk.version>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+    <jdk.version>17</jdk.version>
     <jdk.vendor>temur</jdk.vendor>
     
     <!-- These version numbers are those used with an Eclipse build -->

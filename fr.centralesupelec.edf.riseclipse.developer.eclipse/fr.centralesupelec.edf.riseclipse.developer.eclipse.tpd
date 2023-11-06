@@ -1,7 +1,7 @@
 
 target "fr.centralesupelec.edf.riseclipse.developer.eclipse"
 
-environment JavaSE-11
+environment JavaSE-17
 
 location "http://download.eclipse.org/releases/2023-03" {
     // package com.google.common.util.concurrent.internal is missing in com.google.guava version 31.1.0
