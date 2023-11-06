@@ -1,0 +1,132 @@
+
+target "fr.centralesupelec.edf.riseclipse.developer.eclipse"
+
+environment JavaSE-11
+
+location "http://download.eclipse.org/releases/2023-03" {
+    // package com.google.common.util.concurrent.internal is missing in com.google.guava version 31.1.0
+    com.google.guava [30.1.0,31.0.0)
+    com.google.inject
+    com.ibm.icu
+    com.sun.jna
+    com.sun.jna.platform
+    javax.annotation
+    javax.inject
+    org.antlr.runtime [3.2.0,3.2.1)
+    org.aopalliance
+    org.apache.batik.css
+    org.apache.batik.constants
+    org.apache.batik.i18n
+    org.apache.batik.util
+    org.apache.commons.jxpath
+    org.apache.log4j
+    org.apache.xmlgraphics
+    org.bouncycastle.bcpkix
+    org.eclipse.compare.core
+    org.eclipse.core.contenttype
+    org.eclipse.core.commands
+    org.eclipse.core.databinding
+    org.eclipse.core.databinding.observable
+    org.eclipse.core.databinding.property
+    org.eclipse.core.expressions
+    org.eclipse.core.filebuffers
+    org.eclipse.core.filesystem
+    org.eclipse.core.jobs
+    org.eclipse.core.runtime
+    org.eclipse.core.resources
+    org.eclipse.core.variables
+    org.eclipse.debug.core
+    org.eclipse.e4.core.commands
+    org.eclipse.e4.core.contexts
+    org.eclipse.e4.core.di
+    org.eclipse.e4.core.di.annotations
+    org.eclipse.e4.core.di.extensions
+    org.eclipse.e4.core.services
+    org.eclipse.e4.emf.xpath
+    org.eclipse.e4.ui.bindings
+    org.eclipse.e4.ui.css.core
+    org.eclipse.e4.ui.css.swt
+    org.eclipse.e4.ui.css.swt.theme
+    org.eclipse.e4.ui.di
+    org.eclipse.e4.ui.ide
+    org.eclipse.e4.ui.model.workbench
+    org.eclipse.e4.ui.services
+    org.eclipse.e4.ui.dialogs
+    org.eclipse.e4.ui.widgets
+    org.eclipse.e4.ui.workbench
+    org.eclipse.e4.ui.workbench.addons.swt
+    org.eclipse.e4.ui.workbench.renderers.swt
+    org.eclipse.e4.ui.workbench.swt
+    org.eclipse.e4.ui.workbench3
+    org.eclipse.emf.codegen
+    org.eclipse.emf.codegen.ecore
+    org.eclipse.emf.common
+    org.eclipse.emf.common.ui
+    org.eclipse.emf.ecore
+    org.eclipse.emf.ecore.change
+    org.eclipse.emf.ecore.xmi
+    org.eclipse.emf.edit
+    org.eclipse.emf.edit.ui
+    org.eclipse.emf.mapping.ecore2xml
+    org.eclipse.equinox.app
+    org.eclipse.equinox.bidi
+    org.eclipse.equinox.common
+    org.eclipse.equinox.p2.repository
+    org.eclipse.equinox.p2.core
+    org.eclipse.equinox.p2.engine
+    org.eclipse.equinox.p2.metadata
+    org.eclipse.equinox.preferences
+    org.eclipse.equinox.registry
+    org.eclipse.help
+    org.eclipse.jdt.annotation
+    org.eclipse.jdt.core
+    org.eclipse.jdt.core.compiler.batch
+    org.eclipse.jdt.debug
+    org.eclipse.jdt.launching
+    org.eclipse.jface
+    org.eclipse.jface.databinding
+    org.eclipse.jface.text
+    org.eclipse.ocl.common
+    org.eclipse.ocl.examples.xtext.serializer
+    org.eclipse.ocl.pivot
+    org.eclipse.ocl.pivot.uml
+    org.eclipse.ocl.xtext.base
+    org.eclipse.ocl.xtext.completeocl
+    org.eclipse.ocl.xtext.essentialocl
+    org.eclipse.ocl.xtext.oclinecore
+    org.eclipse.ocl.xtext.oclstdlib
+    org.eclipse.osgi
+    org.eclipse.osgi.compatibility.state
+    org.eclipse.swt
+    org.eclipse.text
+    org.eclipse.ui
+    org.eclipse.ui.console
+    org.eclipse.ui.editors
+    org.eclipse.ui.ide
+    org.eclipse.ui.navigator
+    org.eclipse.ui.views
+    org.eclipse.ui.workbench
+    org.eclipse.ui.workbench.texteditor
+    org.eclipse.uml2.codegen.ecore
+    org.eclipse.uml2.common
+    org.eclipse.uml2.uml
+    org.eclipse.uml2.uml.profile.standard
+    org.eclipse.uml2.uml.resources
+    org.eclipse.uml2.types
+    org.eclipse.xtend.lib
+    org.eclipse.xtend.lib.macro
+    org.eclipse.xtext
+    org.eclipse.xtext.xbase.lib
+    org.eclipse.xtext.util
+    org.eclipse.urischeme
+    org.osgi.service.event
+    org.osgi.service.prefs
+    org.w3c.dom.svg
+    org.w3c.css.sac
+}
+
+location "https://download.eclipse.org/tools/orbit/downloads/drops/R20230302014618/repository" orbit-2023-03 {
+    org.apache.commons.cli
+    org.apache.commons.lang3
+}
+
