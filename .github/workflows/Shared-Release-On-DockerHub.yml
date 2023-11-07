@@ -28,9 +28,16 @@ on:
       release_version:
         type: string
         required: true
+        description: the tag that will be used for the docker image
       docker_repository:
         type: string
         required: true
+        description: the name of the docker repository where the image will be put
+      release_latest:
+        type: boolean
+        required: false
+        default: true
+        description: whether the image should also be tagged with latest
     secrets:
       DOCKER_USER:
         required: true
@@ -73,9 +80,17 @@ jobs:
         username: ${{ secrets.DOCKER_USER }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Build and push Docker image
+    - name: Build and push Docker image with given tag
       uses: docker/build-push-action@v5
       with:
         context: ${{ github.workspace }}/${{ github.event.repository.name }}
         push: true
-        tags: riseclipse/${{ inputs.DOCKER_REPOSITORY }}:${{ inputs.release_version }},riseclipse/${{ inputs.DOCKER_REPOSITORY }}:latest
+        tags: riseclipse/${{ inputs.DOCKER_REPOSITORY }}:${{ inputs.release_version }}
+
+    - name: Build and push Docker image with latest tag
+      if: inputs.release_latest
+      uses: docker/build-push-action@v5
+      with:
+        context: ${{ github.workspace }}/${{ github.event.repository.name }}
+        push: true
+        tags: riseclipse/${{ inputs.DOCKER_REPOSITORY }}:latest
