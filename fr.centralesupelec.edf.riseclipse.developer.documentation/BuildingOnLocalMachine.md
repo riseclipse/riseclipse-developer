@@ -1,6 +1,38 @@
+----
+Copyright (c) 2023 CentraleSupélec & EDF.
+
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+https://www.eclipse.org/legal/epl-v20.html
+
+This file is part of the RiseClipse tool
+ 
+**Contributors:**
+ * Computer Science Department, CentraleSupélec
+ * EDF R&D
+
+**Contacts:**
+ * dominique.marcadet@centralesupelec.fr
+ * aurelie.dehouck-neveu@edf.fr
+
+**Web site:**
+ * https://riseclipse.github.io/
+----
+
+## Scenario
+
+This scenario corresponds to the introduction of new versions of the tools used. It shows how to build the SCL validator on a machine to test it before building and deploying this update on GitHub.
 
 
-- Install latest **Eclipse IDE for Java Developers**
+
+## Needed Tools
+
+- Install a JDK 17 or higher ([here for example](https://adoptium.net/))
+
+- Install [**Maven**](https://maven.apache.org)
+
+- Install latest [**Eclipse IDE for Java Developers**](https://eclipseide.org)
 
 - Install from the corresponding Eclipse update site:
     - **Eclipse Plug-in Development Environment**
@@ -8,11 +40,14 @@
     - **OCL Examples and Editors SDK**
 
 - Install the **CBI Target Platform Definition DSL** generator using the `https://download.eclipse.org/cbi/updates/tpd/nightly/latest` update site
-- Install the **CBI p2 Aggregator Tools** using the `https://download.eclipse.org/cbi/updates/p2-aggregator/tools/nightly`update site
+- Install the **CBI p2 Aggregator Tools** using the `https://download.eclipse.org/cbi/updates/p2-aggregator/tools/nightly` update site
+
+
+- clone projects 
 
 - Create a branch `develop` for project `riseclipse-developer`
 
-- Import `riseclipse-developper`
+- Import `riseclipse-developper` in the Eclipse workspace
 - Edit `riseclipse-developer/fr.centralesupelec.edf.riseclipse.developer.eclipse/fr.centralesupelec.edf.riseclipse.developer.eclipse.tpd` so that it points to the latest Eclipse release and the corresponding Orbit site
 - Generate the corresponding target file
 
@@ -28,7 +63,6 @@
         - Use the generated target file to update plugin versions
         
 
-- Java 17 or higher is needed for the build
 - Use a `~/.m2/toolchains.xml` file to specify which jdk to use for the build (see [https://maven.apache.org/guides/mini/guide-using-toolchains.html](https://maven.apache.org/guides/mini/guide-using-toolchains.html), version should be `17` and vendor `temur`)
 
 - In a Terminal, go to `riseclipse-developper` and run `mvn clean install`
