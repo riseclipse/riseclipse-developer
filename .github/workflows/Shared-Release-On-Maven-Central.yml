@@ -37,7 +37,8 @@ on:
 
 jobs:
   maven_release:
-    runs-on: ubuntu-latest
+    # Use a specific version to avoid unattended changes with latest
+    runs-on: ubuntu-22.04
     name: Release on OSSRH and Maven Central with Maven
 
     steps:
@@ -46,7 +47,7 @@ jobs:
 
     # Adapted from
     # https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#Publishing-using-Apache-Maven
-    - name: Setup Environment
+    - name: Setup Java
       uses: actions/setup-java@v3
       with:
         distribution: 'temurin'
@@ -57,6 +58,12 @@ jobs:
         server-password: MAVEN_PASSWORD
         gpg-private-key: ${{ secrets.RISECLIPSE_PGP_KEY_PRIVATE }}
         gpg-passphrase: MAVEN_GPG_PASSPHRASE
+
+    # Maven on ubuntu-22.04 is 3.8.8, Tycho wants at least 3.9
+    - name: Set up Maven
+      uses: stCarolas/setup-maven@v4.5
+      with:
+        maven-version: 3.9.5
 
     - name: Configure Git User
       run: |

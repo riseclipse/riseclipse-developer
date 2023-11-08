@@ -39,7 +39,8 @@ on:
 
 jobs:
   publish_dockerhub:
-    runs-on: ubuntu-latest
+    # Use a specific version to avoid unattended changes with latest
+    runs-on: ubuntu-22.04
 
     steps: 
     - name: Setup Environment

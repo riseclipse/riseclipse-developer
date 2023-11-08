@@ -31,7 +31,8 @@ on:
 
 jobs:
   pre-release:
-    runs-on: ubuntu-latest
+    # Use a specific version to avoid unattended changes with latest
+    runs-on: ubuntu-22.04
     name: Deploy pre-release
 
     steps:
