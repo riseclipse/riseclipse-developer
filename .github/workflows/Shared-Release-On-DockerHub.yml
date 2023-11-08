@@ -57,7 +57,7 @@ jobs:
 
     # NB: Needs to contain a Dockerfile at root of repository
     - name: Checkout ${{ github.event.repository.name }}
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
         path: ${{ github.event.repository.name }}
 

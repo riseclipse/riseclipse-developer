@@ -42,7 +42,7 @@ jobs:
 
     steps:
     - name: Checkout ${{ github.event.repository.name }}
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     # Adapted from
     # https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#Publishing-using-Apache-Maven
@@ -88,7 +88,7 @@ jobs:
         git push --tags
 
     - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v4
+      uses: peter-evans/create-pull-request@v5
       with:
         base: master
         branch: do_release

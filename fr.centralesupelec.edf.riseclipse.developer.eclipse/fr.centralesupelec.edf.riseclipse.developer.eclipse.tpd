@@ -1,14 +1,13 @@
 
 target "fr.centralesupelec.edf.riseclipse.developer.eclipse"
 
-environment JavaSE-11
+environment JavaSE-17
 
-location "http://download.eclipse.org/releases/2023-03" {
-    // package com.google.common.util.concurrent.internal is missing in com.google.guava version 31.1.0
-    com.google.guava [30.1.0,31.0.0)
+location "http://download.eclipse.org/releases/2023-09" {
+    com.google.guava
     com.google.inject
     javax.inject
-    org.antlr.runtime [3.2.0,3.2.1)
+    org.antlr.runtime
     org.aopalliance
     org.apache.log4j
     org.eclipse.core.contenttype
@@ -62,7 +61,7 @@ location "http://download.eclipse.org/releases/2023-03" {
     org.eclipse.xtext.util
 }
 
-location "https://download.eclipse.org/tools/orbit/downloads/drops/R20230302014618/repository" orbit-2023-03 {
+location "https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/release/4.29.0" orbit-2023-09 {
     org.apache.commons.cli
     org.apache.commons.lang3
 }

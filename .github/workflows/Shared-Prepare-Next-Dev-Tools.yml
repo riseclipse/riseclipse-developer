@@ -50,12 +50,12 @@ jobs:
 
     steps:
     - name: Checkout ${{ github.event.repository.name }}
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         path: ${{ github.event.repository.name }}
 
     - name: Checkout riseclipse-developper
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         repository: riseclipse/riseclipse-developer
         path: riseclipse-developer
@@ -152,7 +152,7 @@ jobs:
         git commit -m "[actions] prepare next development version ${{ github.event.repository.name }}-${{ steps.next_version.outputs.project_version }}"
 
     - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v4
+      uses: peter-evans/create-pull-request@v5
       with:
         base: master
         branch: do_release
