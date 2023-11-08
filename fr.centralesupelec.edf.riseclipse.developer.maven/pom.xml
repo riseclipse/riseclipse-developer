@@ -98,7 +98,7 @@
   </distributionManagement>  
 
   <properties>
-    <riseclipse-target-platform-version>1.2.9-SNAPSHOT</riseclipse-target-platform-version>
+    <riseclipse-target-platform-version>1.2.9</riseclipse-target-platform-version>
     
     <maven-group-id>org.apache.maven.plugins</maven-group-id>
     <maven-clean-plugin-version>3.3.2</maven-clean-plugin-version>
