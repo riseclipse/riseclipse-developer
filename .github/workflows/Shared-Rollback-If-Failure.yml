@@ -27,7 +27,8 @@ on: workflow_call
 
 jobs:
   rollback-if-failure:
-    runs-on: ubuntu-latest
+    # Use a specific version to avoid unattended changes with latest
+    runs-on: ubuntu-22.04
     name: Rollback if failure
 
     steps:

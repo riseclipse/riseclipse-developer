@@ -35,7 +35,8 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    # Use a specific version to avoid unattended changes with latest
+    runs-on: ubuntu-22.04
     name: Verify
 
     steps:
@@ -45,12 +46,18 @@ jobs:
         path: ${{ github.event.repository.name }}
         fetch-depth: 0
 
-    - name: Setup Environment
+    - name: Setup Java
       uses: actions/setup-java@v3
       with:
         distribution: 'temurin'
         java-version: '17'
         cache: 'maven'
+
+    # Maven on ubuntu-22.04 is 3.8.8, Tycho wants at least 3.9
+    - name: Set up Maven
+      uses: stCarolas/setup-maven@v4.5
+      with:
+        maven-version: 3.9.5
 
     - name: Execute verify (mvn verify)
       run: |
