@@ -57,7 +57,7 @@ jobs:
         cd artifacts
         FILENAME=$(basename */*.jar )
         VERSION=${FILENAME##*-}
-        VERSION=${version%.jar}
+        VERSION=${VERSION%.jar}
         echo "project_version=$VERSION" >> $GITHUB_OUTPUT
       id: get_version
 
