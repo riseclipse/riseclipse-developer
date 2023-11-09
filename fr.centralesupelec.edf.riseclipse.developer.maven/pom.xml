@@ -577,6 +577,8 @@
             <jgit.dirtyWorkingTree>ignore</jgit.dirtyWorkingTree>
             <!-- tycho-packaging:validate-version will fail during release otherwise -->
             <strictVersions>false</strictVersions>
+            <!-- See https://github.com/eclipse-tycho/tycho/discussions/3024 -->
+            <removeParent>false</removeParent>
           </configuration>
         </plugin>
 
@@ -592,16 +594,6 @@
               </goals>
             </execution>
           </executions>
-        </plugin>
-
-        <!-- See https://github.com/eclipse-tycho/tycho/discussions/3024 -->
-        <plugin>
-          <groupId>${tycho-group-id}</groupId>
-          <artifactId>tycho-packaging-plugin</artifactId>
-          <version>${tycho-version}</version>
-          <configuration>
-            <removeParent>false</removeParent>
-          </configuration>
         </plugin>
 
       </plugins>
