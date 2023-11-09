@@ -98,7 +98,7 @@
   </distributionManagement>  
 
   <properties>
-    <riseclipse-target-platform-version>1.2.9</riseclipse-target-platform-version>
+    <riseclipse-target-platform-version>1.2.10</riseclipse-target-platform-version>
     
     <maven-group-id>org.apache.maven.plugins</maven-group-id>
     <maven-clean-plugin-version>3.3.2</maven-clean-plugin-version>
@@ -592,6 +592,16 @@
               </goals>
             </execution>
           </executions>
+        </plugin>
+
+        <!-- See https://github.com/eclipse-tycho/tycho/discussions/3024 -->
+        <plugin>
+          <groupId>${tycho-group-id}</groupId>
+          <artifactId>tycho-packaging-plugin</artifactId>
+          <version>${tycho-version}</version>
+          <configuration>
+            <removeParent>false</removeParent>
+          </configuration>
         </plugin>
 
       </plugins>

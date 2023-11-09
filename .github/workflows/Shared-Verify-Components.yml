@@ -1,5 +1,5 @@
 # *************************************************************************
-# **  Copyright (c) 2022 CentraleSupélec & EDF.
+# **  Copyright (c) 2022-23 CentraleSupélec & EDF.
 # **  All rights reserved. This program and the accompanying materials
 # **  are made available under the terms of the Eclipse Public License v2.0
 # **  which accompanies this distribution, and is available at
@@ -69,7 +69,7 @@ jobs:
       run: |
         cd ${{ github.event.repository.name }}
         mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.organization=riseclipse \
-          -Dsonar.host.url=http://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+          -Dsonar.host.url=http://sonarcloud.io -Dsonar.token=${{ secrets.SONAR_TOKEN }} \
           -Dsonar.projectKey=riseclipse_${{ github.event.repository.name }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
