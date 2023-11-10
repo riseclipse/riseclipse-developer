@@ -469,7 +469,6 @@
           <!-- See https://central.sonatype.org/publish/publish-maven/ -->
           <configuration>
             <autoVersionSubmodules>true</autoVersionSubmodules>
-            <useReleaseProfile>false</useReleaseProfile>
             <releaseProfiles>release</releaseProfiles>
             <goals>deploy</goals>
           </configuration>
