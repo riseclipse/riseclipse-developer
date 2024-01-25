@@ -1,4 +1,12 @@
 
+# NSD validation process
+
+Version: 25 January 2024
+
+The code referred in this document is [here](https://github.com/riseclipse/riseclipse-validator-scl2003/tree/master/fr.centralesupelec.edf.riseclipse.iec61850.scl.validator/src/fr/centralesupelec/edf/riseclipse/iec61850/scl/validator/nsd)
+
+### Construction phase
+
 - **`RiseClipseValidatorSCL.prepare()`**
   - `nsdValidator = new NsdValidator()`
     - `for each nsdFile:`
@@ -14,7 +22,7 @@
     - _# There is only one map for all_ `TypeValidator`, _therefore_ `namespace` _is used in the key_
     - `TypeValidator.buildBasicTypeValidators(namespace)`
       - `for each basicType:`
-        - _get the (predefined)_ `basicTypeValidator` _using_ `basicTy
+        - _get the (predefined)_ `basicTypeValidator` _of_ `basicType`
         - _associate it to_ `(namespace, basicType)` _in_ `TypeValidatorMap`
     - `TypeValidator.builEnumerationdValidators(namespace)`
       - `for each enumeration:`
@@ -27,7 +35,7 @@
   - `for each namespace:`
     - _# There is only one map for all_ `CDCValidator`, _therefore_ `namespace` _is used in the key_
     - _# Because of parameterized CDC, the name of a CDC is not a key in a given namespace_
-    - _# So, the cdc is used, and the_ `CDCImpl` _class ensures uniqueness of of parameterized CDC_
+    - _# So, the cdc is used, and the_ `CDCImpl` _class ensures uniqueness of parameterized CDC_
     - `for each cdc:`
       - `new CDCValidator(namespace, cdc)`
       - _associate it to_ `(namespace, cdc)` _in_ `CDCValidatorMap`
@@ -71,8 +79,7 @@
     - _find the_ `CDCValidator` _of_ `(namespace, dataObject.cdc)` _(using_ `dependsOn` _links)_
     - _associate the found validator to_ `dataObject.name` _in_ `dataObjectValidatorMap`
 
-
-
+### Validation phase
 
 - **`NsdEObjectValidator.validate()`**
   - `for each anyLN:`
@@ -80,20 +87,24 @@
     - `lnClassValidator.validateLNodeType(anyLN.lNodeType)`
 
 - **`LNClassValidator.validateLNodeType(lNodeType)`**
-  - `for each DO of the LNodeType:`
-    - _if it has no namespace or if its namespace_ `dependsOn` _current_ `namespace:`
-      - _tell its presence to the_ `DataObjectPresenceConditionValidator`
-  - `DataObjectPresenceConditionValidator.validate()`
-  - `for each DO of the LNodeType:`
-    - _find_ `cdcValidator` _of_ `DO.name` _in_ `dataObjectValidatorMap`
-    - `cdcValidator.validateDOType(DO.type)`
+  - _# if the_ `lNodeType` _is in an unknown namespace, nothing is done_
+  - `if (lNodeType.namespace == null) or this.namespace.dependsOn(lNodeType.namespace)`:
+    - `for each DO of the LNodeType:`
+      - _# if the_ `DO` _is in an unknown namespace, it is ignored_
+      - `if (DO.namespace == null) or this.namespace.dependsOn(DO.namespace):`
+        - _tell its presence to the_ `DataObjectPresenceConditionValidator`
+    - `DataObjectPresenceConditionValidator.validate()`
+    - `for each DO of the LNodeType:`
+      - _find_ `cdcValidator` _of_ `DO.name` _in_ `dataObjectValidatorMap`
+      - `cdcValidator.validateDOType(DO.type)`
 
 - **`CDCValidator.validateDOType(doType)`**
   - `for each DA of doType:`
     - _tell its presence to the_ `DataAttributePresenceConditionValidator`
   - `DataAttributePresenceConditionValidator.validate()`
   - `for each SDO of doType:`
-    - _if it has no namespace or if its namespace_ `dependsOn` _current_ `namespace:`
+    - _# if the_ `SDO` _is in an unknown namespace, it is ignored_
+    - `if (SDO.namespace == null) or this.namespace.dependsOn(SDO.namespace):`
       - _tell its presence to the_ `SubDataObjectPresenceConditionValidator`
   - `SubDataObjectPresenceConditionValidator.validate()`
   - `for each DA of doType:`
