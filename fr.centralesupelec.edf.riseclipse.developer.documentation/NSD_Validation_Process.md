@@ -88,10 +88,12 @@ The code referred in this document is [here](https://github.com/riseclipse/risec
 
 - **`LNClassValidator.validateLNodeType(lNodeType)`**
   - _# if the_ `lNodeType` _is in an unknown namespace, nothing is done_
+  - _#❗️The_ `dependsOn` _direction needs to be validated_
   - `if (lNodeType.namespace == null) or this.namespace.dependsOn(lNodeType.namespace)`:
     - `for each DO of the LNodeType:`
       - _# if the_ `DO` _is in an unknown namespace, it is ignored_
-      - `if (DO.namespace == null) or this.namespace.dependsOn(DO.namespace):`
+      - _#❗️The_ `dependsOn` _direction needs to be validated_
+      - `if (DO.namespace == null) or this.namespace.namespace.dependsOn(DO.namespace):`
         - _tell its presence to the_ `DataObjectPresenceConditionValidator`
     - `DataObjectPresenceConditionValidator.validate()`
     - `for each DO of the LNodeType:`
@@ -104,6 +106,7 @@ The code referred in this document is [here](https://github.com/riseclipse/risec
   - `DataAttributePresenceConditionValidator.validate()`
   - `for each SDO of doType:`
     - _# if the_ `SDO` _is in an unknown namespace, it is ignored_
+    - _#❗️The_ `dependsOn` _direction needs to be validated_
     - `if (SDO.namespace == null) or this.namespace.dependsOn(SDO.namespace):`
       - _tell its presence to the_ `SubDataObjectPresenceConditionValidator`
   - `SubDataObjectPresenceConditionValidator.validate()`
