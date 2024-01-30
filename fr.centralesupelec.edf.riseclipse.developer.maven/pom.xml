@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
 *************************************************************************
-**  Copyright (c) 2016-2023 CentraleSupélec & EDF.
+**  Copyright (c) 2016-2024 CentraleSupélec & EDF.
 **  All rights reserved. This program and the accompanying materials
 **  are made available under the terms of the Eclipse Public License v2.0
 **  which accompanies this distribution, and is available at
@@ -98,7 +98,7 @@
   </distributionManagement>  
 
   <properties>
-    <riseclipse-target-platform-version>1.2.11-SNAPSHOT</riseclipse-target-platform-version>
+    <riseclipse-target-platform-version>1.2.11</riseclipse-target-platform-version>
     
     <maven-group-id>org.apache.maven.plugins</maven-group-id>
     <maven-clean-plugin-version>3.3.2</maven-clean-plugin-version>
