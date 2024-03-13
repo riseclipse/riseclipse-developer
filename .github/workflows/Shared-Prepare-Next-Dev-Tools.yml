@@ -72,7 +72,7 @@ jobs:
     # Maven on ubuntu-22.04 is 3.8.8, Tycho wants at least 3.9
     # 2024-01-30: setup-maven still at 4.5 with node16
     - name: Set up Maven
-      uses: stCarolas/setup-maven@v4.5
+      uses: stCarolas/setup-maven@v5
       with:
         maven-version: 3.9.6
 
