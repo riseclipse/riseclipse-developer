@@ -63,8 +63,8 @@
 
       <!-- create aggregated maven repository -->         
       <plugin>
-        <groupId>org.eclipse.tycho.extras</groupId>
-        <artifactId>tycho-eclipserun-plugin</artifactId>
+        <groupId>org.eclipse.tycho</groupId>
+        <artifactId>tycho-eclipse-plugin</artifactId>
         <version>${tycho-version}</version>
         <configuration>
           <work>${project.build.directory}/maven/tmp/cbi</work>
