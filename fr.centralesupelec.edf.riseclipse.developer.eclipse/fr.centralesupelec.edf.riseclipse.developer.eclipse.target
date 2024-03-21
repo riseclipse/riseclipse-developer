@@ -1,68 +1,68 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde?>
 <!-- generated with https://github.com/eclipse-cbi/targetplatform-dsl -->
-<target name="fr.centralesupelec.edf.riseclipse.developer.eclipse" sequenceNumber="1705492049">
+<target name="fr.centralesupelec.edf.riseclipse.developer.eclipse" sequenceNumber="1711027109">
   <locations>
     <location includeMode="slicer" includeAllPlatforms="false" includeSource="false" includeConfigurePhase="false" type="InstallableUnit">
-      <unit id="com.google.guava" version="32.1.3.jre"/>
+      <unit id="com.google.guava" version="33.0.0.jre"/>
       <unit id="com.google.inject" version="7.0.0"/>
-      <unit id="org.antlr.runtime" version="4.7.2.v20221112-0806"/>
+      <unit id="org.antlr.runtime" version="3.2.0.v20230929-1400"/>
       <unit id="org.aopalliance" version="1.0.0.v20230720-0728"/>
       <unit id="org.apache.log4j" version="1.2.24.v20221221-2012"/>
-      <unit id="org.eclipse.core.contenttype" version="3.9.200.v20230914-0751"/>
-      <unit id="org.eclipse.core.commands" version="3.11.200.v20231108-1058"/>
-      <unit id="org.eclipse.core.expressions" version="3.9.200.v20230921-0857"/>
-      <unit id="org.eclipse.core.filesystem" version="1.10.200.v20231102-0934"/>
-      <unit id="org.eclipse.core.jobs" version="3.15.100.v20230930-1207"/>
-      <unit id="org.eclipse.core.runtime" version="3.30.0.v20231102-0719"/>
-      <unit id="org.eclipse.core.resources" version="3.20.0.v20231102-0934"/>
-      <unit id="org.eclipse.core.variables" version="3.6.200.v20230914-0751"/>
-      <unit id="org.eclipse.debug.core" version="3.21.200.v20231021-1513"/>
+      <unit id="org.eclipse.core.contenttype" version="3.9.300.v20231218-0909"/>
+      <unit id="org.eclipse.core.commands" version="3.12.0.v20240214-1640"/>
+      <unit id="org.eclipse.core.expressions" version="3.9.300.v20240207-1044"/>
+      <unit id="org.eclipse.core.filesystem" version="1.10.300.v20240124-1325"/>
+      <unit id="org.eclipse.core.jobs" version="3.15.200.v20231214-1526"/>
+      <unit id="org.eclipse.core.runtime" version="3.31.0.v20240215-1631"/>
+      <unit id="org.eclipse.core.resources" version="3.20.100.v20240209-1706"/>
+      <unit id="org.eclipse.core.variables" version="3.6.300.v20231214-1012"/>
+      <unit id="org.eclipse.debug.core" version="3.21.300.v20240109-1022"/>
       <unit id="org.eclipse.emf.codegen" version="2.23.0.v20230211-1150"/>
-      <unit id="org.eclipse.emf.codegen.ecore" version="2.36.0.v20231002-1035"/>
-      <unit id="org.eclipse.emf.common" version="2.29.0.v20230916-0637"/>
-      <unit id="org.eclipse.emf.ecore" version="2.35.0.v20230829-0934"/>
-      <unit id="org.eclipse.emf.ecore.xmi" version="2.36.0.v20231002-1156"/>
-      <unit id="org.eclipse.emf.edit" version="2.20.0.v20231107-0612"/>
+      <unit id="org.eclipse.emf.codegen.ecore" version="2.37.0.v20240203-1010"/>
+      <unit id="org.eclipse.emf.common" version="2.30.0.v20231210-0956"/>
+      <unit id="org.eclipse.emf.ecore" version="2.36.0.v20240203-0859"/>
+      <unit id="org.eclipse.emf.ecore.xmi" version="2.37.0.v20231208-1346"/>
+      <unit id="org.eclipse.emf.edit" version="2.21.0.v20231208-1346"/>
       <unit id="org.eclipse.emf.mapping.ecore2xml" version="2.12.0.v20230211-1150"/>
-      <unit id="org.eclipse.equinox.app" version="1.6.400.v20231103-0807"/>
-      <unit id="org.eclipse.equinox.common" version="3.18.200.v20231106-1826"/>
-      <unit id="org.eclipse.equinox.preferences" version="3.10.400.v20231102-2218"/>
-      <unit id="org.eclipse.equinox.registry" version="3.11.400.v20231102-2218"/>
-      <unit id="org.eclipse.jdt.annotation" version="2.2.800.v20231029-1039"/>
-      <unit id="org.eclipse.jdt.core" version="3.36.0.v20231115-1055"/>
-      <unit id="org.eclipse.jdt.debug" version="3.21.200.v20231103-0755"/>
-      <unit id="org.eclipse.jdt.launching" version="3.21.0.v20231103-0759"/>
-      <unit id="org.eclipse.jface" version="3.32.0.v20231107-0834"/>
-      <unit id="org.eclipse.ocl.common" version="1.19.0.v20231129-1236"/>
-      <unit id="org.eclipse.ocl.pivot" version="1.19.0.v20231129-1236"/>
-      <unit id="org.eclipse.ocl.pivot.uml" version="1.19.0.v20231129-1236"/>
-      <unit id="org.eclipse.ocl.xtext.base" version="1.19.0.v20231129-1236"/>
-      <unit id="org.eclipse.ocl.xtext.completeocl" version="1.19.0.v20231129-1236"/>
-      <unit id="org.eclipse.ocl.xtext.essentialocl" version="1.19.0.v20231129-1236"/>
-      <unit id="org.eclipse.ocl.xtext.oclinecore" version="1.19.0.v20231129-1236"/>
-      <unit id="org.eclipse.ocl.xtext.oclstdlib" version="1.19.0.v20231129-1236"/>
-      <unit id="org.eclipse.osgi" version="3.18.600.v20231110-1900"/>
-      <unit id="org.eclipse.osgi.compatibility.state" version="1.2.900.v20231106-0859"/>
-      <unit id="org.eclipse.swt" version="3.124.200.v20231113-1355"/>
-      <unit id="org.eclipse.text" version="3.13.100.v20230801-1334"/>
+      <unit id="org.eclipse.equinox.app" version="1.7.0.v20240213-1427"/>
+      <unit id="org.eclipse.equinox.common" version="3.19.0.v20240214-0846"/>
+      <unit id="org.eclipse.equinox.preferences" version="3.11.0.v20240210-0844"/>
+      <unit id="org.eclipse.equinox.registry" version="3.12.0.v20240213-1057"/>
+      <unit id="org.eclipse.jdt.annotation" version="2.3.0.v20240111-2306"/>
+      <unit id="org.eclipse.jdt.core" version="3.37.0.v20240215-1452"/>
+      <unit id="org.eclipse.jdt.debug" version="3.21.300.v20240124-0949"/>
+      <unit id="org.eclipse.jdt.launching" version="3.21.100.v20240214-1729"/>
+      <unit id="org.eclipse.jface" version="3.33.0.v20240214-1640"/>
+      <unit id="org.eclipse.ocl.common" version="1.20.0.v20240305-1416"/>
+      <unit id="org.eclipse.ocl.pivot" version="1.20.0.v20240305-1416"/>
+      <unit id="org.eclipse.ocl.pivot.uml" version="1.20.0.v20240305-1416"/>
+      <unit id="org.eclipse.ocl.xtext.base" version="1.20.0.v20240305-1416"/>
+      <unit id="org.eclipse.ocl.xtext.completeocl" version="1.20.0.v20240305-1416"/>
+      <unit id="org.eclipse.ocl.xtext.essentialocl" version="1.20.0.v20240305-1416"/>
+      <unit id="org.eclipse.ocl.xtext.oclinecore" version="1.20.0.v20240305-1416"/>
+      <unit id="org.eclipse.ocl.xtext.oclstdlib" version="1.20.0.v20240305-1416"/>
+      <unit id="org.eclipse.osgi" version="3.19.0.v20240213-1246"/>
+      <unit id="org.eclipse.osgi.compatibility.state" version="1.2.1000.v20240213-1057"/>
+      <unit id="org.eclipse.swt" version="3.125.0.v20240227-1638"/>
+      <unit id="org.eclipse.text" version="3.14.0.v20240207-1054"/>
       <unit id="org.eclipse.uml2.codegen.ecore" version="2.5.2.v20221116-1811"/>
       <unit id="org.eclipse.uml2.common" version="2.5.0.v20221116-1811"/>
       <unit id="org.eclipse.uml2.uml" version="5.5.0.v20221116-1811"/>
       <unit id="org.eclipse.uml2.uml.profile.standard" version="1.5.0.v20221116-1811"/>
       <unit id="org.eclipse.uml2.uml.resources" version="5.5.0.v20221116-1811"/>
       <unit id="org.eclipse.uml2.types" version="2.5.0.v20221116-1811"/>
-      <unit id="org.eclipse.xtend.lib" version="2.33.0.v20231121-0955"/>
-      <unit id="org.eclipse.xtend.lib.macro" version="2.33.0.v20231121-0955"/>
-      <unit id="org.eclipse.xtext" version="2.33.0.v20231121-0955"/>
-      <unit id="org.eclipse.xtext.xbase.lib" version="2.33.0.v20231121-0955"/>
-      <unit id="org.eclipse.xtext.util" version="2.33.0.v20231121-0955"/>
-      <repository location="http://download.eclipse.org/releases/2023-12"/>
+      <unit id="org.eclipse.xtend.lib" version="2.34.0.v20240227-0940"/>
+      <unit id="org.eclipse.xtend.lib.macro" version="2.34.0.v20240227-0940"/>
+      <unit id="org.eclipse.xtext" version="2.34.0.v20240227-0940"/>
+      <unit id="org.eclipse.xtext.xbase.lib" version="2.34.0.v20240227-0940"/>
+      <unit id="org.eclipse.xtext.util" version="2.34.0.v20240227-0940"/>
+      <repository id="eclipse-2024-03" location="http://download.eclipse.org/releases/2024-03"/>
     </location>
     <location includeMode="slicer" includeAllPlatforms="false" includeSource="false" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.apache.commons.cli" version="1.6.0"/>
-      <unit id="org.apache.commons.lang3" version="3.13.0"/>
-      <repository id="orbit-2023-12" location="https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/release/4.30.0"/>
+      <unit id="org.apache.commons.lang3" version="3.14.0"/>
+      <repository id="orbit-2024-03" location="https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/release/4.31.0"/>
     </location>
   </locations>
   <targetJRE path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-17"/>
