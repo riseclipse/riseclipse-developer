@@ -3,12 +3,12 @@ target "fr.centralesupelec.edf.riseclipse.developer.eclipse"
 
 environment JavaSE-17
 
-location "http://download.eclipse.org/releases/2023-12" {
+location "http://download.eclipse.org/releases/2024-03" eclipse-2024-03 {
     com.google.guava
     com.google.inject
-    org.antlr.runtime
+    org.antlr.runtime [3.2.0,3.2.1)
     org.aopalliance
-    org.apache.log4j
+    org.apache.log4j [1.2.24,1.2.25)
     org.eclipse.core.contenttype
     org.eclipse.core.commands
     org.eclipse.core.expressions
@@ -59,7 +59,7 @@ location "http://download.eclipse.org/releases/2023-12" {
     org.eclipse.xtext.util
 }
 
-location "https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/release/4.30.0" orbit-2023-12 {
+location "https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/release/4.31.0" orbit-2024-03 {
     org.apache.commons.cli
     org.apache.commons.lang3
 }
