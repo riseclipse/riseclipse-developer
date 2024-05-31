@@ -184,12 +184,6 @@
       </dependency>
     
       <dependency>
-        <groupId>javax.inject</groupId>
-        <artifactId>javax.inject</artifactId>
-        <version>${javax-inject-version}</version>
-      </dependency>
-    
-      <dependency>
         <groupId>org.antlr.runtime</groupId>
         <artifactId>org.antlr.runtime</artifactId>
         <version>${org-antlr-runtime-version}</version>
