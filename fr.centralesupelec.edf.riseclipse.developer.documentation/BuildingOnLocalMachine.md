@@ -1,5 +1,5 @@
 ----
-Copyright (c) 2023 CentraleSupélec & EDF.
+Copyright (c) 2023-24 CentraleSupélec & EDF.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
@@ -40,7 +40,7 @@ This scenario corresponds to the introduction of new versions of the tools used 
     - **OCL Examples and Editors SDK**
 
 - Install the **CBI Target Platform Definition DSL** generator using the `https://download.eclipse.org/cbi/updates/tpd/nightly/latest` update site
-- Install the **CBI p2 Aggregator Tools** using the `https://download.eclipse.org/cbi/updates/p2-aggregator/tools/nightly` update site
+- Install the **CBI Aggregator Editor** using the `https://download.eclipse.org/cbi/updates/p2-aggregator/tools/nightly` update site
 
 
 ## Process
