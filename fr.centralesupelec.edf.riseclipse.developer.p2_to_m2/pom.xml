@@ -70,15 +70,19 @@
           <work>${project.build.directory}/maven/tmp/cbi</work>
           <repositories>
             <repository>
-              <!-- This is the platform used to run the aggregator, not the one where artifacts are fetched -->
               <id>Eclipse platform</id>
               <layout>p2</layout>
-              <url>http://download.eclipse.org/releases/2020-06/</url>
+              <url>http://download.eclipse.org/releases/2024-12</url>
             </repository>
             <repository>
-              <id>CBI aggregator</id>
+              <id>CBI Aggregator Products</id>
               <layout>p2</layout>
-              <url>https://download.eclipse.org/cbi/updates/aggregator/headless/4.13/I20200825-1209</url>
+              <url>https://download.eclipse.org/cbi/updates/p2-aggregator/products/nightly/N202410041026</url>
+            </repository>
+            <repository>
+              <id>CBI Aggregator Tools</id>
+              <layout>p2</layout>
+              <url>https://download.eclipse.org/cbi/updates/p2-aggregator/tools/nightly/N202410041026</url>
             </repository>
           </repositories>
 
@@ -86,8 +90,17 @@
           <appArgLine>-data ${project.build.directory}/maven/tmp/workspace -application org.eclipse.cbi.p2repo.cli.headless aggregate --buildRoot target/maven/repository --buildModel src/main/resources/riseclipse.aggr --action BUILD</appArgLine>
 
           <dependencies>
+            <!-- not sure all of them are needed, but it works with them -->
             <dependency>
-              <artifactId>org.eclipse.equinox.p2.sdk</artifactId>
+              <artifactId>org.eclipse.cbi.p2repo.aggregator.analyzer.editor.feature</artifactId>
+              <type>eclipse-feature</type>
+            </dependency>   
+            <dependency>
+              <artifactId>org.eclipse.cbi.p2repo.aggregator.dependencies.feature</artifactId>
+              <type>eclipse-feature</type>
+            </dependency>   
+            <dependency>
+              <artifactId>org.eclipse.cbi.p2repo.aggregator.editor.feature</artifactId>
               <type>eclipse-feature</type>
             </dependency>   
             <dependency>
@@ -95,7 +108,7 @@
               <type>eclipse-feature</type>
             </dependency>   
             <dependency>
-              <artifactId>org.eclipse.cbi.p2repo.p2.maven.indexer.feature</artifactId>
+              <artifactId>org.eclipse.cbi.p2repo.cli.product.feature</artifactId>
               <type>eclipse-feature</type>
             </dependency>   
           </dependencies>
