@@ -83,6 +83,11 @@
       <url>http://download.eclipse.org/releases/2024-12</url>
       <layout>p2</layout>
     </repository>
+    <repository>
+      <id>license-feature</id>
+      <url>http://download.eclipse.org/cbi/updates/license/</url>
+      <layout>p2</layout>
+    </repository>
   </repositories>
   
   <!-- See https://central.sonatype.org/publish/publish-maven/ -->
@@ -548,11 +553,11 @@
                 <ws>cocoa</ws>
                 <arch>x86_64</arch>
               </environment>
-              <!--environment>
+              <environment>
                 <os>macosx</os>
                 <ws>cocoa</ws>
                 <arch>aarch64</arch>
-              </environment-->
+              </environment>
             </environments>
           </configuration>
         </plugin>
