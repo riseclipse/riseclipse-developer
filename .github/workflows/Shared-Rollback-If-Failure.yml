@@ -47,7 +47,8 @@ jobs:
         type: "prerelease"
 
     - name: Delete pre-release and tag
-      uses: dev-drprasad/delete-tag-and-release@v0.2.1
+      # action no more maintained, should use gh release delete
+      uses: dev-drprasad/delete-tag-and-release@v1.1
       with:
         delete_release: true
         tag_name: ${{ steps.release-tag.outputs.release }}

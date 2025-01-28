@@ -62,11 +62,11 @@ jobs:
         path: riseclipse-developer
         ref: master
 
-    - name: Setup Java 17
+    - name: Setup Java
       uses: actions/setup-java@v4
       with:
         distribution: 'temurin'
-        java-version: '17'
+        java-version: '21'
         cache: 'maven'
         
     # Maven on ubuntu-22.04 is 3.8.8, Tycho wants at least 3.9
@@ -74,7 +74,7 @@ jobs:
     - name: Set up Maven
       uses: stCarolas/setup-maven@v5
       with:
-        maven-version: 3.9.6
+        maven-version: 3.9.9
 
     - name: Install P2_to_M2
       run: |
@@ -160,7 +160,7 @@ jobs:
         git commit -m "[actions] prepare next development version ${{ github.event.repository.name }}-${{ steps.next_version.outputs.project_version }}"
 
     - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v5
+      uses: peter-evans/create-pull-request@v7
       with:
         base: master
         branch: do_release
