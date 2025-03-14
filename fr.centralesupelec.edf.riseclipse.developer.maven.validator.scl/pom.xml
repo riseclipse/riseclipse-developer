@@ -42,9 +42,10 @@
   <modules>
     <module>../../riseclipse-developer</module>
     <module>../../riseclipse-main</module>
+    <module>../../riseclipse-validator-ocl</module>
+    <module>../../riseclipse-editor</module>
     <module>../../riseclipse-metamodel-scl2003</module>
     <module>../../riseclipse-metamodel-nsd2016</module>
-    <module>../../riseclipse-validator-ocl</module>
     <module>../../riseclipse-validator-scl2003</module>
     <module>../../riseclipse-distribution</module>
   </modules>
