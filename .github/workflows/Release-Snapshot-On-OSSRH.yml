@@ -20,7 +20,9 @@
 name: Release snapshots on OSSRH
 
 on:
-  workflow_dispatch: # Triggered manually for Release
+  push:
+    branches:
+      - 'develop'
 
 jobs:
   call-release-snapshot-on-ossrh-workflow:
