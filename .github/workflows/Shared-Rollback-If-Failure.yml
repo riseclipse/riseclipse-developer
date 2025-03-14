@@ -1,5 +1,5 @@
 # *************************************************************************
-# **  Copyright (c) 2022-23 CentraleSupélec & EDF.
+# **  Copyright (c) 2022-25 CentraleSupélec & EDF.
 # **  All rights reserved. This program and the accompanying materials
 # **  are made available under the terms of the Eclipse Public License v2.0
 # **  which accompanies this distribution, and is available at
@@ -28,7 +28,7 @@ on: workflow_call
 jobs:
   rollback-if-failure:
     # Use a specific version to avoid unattended changes with latest
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     name: Rollback if failure
 
     steps:
@@ -47,10 +47,5 @@ jobs:
         type: "prerelease"
 
     - name: Delete pre-release and tag
-      # action no more maintained, should use gh release delete
-      uses: dev-drprasad/delete-tag-and-release@v1.1
-      with:
-        delete_release: true
-        tag_name: ${{ steps.release-tag.outputs.release }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        gh release delete --yes --cleanup-tag ${{ steps.release-tag.outputs.release }}

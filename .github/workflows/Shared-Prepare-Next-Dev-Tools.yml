@@ -1,5 +1,5 @@
 # *************************************************************************
-# **  Copyright (c) 2022-24 CentraleSupélec & EDF.
+# **  Copyright (c) 2022-25 CentraleSupélec & EDF.
 # **  All rights reserved. This program and the accompanying materials
 # **  are made available under the terms of the Eclipse Public License v2.0
 # **  which accompanies this distribution, and is available at
@@ -44,7 +44,7 @@ on:
 jobs:
   prepare_next_dev:
     # Use a specific version to avoid unattended changes with latest
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     name: Prepare for next developpement version
     outputs:
       release_version: ${{ steps.get_version.outputs.project_version }}
@@ -69,13 +69,6 @@ jobs:
         java-version: '21'
         cache: 'maven'
         
-    # Maven on ubuntu-22.04 is 3.8.8, Tycho wants at least 3.9
-    # 2024-01-30: setup-maven still at 4.5 with node16
-    - name: Set up Maven
-      uses: stCarolas/setup-maven@v5
-      with:
-        maven-version: 3.9.9
-
     - name: Install P2_to_M2
       run: |
         cd riseclipse-developer/fr.centralesupelec.edf.riseclipse.developer.p2_to_m2
