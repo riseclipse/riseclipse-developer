@@ -33,6 +33,10 @@ on:
     secrets:
       SONAR_TOKEN:
         required: false
+      RISECLIPSE_OSSRH_USERNAME:
+        required: true
+      RISECLIPSE_OSSRH_PASSWORD:
+        required: true
 
 jobs:
   build:
@@ -47,12 +51,17 @@ jobs:
         path: ${{ github.event.repository.name }}
         fetch-depth: 0
 
+    # Adapted from
+    # https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#Publishing-using-Apache-Maven
     - name: Setup Java
       uses: actions/setup-java@v4
       with:
         distribution: 'temurin'
         java-version: '21'
         cache: 'maven'
+        server-id: ossrh # Value of the distributionManagement/repository/id field of the pom.xml
+        server-username: MAVEN_USERNAME
+        server-password: MAVEN_PASSWORD
 
     - name: Execute verify (mvn verify)
       run: |
