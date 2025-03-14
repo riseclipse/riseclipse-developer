@@ -81,4 +81,7 @@ jobs:
     - name: Execute deploy
       run: |
         cd ${{ github.event.repository.name }}
-        mvn deploy -Pdeploy-snapshots
+        mvn --batch-mode deploy -Pdeploy-snapshots
+      env:
+        MAVEN_USERNAME:       ${{ secrets.RISECLIPSE_OSSRH_USERNAME }}
+        MAVEN_PASSWORD:       ${{ secrets.RISECLIPSE_OSSRH_PASSWORD }}
