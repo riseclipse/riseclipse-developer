@@ -51,17 +51,11 @@ jobs:
         path: ${{ github.event.repository.name }}
         fetch-depth: 0
 
-    # Adapted from
-    # https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#Publishing-using-Apache-Maven
     - name: Setup Java
       uses: actions/setup-java@v4
       with:
         distribution: 'temurin'
         java-version: '21'
-        cache: 'maven'
-        server-id: ossrh # Value of the distributionManagement/repository/id field of the pom.xml
-        server-username: MAVEN_USERNAME
-        server-password: MAVEN_PASSWORD
 
     - name: Execute verify (mvn verify)
       run: |
@@ -78,10 +72,19 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: Setup Maven
+      uses: s4u/maven-settings-action@v3.1.0
+      with:
+        sonatypeSnapshots: true
+        servers: |
+          [{
+              "id": "sonatype-nexus-snapshots",
+              "username": "${{ secrets.RISECLIPSE_OSSRH_USERNAME }}",
+              "password": "${{ secrets.RISECLIPSE_OSSRH_PASSWORD }}"
+          }]
+
     - name: Execute deploy
       run: |
+        cat ~/.m2/settings.xml
         cd ${{ github.event.repository.name }}
         mvn --batch-mode deploy -Pdeploy-snapshots
-      env:
-        MAVEN_USERNAME:       ${{ secrets.RISECLIPSE_OSSRH_USERNAME }}
-        MAVEN_PASSWORD:       ${{ secrets.RISECLIPSE_OSSRH_PASSWORD }}
