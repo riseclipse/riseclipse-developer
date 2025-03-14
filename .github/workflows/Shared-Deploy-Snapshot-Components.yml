@@ -1,0 +1,75 @@
+# *************************************************************************
+# **  Copyright (c) 2025 CentraleSupélec & EDF.
+# **  All rights reserved. This program and the accompanying materials
+# **  are made available under the terms of the Eclipse Public License v2.0
+# **  which accompanies this distribution, and is available at
+# **  https://www.eclipse.org/legal/epl-v20.html
+# ** 
+# **  This file is part of the RiseClipse tool
+# **  
+# **  Contributors:
+# **      Computer Science Department, CentraleSupélec
+# **      EDF R&D
+# **  Contacts:
+# **      dominique.marcadet@centralesupelec.fr
+# **      aurelie.dehouck-neveu@edf.fr
+# **  Web site:
+# **      https://riseclipse.github.io
+# *************************************************************************
+
+name: Deploy snapshot components
+
+# This CI workflow builds the components or the tool of any RiseClipse component repository,
+# runs Sonar + Unit tests, and performs a snapshot deployment on OSSRH Nexus repository
+# It is called by the main workflow of the repository
+
+on:
+  workflow_call:
+    inputs:
+      run_sonarqube:
+        type: boolean
+        required: false
+        default: true
+    secrets:
+      SONAR_TOKEN:
+        required: false
+
+jobs:
+  build:
+    # Use a specific version to avoid unattended changes with latest
+    runs-on: ubuntu-24.04
+    name: Verify
+
+    steps:
+    - name: Checkout ${{ github.event.repository.name }}
+      uses: actions/checkout@v4
+      with:
+        path: ${{ github.event.repository.name }}
+        fetch-depth: 0
+
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+        cache: 'maven'
+
+    - name: Execute verify (mvn verify)
+      run: |
+        cd ${{ github.event.repository.name }}
+        mvn verify
+
+    - name: Run analysis with Sonarqube
+      if: inputs.run_sonarqube
+      run: |
+        cd ${{ github.event.repository.name }}
+        mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.organization=riseclipse \
+          -Dsonar.host.url=http://sonarcloud.io -Dsonar.token=${{ secrets.SONAR_TOKEN }} \
+          -Dsonar.projectKey=riseclipse_${{ github.event.repository.name }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Execute deploy
+      run: |
+        cd ${{ github.event.repository.name }}
+        mvn deploy -Pdeploy-snapshots
