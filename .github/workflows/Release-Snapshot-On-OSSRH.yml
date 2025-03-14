@@ -21,6 +21,7 @@ name: Release snapshots on OSSRH
 
 on:
   workflow_dispatch: # Triggered manually for Release
+  pull_request:      # needed to run it once
 
 jobs:
   call-release-snapshot-on-ossrh-workflow:
