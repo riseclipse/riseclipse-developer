@@ -78,7 +78,7 @@ jobs:
         sonatypeSnapshots: true
         servers: |
           [{
-              "id": "sonatype-nexus-snapshots",
+              "id": "ossrh",
               "username": "${{ secrets.RISECLIPSE_OSSRH_USERNAME }}",
               "password": "${{ secrets.RISECLIPSE_OSSRH_PASSWORD }}"
           }]
