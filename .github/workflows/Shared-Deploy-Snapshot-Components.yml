@@ -85,6 +85,5 @@ jobs:
 
     - name: Execute deploy
       run: |
-        cat ~/.m2/settings.xml
         cd ${{ github.event.repository.name }}
         mvn --batch-mode deploy -Pdeploy-snapshots
