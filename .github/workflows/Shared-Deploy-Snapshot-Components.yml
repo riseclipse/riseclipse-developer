@@ -19,9 +19,8 @@
 
 name: Deploy snapshot components
 
-# This CI workflow builds the components or the tool of any RiseClipse component repository,
+# This CI workflow builds the components of any RiseClipse component repository,
 # runs Sonar + Unit tests, and performs a snapshot deployment on OSSRH Nexus repository
-# It is called by the main workflow of the repository
 
 on:
   workflow_call:
@@ -61,6 +60,7 @@ jobs:
       uses: s4u/maven-settings-action@v3.1.0
       with:
         sonatypeSnapshots: true
+        githubServer: false
         servers: |
           [{
               "id": "ossrh",
