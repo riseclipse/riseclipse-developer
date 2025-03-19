@@ -168,5 +168,5 @@ jobs:
         # Required sender full name (address can be skipped):
         from: riseclipse@gmail.com
         # Optional plain body:
-        body: The new version is available at https://${{ secrets.RISECLIPSE_WEB_HOSTNAME }}/front_v2/develop/${{ steps.artifacts_metadata.outputs.artifact_path }}
+        body: The new version is available at https://rise-clipse.pam-retd.fr/front_v2/develop/${{ steps.artifacts_metadata.outputs.artifact_path }}
 
