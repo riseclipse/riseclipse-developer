@@ -53,9 +53,9 @@ on:
         required: true
       RISECLIPSE_WEB_PASSPHRASE:
         required: true
-      GMAIL_USERNAME:
+      MAIL_USERNAME:
         required: false
-      GMAIL_PASSWORD:
+      MAIL_PASSWORD:
         required: false
 
 jobs:
@@ -154,9 +154,9 @@ jobs:
         # Optional whether this connection use TLS (default is true if server_port is 465)
         secure: true
         # Optional (recommended) mail server username:
-        username: ${{ secrets.GMAIL_USERNAME }}
+        username: ${{ secrets.MAIL_USERNAME }}
         # Optional (recommended) mail server password:
-        password: ${{ secrets.GMAIL_PASSWORD }}
+        password: ${{ secrets.MAIL_PASSWORD }}
         # Required mail subject:
         subject: New development version of ${{ inputs.tool_name }}
         # Required recipients' addresses:
@@ -164,5 +164,5 @@ jobs:
         # Required sender full name (address can be skipped):
         from: riseclipse@gmail.com
         # Optional plain body:
-        body: The new version is available at https://rise-clipse.pam-retd.fr/front_v2/develop/${{ steps.artifacts_metadata.outputs.artifact_path }}
+        body: The new version is available at https://${{ secrets.RISECLIPSE_WEB_HOSTNAME }}/front_v2/develop/${{ steps.artifacts_metadata.outputs.artifact_path }}
 
