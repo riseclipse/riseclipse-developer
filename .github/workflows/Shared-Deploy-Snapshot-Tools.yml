@@ -45,6 +45,10 @@ on:
     secrets:
       SONAR_TOKEN:
         required: false
+      RISECLIPSE_OSSRH_USERNAME:
+        required: true
+      RISECLIPSE_OSSRH_PASSWORD:
+        required: true
       RISECLIPSE_WEB_HOSTNAME:
         required: true
       RISECLIPSE_WEB_USERNAME:
@@ -77,6 +81,10 @@ jobs:
         distribution: "temurin"
         java-version: "21"
 
+    - name: debug 1
+      run: |
+        cat ~/.m2/settings.xml
+
     - name: Setup Maven
       uses: s4u/maven-settings-action@v3.1.0
       with:
@@ -89,14 +97,18 @@ jobs:
               "password": "${{ secrets.RISECLIPSE_OSSRH_PASSWORD }}"
           }]
 
-    - name: Run analysis with Sonarqube
+    - name: debug 2
       run: |
-        cd ${{ github.event.repository.name }}
-        mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.organization=riseclipse \
-          -Dsonar.host.url=http://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
-          -Dsonar.projectKey=riseclipse_${{ github.event.repository.name }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        cat ~/.m2/settings.xml
+
+#     - name: Run analysis with Sonarqube
+#       run: |
+#         cd ${{ github.event.repository.name }}
+#         mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.organization=riseclipse \
+#           -Dsonar.host.url=http://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+#           -Dsonar.projectKey=riseclipse_${{ github.event.repository.name }}
+#       env:
+#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Checkout riseclipse-developper
       uses: actions/checkout@v4
