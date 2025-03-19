@@ -134,6 +134,7 @@ jobs:
         PROJECT_VERSION="${{ steps.get_version.outputs.project_version }}"
         ARTIFACT_NAME="${TOOL_NAME}-${PROJECT_VERSION}.jar"
         ARTIFACT_PATH="$(find ${{ github.event.repository.name }} -name ${ARTIFACT_NAME})"
+        echo "artifact_name=${ARTIFACT_NAME}" >> $GITHUB_OUTPUT
         echo "artifact_path=${ARTIFACT_PATH}" >> $GITHUB_OUTPUT
       id: artifacts_metadata
 
@@ -168,5 +169,5 @@ jobs:
         # Required sender full name (address can be skipped):
         from: riseclipse@gmail.com
         # Optional plain body:
-        body: The new version is available at https://rise-clipse.pam-retd.fr/front_v2/develop/${{ steps.artifacts_metadata.outputs.artifact_path }}
+        body: The new version is available at https://rise-clipse.pam-retd.fr/front_v2/develop/${{ steps.artifacts_metadata.outputs.artifact_name }}
 
