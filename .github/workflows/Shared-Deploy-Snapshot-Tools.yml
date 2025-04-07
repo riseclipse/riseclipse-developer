@@ -75,6 +75,11 @@ jobs:
         path: ${{ github.event.repository.name }}
         fetch-depth: 0
 
+    - name: display checkout version
+      run: |
+        cd ${{ github.event.repository.name }}
+        grep --include "*.java" -r TOOL_VERSION .
+
     - name: Setup Java
       uses: actions/setup-java@v4
       with:
