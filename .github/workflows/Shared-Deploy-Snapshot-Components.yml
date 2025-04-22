@@ -68,6 +68,18 @@ jobs:
               "password": "${{ secrets.RISECLIPSE_CENTRAL_PASSWORD }}"
           }]
 
+    - name: Checkout riseclipse-developper
+      uses: actions/checkout@v4
+      with:
+        repository: riseclipse/riseclipse-developer
+        path: riseclipse-developer
+        ref: develop
+
+    - name: Install root pom of develop branch
+      run: |
+        cd riseclipse-developer
+        mvn install
+
     - name: Execute verify (mvn verify)
       run: |
         cd ${{ github.event.repository.name }}
