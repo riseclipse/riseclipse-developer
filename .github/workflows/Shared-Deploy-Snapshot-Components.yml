@@ -41,7 +41,7 @@ jobs:
   build:
     # Use a specific version to avoid unattended changes with latest
     runs-on: ubuntu-24.04
-    name: Verify
+    name: Deploy snapshot component
 
     steps:
     - name: Checkout ${{ github.event.repository.name }}
