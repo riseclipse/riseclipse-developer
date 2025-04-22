@@ -71,7 +71,7 @@ jobs:
     - name: Execute verify (mvn verify)
       run: |
         cd ${{ github.event.repository.name }}
-        mvn verify
+        mvn --batch-mode verify -Pdeploy-snapshots
 
     - name: Run analysis with Sonarqube
       if: inputs.run_sonarqube
