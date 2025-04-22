@@ -76,7 +76,6 @@
     </developer>
   </developers>
 
-  <!-- Usage of <repositories> is discouraged, but this is needed for tycho -->
   <repositories>
     <repository>
       <id>eclipse-2024-12</id>
@@ -90,18 +89,6 @@
     </repository>
   </repositories>
   
-  <!-- See https://central.sonatype.org/publish/publish-maven/ -->
-  <distributionManagement>
-    <snapshotRepository>
-      <id>ossrh</id>
-      <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
-    <repository>
-      <id>ossrh</id>
-      <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-    </repository>
-  </distributionManagement>  
-
   <properties>
     <riseclipse-target-platform-version>1.2.13-SNAPSHOT</riseclipse-target-platform-version>
     
@@ -606,6 +593,19 @@
     </pluginManagement>
     
     <plugins>
+          
+      <!-- See https://central.sonatype.org/publish/publish-portal-maven/ -->
+      <plugin>
+        <groupId>org.sonatype.central</groupId>
+        <artifactId>central-publishing-maven-plugin</artifactId>
+        <version>0.7.0</version>
+        <extensions>true</extensions>
+        <configuration>
+          <publishingServerId>central</publishingServerId>
+          <autoPublish>true</autoPublish>
+          <waitUntil>published</waitUntil>
+        </configuration>
+      </plugin>
 
       <plugin>
         <!-- Maven don't have access to GITHUB_TOKEN to allow git commands in GitHub actions -->
@@ -797,22 +797,22 @@
 
     <profile>
       <id>deploy-snapshots</id>
+      <!-- Deployment to the right repository now done with central-publishing-maven-plugin -->
       
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>${sonatype-group-id}</groupId>
-            <artifactId>nexus-staging-maven-plugin</artifactId>
-            <version>${nexus-staging-maven-version}</version>
-            <extensions>true</extensions>
-            <configuration>
-              <serverId>ossrh</serverId>
-              <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-              <autoReleaseAfterClose>true</autoReleaseAfterClose>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
+      <!-- To consume snapshots on maven central, see https://central.sonatype.org/publish/publish-portal-snapshots -->
+      <repositories>
+        <repository>
+          <name>Central Portal Snapshots</name>
+          <id>central-portal-snapshots</id>
+          <url>https://central.sonatype.com/repository/maven-snapshots/</url>
+          <releases>
+            <enabled>false</enabled>
+          </releases>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+        </repository>
+      </repositories>
     </profile>
     
   </profiles>

@@ -20,7 +20,7 @@
 name: Deploy snapshot components
 
 # This CI workflow builds the components of any RiseClipse component repository,
-# runs Sonar + Unit tests, and performs a snapshot deployment on OSSRH Nexus repository
+# runs Sonar + Unit tests, and performs a snapshot deployment on Maven Central repository
 
 on:
   workflow_call:
@@ -32,9 +32,9 @@ on:
     secrets:
       SONAR_TOKEN:
         required: false
-      RISECLIPSE_OSSRH_USERNAME:
+      RISECLIPSE_CENTRAL_USERNAME:
         required: true
-      RISECLIPSE_OSSRH_PASSWORD:
+      RISECLIPSE_CENTRAL_PASSWORD:
         required: true
 
 jobs:
@@ -63,9 +63,9 @@ jobs:
         githubServer: false
         servers: |
           [{
-              "id": "ossrh",
-              "username": "${{ secrets.RISECLIPSE_OSSRH_USERNAME }}",
-              "password": "${{ secrets.RISECLIPSE_OSSRH_PASSWORD }}"
+              "id": "central",
+              "username": "${{ secrets.RISECLIPSE_CENTRAL_USERNAME }}",
+              "password": "${{ secrets.RISECLIPSE_CENTRAL_PASSWORD }}"
           }]
 
     - name: Execute verify (mvn verify)
