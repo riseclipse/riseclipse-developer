@@ -78,7 +78,7 @@ jobs:
     - name: Install root pom of develop branch
       run: |
         cd riseclipse-developer
-        mvn install
+        mvn --batch-mode install
 
     - name: Execute verify (mvn verify)
       run: |
