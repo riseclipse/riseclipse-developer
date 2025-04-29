@@ -1,5 +1,5 @@
 ----
-Copyright (c) 2023 CentraleSupélec & EDF.
+Copyright (c) 2023-2025 CentraleSupélec & EDF.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
@@ -43,13 +43,7 @@ This scenario corresponds to the building and deployment of RiseClipse component
 
     - Merge `develop` to `master`
 
-    - Run workflow `Release on OSSRH and Maven Central`
-
-    - Log in at [https://s01.oss.sonatype.org/](https://s01.oss.sonatype.org/) with the `riseclipse` account
-
-    - Select **Staging Repositories**, then the `iogithubriseclipse-XXXX` repository (using **Refresh** may help)
-
-    - Verify that everything seems OK, then **Close** and **Release**
+    - Run workflow `Release on Maven Central`
 
     - Merge PR **prepare for next development iteration after release** on GitHub, deleting the `do_release` branch
 
