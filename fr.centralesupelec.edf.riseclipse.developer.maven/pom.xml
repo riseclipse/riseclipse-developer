@@ -37,7 +37,7 @@
  
   <groupId>io.github.riseclipse</groupId>
   <artifactId>fr.centralesupelec.edf.riseclipse.developer.maven</artifactId>
-  <version>1.2.13-SNAPSHOT</version>
+  <version>1.2.13</version>
   <packaging>pom</packaging>
   
   <!-- Requirements from https://central.sonatype.org/publish/requirements/ -->
@@ -58,7 +58,7 @@
     <connection>scm:git:git@github.com:riseclipse/riseclipse-developer.git</connection>
     <developerConnection>scm:git:git@github.com:riseclipse/riseclipse-developer.git</developerConnection>
     <url>https://github.com/riseclipse/riseclipse-developer</url>
-    <tag>HEAD</tag>
+    <tag>riseclipse-developer-1.2.13</tag>
   </scm>
   
   <developers>
