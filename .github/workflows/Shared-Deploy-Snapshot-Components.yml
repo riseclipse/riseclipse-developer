@@ -1,5 +1,5 @@
 # *************************************************************************
-# **  Copyright (c) 2022-25 CentraleSupélec & EDF.
+# **  Copyright (c) 2025 CentraleSupélec & EDF.
 # **  All rights reserved. This program and the accompanying materials
 # **  are made available under the terms of the Eclipse Public License v2.0
 # **  which accompanies this distribution, and is available at
@@ -17,10 +17,10 @@
 # **      https://riseclipse.github.io
 # *************************************************************************
 
-name: Verify components
+name: Deploy snapshot components
 
-# This CI workflow builds the components or the tool of any RiseClipse component repository and run Sonar + Unit tests
-# It is called by the main workflow of the repository
+# This CI workflow builds the components of any RiseClipse component repository,
+# runs Sonar + Unit tests, and performs a snapshot deployment on Maven Central repository
 
 on:
   workflow_call:
@@ -32,12 +32,16 @@ on:
     secrets:
       SONAR_TOKEN:
         required: false
+      RISECLIPSE_CENTRAL_USERNAME:
+        required: true
+      RISECLIPSE_CENTRAL_PASSWORD:
+        required: true
 
 jobs:
   build:
     # Use a specific version to avoid unattended changes with latest
     runs-on: ubuntu-24.04
-    name: Verify
+    name: Deploy snapshot component
 
     steps:
     - name: Checkout ${{ github.event.repository.name }}
@@ -51,12 +55,35 @@ jobs:
       with:
         distribution: 'temurin'
         java-version: '21'
-        cache: 'maven'
+
+    - name: Setup Maven
+      uses: s4u/maven-settings-action@v3.1.0
+      with:
+        sonatypeSnapshots: false
+        githubServer: false
+        servers: |
+          [{
+              "id": "central",
+              "username": "${{ secrets.RISECLIPSE_CENTRAL_USERNAME }}",
+              "password": "${{ secrets.RISECLIPSE_CENTRAL_PASSWORD }}"
+          }]
+
+    - name: Checkout riseclipse-developper
+      uses: actions/checkout@v4
+      with:
+        repository: riseclipse/riseclipse-developer
+        path: riseclipse-developer
+        ref: develop
+
+    - name: Install root pom of develop branch
+      run: |
+        cd riseclipse-developer
+        mvn --batch-mode install
 
     - name: Execute verify (mvn verify)
       run: |
         cd ${{ github.event.repository.name }}
-        mvn verify
+        mvn --batch-mode verify -Pdeploy-snapshots
 
     - name: Run analysis with Sonarqube
       if: inputs.run_sonarqube
@@ -67,3 +94,8 @@ jobs:
           -Dsonar.projectKey=riseclipse_${{ github.event.repository.name }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Execute deploy
+      run: |
+        cd ${{ github.event.repository.name }}
+        mvn --batch-mode deploy -Pdeploy-snapshots

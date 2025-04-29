@@ -1,0 +1,162 @@
+# *************************************************************************
+# **  Copyright (c) 2025 CentraleSupélec & EDF.
+# **  All rights reserved. This program and the accompanying materials
+# **  are made available under the terms of the Eclipse Public License v2.0
+# **  which accompanies this distribution, and is available at
+# **  https://www.eclipse.org/legal/epl-v20.html
+# ** 
+# **  This file is part of the RiseClipse tool
+# **  
+# **  Contributors:
+# **      Computer Science Department, CentraleSupélec
+# **      EDF R&D
+# **  Contacts:
+# **      dominique.marcadet@centralesupelec.fr
+# **      aurelie.dehouck-neveu@edf.fr
+# **  Web site:
+# **      https://riseclipse.github.io
+# *************************************************************************
+
+name: Build and deploy snapshot tools
+
+# This CI workflow builds development versions of RiseClipse tools,
+# runs Sonar + Unit tests. It uses snapshot components from Maven Central snapshot repository
+# Development versions are uploaded to RiseClipseWeb
+# It send email about these new development versions
+
+on:
+  workflow_call:
+    inputs:
+      tool_name:
+        type: string
+        required: true
+      run_sonarqube:
+        type: boolean
+        required: false
+        default: true
+      dest_folder:
+        description: Destination folder on the remote machine
+        type: string
+        required: true
+      email_to:
+        description: comma separated email addresses who will receive a message about the new version
+        type: string
+        required: false
+    secrets:
+      SONAR_TOKEN:
+        required: false
+      RISECLIPSE_WEB_HOSTNAME:
+        required: true
+      RISECLIPSE_WEB_USERNAME:
+        required: true
+      RISECLIPSE_WEB_SSHKEY:
+        required: true
+      RISECLIPSE_WEB_PASSPHRASE:
+        required: true
+      MAIL_USERNAME:
+        required: false
+      MAIL_PASSWORD:
+        required: false
+
+jobs:
+  build:
+    # Use a specific version to avoid unattended changes with latest
+    runs-on: ubuntu-24.04
+    name: Build snapshot tools
+
+    steps:
+    - name: Checkout ${{ github.event.repository.name }}
+      uses: actions/checkout@v4
+      with:
+        path: ${{ github.event.repository.name }}
+        fetch-depth: 0
+
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: "temurin"
+        java-version: "21"
+
+    - name: Checkout riseclipse-developper
+      uses: actions/checkout@v4
+      with:
+        repository: riseclipse/riseclipse-developer
+        path: riseclipse-developer
+        ref: develop
+
+    - name: Install root pom of develop branch
+      run: |
+        cd riseclipse-developer
+        mvn --batch-mode install
+
+    - name: Install P2_to_M2
+      run: |
+        cd riseclipse-developer/fr.centralesupelec.edf.riseclipse.developer.p2_to_m2
+        mvn --batch-mode install
+
+    - name: Execute verify (mvn verify)
+      run: |
+        cd ${{ github.event.repository.name }}
+        mvn --batch-mode verify -Pdeploy-snapshots
+
+    - name: Run analysis with Sonarqube
+      run: |
+        cd ${{ github.event.repository.name }}
+        mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.organization=riseclipse \
+          -Dsonar.host.url=http://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+          -Dsonar.projectKey=riseclipse_${{ github.event.repository.name }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Extract Maven project version
+      run: |
+        cd ${{ github.event.repository.name }}
+        VERSION=$( mvn help:evaluate -Dexpression=project.version -q -DforceStdout )
+        echo "project_version=$VERSION" >> $GITHUB_OUTPUT
+      id: get_version
+      if: ${{ always() }}
+
+    # This step is tricky but allows to keep the version in the uploaded artifacts
+    - name: Get artifact name and basedir from jar path
+      run: |
+        TOOL_NAME="${{ inputs.tool_name }}"
+        PROJECT_VERSION="${{ steps.get_version.outputs.project_version }}"
+        ARTIFACT_NAME="${TOOL_NAME}-${PROJECT_VERSION}.jar"
+        ARTIFACT_PATH="$(find ${{ github.event.repository.name }} -name ${ARTIFACT_NAME})"
+        echo "artifact_name=${ARTIFACT_NAME}" >> $GITHUB_OUTPUT
+        echo "artifact_path=${ARTIFACT_PATH}" >> $GITHUB_OUTPUT
+      id: artifacts_metadata
+
+    - name: Copy JAR file and overwrite previous
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.RISECLIPSE_WEB_HOSTNAME }}
+        username: ${{ secrets.RISECLIPSE_WEB_USERNAME }}
+        key: ${{ secrets.RISECLIPSE_WEB_SSHKEY }}
+        passphrase: ${{ secrets.RISECLIPSE_WEB_PASSPHRASE }}
+        source: "${{ steps.artifacts_metadata.outputs.artifact_path }}"
+        target: "${{ inputs.dest_folder }}"
+        strip_components: 3
+        overwrite: true
+
+    - name: Send email about this new development version
+      uses: dawidd6/action-send-mail@v5
+      with:
+        server_address: smtp.gmail.com
+        # Server port, default 25:
+        server_port: 465
+        # Optional whether this connection use TLS (default is true if server_port is 465)
+        secure: true
+        # Optional (recommended) mail server username:
+        username: ${{ secrets.MAIL_USERNAME }}
+        # Optional (recommended) mail server password:
+        password: ${{ secrets.MAIL_PASSWORD }}
+        # Required mail subject:
+        subject: New development version of ${{ inputs.tool_name }}
+        # Required recipients' addresses:
+        to: ${{ inputs.email_to }}
+        # Required sender full name (address can be skipped):
+        from: riseclipse@gmail.com
+        # Optional plain body:
+        body: The new version is available at https://rise-clipse.pam-retd.fr/front_v2/develop/${{ steps.artifacts_metadata.outputs.artifact_name }}
+

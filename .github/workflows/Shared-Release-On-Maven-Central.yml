@@ -1,5 +1,5 @@
 # *************************************************************************
-# **  Copyright (c) 2022-24 CentraleSupélec & EDF.
+# **  Copyright (c) 2022-25 CentraleSupélec & EDF.
 # **  All rights reserved. This program and the accompanying materials
 # **  are made available under the terms of the Eclipse Public License v2.0
 # **  which accompanies this distribution, and is available at
@@ -17,11 +17,10 @@
 # **      https://riseclipse.github.io
 # *************************************************************************
 
-name: Release on OSSRH and Maven Central
+name: Release on Maven Central
 
-# This CD workflow releases packages to OSSRH Nexus repository and to Maven Central
+# This CD workflow releases packages to Maven Central
 # It should only be MANUALLY triggered on MASTER branch
-# NOTE: Maven central needs approval in Nexus OSSRH before being released
 
 on:
   workflow_call:
@@ -30,16 +29,16 @@ on:
         required: true
       RISECLIPSE_PGP_KEY_PASSWORD:
         required: true
-      RISECLIPSE_OSSRH_USERNAME:
+      RISECLIPSE_CENTRAL_USERNAME:
         required: true
-      RISECLIPSE_OSSRH_PASSWORD:
+      RISECLIPSE_CENTRAL_PASSWORD:
         required: true
 
 jobs:
   maven_release:
     # Use a specific version to avoid unattended changes with latest
-    runs-on: ubuntu-22.04
-    name: Release on OSSRH and Maven Central with Maven
+    runs-on: ubuntu-24.04
+    name: Release on Maven Central with Maven
 
     steps:
     - name: Checkout ${{ github.event.repository.name }}
@@ -51,20 +50,13 @@ jobs:
       uses: actions/setup-java@v4
       with:
         distribution: 'temurin'
-        java-version: '17'
+        java-version: '21'
         cache: 'maven'
-        server-id: ossrh # Value of the distributionManagement/repository/id field of the pom.xml
+        server-id: central
         server-username: MAVEN_USERNAME
         server-password: MAVEN_PASSWORD
         gpg-private-key: ${{ secrets.RISECLIPSE_PGP_KEY_PRIVATE }}
         gpg-passphrase: MAVEN_GPG_PASSPHRASE
-
-    # Maven on ubuntu-22.04 is 3.8.8, Tycho wants at least 3.9
-    # 2024-01-30: setup-maven still at 4.5 with node16
-    - name: Set up Maven
-      uses: stCarolas/setup-maven@v5
-      with:
-        maven-version: 3.9.6
 
     - name: Configure Git User
       run: |
@@ -82,12 +74,12 @@ jobs:
       run: |
         mvn --batch-mode release:prepare
 
-    - name: Perform Maven Release and Publish to OSSRH/Apache Maven Central
+    - name: Perform Maven Release and Publish to Maven Central
       run: |
         mvn --batch-mode release:perform
       env:
-        MAVEN_USERNAME:       ${{ secrets.RISECLIPSE_OSSRH_USERNAME }}
-        MAVEN_PASSWORD:       ${{ secrets.RISECLIPSE_OSSRH_PASSWORD }}
+        MAVEN_USERNAME:       ${{ secrets.RISECLIPSE_CENTRAL_USERNAME }}
+        MAVEN_PASSWORD:       ${{ secrets.RISECLIPSE_CENTRAL_PASSWORD }}
         MAVEN_GPG_PASSPHRASE: ${{ secrets.RISECLIPSE_PGP_KEY_PASSWORD }}
 
     - name: Clean before creating PR and push tag
@@ -96,7 +88,7 @@ jobs:
         git push --tags
 
     - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v5
+      uses: peter-evans/create-pull-request@v7
       with:
         base: master
         branch: do_release

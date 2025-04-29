@@ -28,36 +28,47 @@ This scenario corresponds to the building and deployment of RiseClipse component
 
 ## Process
 
-- Edit `riseclipse-developer/fr.centralesupelec.edf.riseclipse.developer.maven/pom.xml`:
-    - Update `project.properties.*`:
-        - Update `.riseclipse-target-platform-version` with `project.version` **without** `-SNAPSHOT`
+- Go to `riseclipse-developer`
+    - Edit `fr.centralesupelec.edf.riseclipse.developer.maven/pom.xml`:
+        - Update `project.properties.*`:
+            - Update `.riseclipse-target-platform-version` with `project.version` **without** `-SNAPSHOT`
 
-- Edit `riseclipse-developer/fr.centralesupelec.edf.riseclipse.developer.p2_to_m2/pom.xml`
-    - Update `project.version` and `project.parent.version` to be the same as `project.version` from `fr.centralesupelec.edf.riseclipse.developer.maven/pom.xml` (**without** `-SNAPSHOT`)
-    - The rationale for this is: `p2_to_m2` will not be deployed on Maven Central, but it will be used when building the validators, and the version used for this will be obtained from the `riseclipse-developer/fr.centralesupelec.edf.riseclipse.developer.maven/pom.xml` deployed on Maven Central
+    - Edit `fr.centralesupelec.edf.riseclipse.developer.p2_to_m2/pom.xml`
+        - Update `project.version` and `project.parent.version` to be the same as `project.version` from `fr.centralesupelec.edf.riseclipse.developer.maven/pom.xml` (**without** `-SNAPSHOT`)
+        - The rationale for this is: `p2_to_m2` will not be deployed on Maven Central, but it will be used when building the validators, and the version used for this will be obtained from the `riseclipse-developer/fr.centralesupelec.edf.riseclipse.developer.maven/pom.xml` deployed on Maven Central
 
-- Commit to `develop`
+    - Commit to `develop`
 
-- Push to GitHub
+    - Push to GitHub
 
-- Merge `develop` to `master`
+    - Merge `develop` to `master`
 
-- Run workflow `Release on OSSRH and Maven Central`
+    - Run workflow `Release on OSSRH and Maven Central`
 
-- Log in at [https://s01.oss.sonatype.org/](https://s01.oss.sonatype.org/) with the `riseclipse` account
+    - Log in at [https://s01.oss.sonatype.org/](https://s01.oss.sonatype.org/) with the `riseclipse` account
 
-- Select **Staging Repositories**, then the `iogithubriseclipse-XXXX` repository (using **Refresh** may help)
+    - Select **Staging Repositories**, then the `iogithubriseclipse-XXXX` repository (using **Refresh** may help)
 
-- Verify that everything seems OK, then **Close** and **Release**
+    - Verify that everything seems OK, then **Close** and **Release**
 
-- Merge PR **prepare for next development iteration after release** on GitHub, deleting the `do_release` branch
+    - Merge PR **prepare for next development iteration after release** on GitHub, deleting the `do_release` branch
 
-- For the next builds to succeed, the new version of `riseclipse-developer` must be available on [Maven Central](https://central.sonatype.com/artifact/io.github.riseclipse/riseclipse-developer/versions)
+    - For the next builds to succeed, the new version of `riseclipse-developer` must be available on [Maven Central](https://central.sonatype.com/artifact/io.github.riseclipse/riseclipse-developer/versions)
 
-- Edit `riseclipse-main/pom.xml`:
-    - Update `project.parent.version` to be the same as `project.version` from `fr.centralesupelec.edf.riseclipse.developer.maven/pom.xml` (**without** `-SNAPSHOT`)
+- Go to `riseclipse-main`
+    - Edit `riseclipse-main/pom.xml`
+        - Update `project.parent.version` to be the same as `project.version` from `fr.centralesupelec.edf.riseclipse.developer.maven/pom.xml` (**without** `-SNAPSHOT`)
 
-- Commit to `develop` and continue like above
+    - Commit to `develop` and continue like above
+
+- Go to `riseclipse-validator-ocl`:
+    - Edit `pom.xml`:
+        - Update `project.parent.version` to be the same as `project.version` from `fr.centralesupelec.edf.riseclipse.developer.maven/pom.xml` (**without** `-SNAPSHOT`)
+
+    - Edit `fr.centralesupelec.edf.riseclipse.validation.ocl/pom.xml`:
+        - Update version of dependency `fr.centralesupelec.edf.riseclipse.main` to be the same as `project.version` from `riseclipse-main/pom.xml` (**without** `-SNAPSHOT`)
+
+    - Commit to `develop` and continue like above
 
 
 
