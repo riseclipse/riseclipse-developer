@@ -71,11 +71,6 @@ jobs:
         path: ${{ github.event.repository.name }}
         fetch-depth: 0
 
-    - name: display checkout version
-      run: |
-        cd ${{ github.event.repository.name }}
-        grep --include "*.java" -r TOOL_VERSION .
-
     - name: Setup Java
       uses: actions/setup-java@v4
       with:
@@ -89,10 +84,15 @@ jobs:
         path: riseclipse-developer
         ref: develop
 
+    - name: Install root pom of develop branch
+      run: |
+        cd riseclipse-developer
+        mvn --batch-mode install
+
     - name: Install P2_to_M2
       run: |
         cd riseclipse-developer/fr.centralesupelec.edf.riseclipse.developer.p2_to_m2
-        mvn install
+        mvn --batch-mode install
 
     - name: Execute verify (mvn verify)
       run: |
@@ -140,7 +140,7 @@ jobs:
         overwrite: true
 
     - name: Send email about this new development version
-      uses: dawidd6/action-send-mail@v4
+      uses: dawidd6/action-send-mail@v5
       with:
         server_address: smtp.gmail.com
         # Server port, default 25:
