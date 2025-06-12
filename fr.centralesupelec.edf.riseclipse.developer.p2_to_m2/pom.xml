@@ -77,12 +77,12 @@
             <repository>
               <id>CBI Aggregator Products</id>
               <layout>p2</layout>
-              <url>https://download.eclipse.org/cbi/updates/p2-aggregator/products/nightly/N202410041026</url>
+              <url>https://download.eclipse.org/cbi/updates/p2-aggregator/products/nightly/latest</url>
             </repository>
             <repository>
               <id>CBI Aggregator Tools</id>
               <layout>p2</layout>
-              <url>https://download.eclipse.org/cbi/updates/p2-aggregator/tools/nightly/N202410041026</url>
+              <url>https://download.eclipse.org/cbi/updates/p2-aggregator/tools/nightly/latest</url>
             </repository>
           </repositories>
 
