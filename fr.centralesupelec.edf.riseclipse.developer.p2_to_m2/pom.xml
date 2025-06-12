@@ -42,13 +42,13 @@
  
   <groupId>io.github.riseclipse</groupId>
   <artifactId>fr.centralesupelec.edf.riseclipse.developer.p2_to_m2</artifactId>
-  <version>1.2.13</version>
+  <version>1.2.14-SNAPSHOT</version>
   <packaging>pom</packaging>
   
   <parent>
     <groupId>io.github.riseclipse</groupId>
     <artifactId>fr.centralesupelec.edf.riseclipse.developer.maven</artifactId>
-    <version>1.2.13</version>
+    <version>1.2.14-SNAPSHOT</version>
     <!-- See https://maven.apache.org/ref/3.8.1/maven-model/maven.html#class_parent -->
     <relativePath></relativePath>
   </parent>
@@ -77,12 +77,12 @@
             <repository>
               <id>CBI Aggregator Products</id>
               <layout>p2</layout>
-              <url>https://download.eclipse.org/cbi/updates/p2-aggregator/products/nightly/N202410041026</url>
+              <url>https://download.eclipse.org/cbi/updates/p2-aggregator/products/nightly/latest</url>
             </repository>
             <repository>
               <id>CBI Aggregator Tools</id>
               <layout>p2</layout>
-              <url>https://download.eclipse.org/cbi/updates/p2-aggregator/tools/nightly/N202410041026</url>
+              <url>https://download.eclipse.org/cbi/updates/p2-aggregator/tools/nightly/latest</url>
             </repository>
           </repositories>
 

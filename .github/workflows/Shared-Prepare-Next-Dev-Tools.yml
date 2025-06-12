@@ -93,8 +93,9 @@ jobs:
         cd ${{ github.event.repository.name }}
         mvn versions:set -DremoveSnapshot=true -DgenerateBackupPoms=false
         VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
-        DATE=$(date "+(%d %B %Y)")
-        sed -i -r "s/String TOOL_VERSION = .*$/String TOOL_VERSION = \"$VERSION $DATE\";/" ${{ inputs.toolSourcePath }}
+        sed -i -r "s/String TOOL_VERSION = .*$/String TOOL_VERSION = \"$VERSION\";/" ${{ inputs.toolSourcePath }}
+        DATE=$(date "+%d %B %Y")
+        sed -i -r "s/String TOOL_DATE = .*$/String TOOL_DATE = \"$DATE\";/" ${{ inputs.toolSourcePath }}
         echo "project_version=$VERSION" >> $GITHUB_OUTPUT
         git add --all
         git commit -m "[actions] prepare release ${{ github.event.repository.name }}-$VERSION"
@@ -141,8 +142,9 @@ jobs:
         mvn clean
         mvn build-helper:parse-version versions:set -DnextSnapshot=true -DgenerateBackupPoms=false -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion}
         VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
-        DATE=$(date "+(%d %B %Y)")
-        sed -i -r "s/String TOOL_VERSION = .*$/String TOOL_VERSION = \"$VERSION $DATE\";/" ${{ inputs.toolSourcePath }}
+        sed -i -r "s/String TOOL_VERSION = .*$/String TOOL_VERSION = \"$VERSION\";/" ${{ inputs.toolSourcePath }}
+        DATE=$(date "+%d %B %Y")
+        sed -i -r "s/String TOOL_DATE = .*$/String TOOL_DATE = \"$DATE\";/" ${{ inputs.toolSourcePath }}
         echo "project_version=$VERSION" >> $GITHUB_OUTPUT
       id: next_version
         
