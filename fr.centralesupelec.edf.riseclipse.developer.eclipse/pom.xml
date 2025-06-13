@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
 *************************************************************************
-**  Copyright (c) 2016-2024 CentraleSupélec & EDF.
+**  Copyright (c) 2016-2025 CentraleSupélec & EDF.
 **  All rights reserved. This program and the accompanying materials
 **  are made available under the terms of the Eclipse Public License v2.0
 **  which accompanies this distribution, and is available at
@@ -28,6 +28,7 @@
   <artifactId>fr.centralesupelec.edf.riseclipse.developer.eclipse</artifactId>
   <version>1.2.14-SNAPSHOT</version>
   <packaging>eclipse-target-definition</packaging>
+  <name>[target] RiseClipse Target</name>
   
   <parent>
     <groupId>io.github.riseclipse</groupId>
