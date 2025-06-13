@@ -37,7 +37,7 @@
  
   <groupId>io.github.riseclipse</groupId>
   <artifactId>fr.centralesupelec.edf.riseclipse.developer.maven</artifactId>
-  <version>1.2.14-SNAPSHOT</version>
+  <version>1.2.15-SNAPSHOT</version>
   <packaging>pom</packaging>
   
   <!-- Requirements from https://central.sonatype.org/publish/requirements/ -->
