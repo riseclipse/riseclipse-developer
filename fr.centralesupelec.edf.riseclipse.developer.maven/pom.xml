@@ -41,7 +41,7 @@
   <packaging>pom</packaging>
   
   <!-- Requirements from https://central.sonatype.org/publish/requirements/ -->
-  <name>RiseClipse</name>
+  <name>[root] RiseClipse Root Pom</name>
   <description>RiseClipse is an umbrella name for tools based on Model Driven Engineering 
                (MDE) technologies and dedicated to IEC standards.</description>
   <url>https://riseclipse.github.io</url>
