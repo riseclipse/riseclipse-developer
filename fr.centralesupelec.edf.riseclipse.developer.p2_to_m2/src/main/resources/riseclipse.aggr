@@ -2,52 +2,52 @@
 <aggregator:Aggregation xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:aggregator="http://www.eclipse.org/cbi/p2repo/2011/aggregator/1.1.0" label="Eclipse Projects for RiseClipse" packedStrategy="UNPACK" mavenResult="true" versionFormat="MavenRelease">
   <validationSets label="Eclipse needed projects for RiseClipse">
     <contributions label="Eclipse Platform">
-      <repositories location="http://download.eclipse.org/releases/2024-12">
-        <bundles name="org.eclipse.core.commands" versionRange="3.12.0"/>
-        <bundles name="org.eclipse.core.contenttype" versionRange="3.9.300"/>
-        <bundles name="org.eclipse.core.jobs" versionRange="3.15.200"/>
-        <bundles name="org.eclipse.core.resources" versionRange="3.20.100"/>
-        <bundles name="org.eclipse.core.runtime" versionRange="3.31.0"/>
-        <bundles name="org.eclipse.equinox.app" versionRange="1.7.0"/>
-        <bundles name="org.eclipse.equinox.common" versionRange="3.19.0"/>
-        <bundles name="org.eclipse.equinox.preferences" versionRange="3.11.0"/>
-        <bundles name="org.eclipse.equinox.registry" versionRange="3.12.0"/>
-        <bundles name="org.eclipse.jdt.annotation" versionRange="2.3.0"/>
-        <bundles name="org.eclipse.osgi.compatibility.state" versionRange="1.2.1000"/>
-        <bundles name="org.eclipse.osgi" versionRange="3.19.0"/>
-        <bundles name="org.apache.log4j" versionRange="[1.2.24,1.2.25]"/>
-        <bundles name="com.google.guava" versionRange="33.0.0"/>
+      <repositories location="http://download.eclipse.org/releases/2025-12">
+        <bundles name="org.eclipse.core.commands" versionRange="3.12.500"/>
+        <bundles name="org.eclipse.core.contenttype" versionRange="3.9.800"/>
+        <bundles name="org.eclipse.core.jobs" versionRange="3.15.700"/>
+        <bundles name="org.eclipse.core.resources" versionRange="3.23.100"/>
+        <bundles name="org.eclipse.core.runtime" versionRange="3.34.100"/>
+        <bundles name="org.eclipse.equinox.app" versionRange="1.7.500"/>
+        <bundles name="org.eclipse.equinox.common" versionRange="3.20.300"/>
+        <bundles name="org.eclipse.equinox.preferences" versionRange="3.12.100"/>
+        <bundles name="org.eclipse.equinox.registry" versionRange="3.12.600"/>
+        <bundles name="org.eclipse.jdt.annotation" versionRange="2.4.100"/>
+        <bundles name="org.eclipse.osgi.compatibility.state" versionRange="1.3.0"/>
+        <bundles name="org.eclipse.osgi" versionRange="3.24.0"/>
+        <bundles name="org.apache.log4j" versionRange="1.2.26"/>
+        <bundles name="com.google.guava" versionRange="33.5.0"/>
         <bundles name="com.google.inject" versionRange="7.0.0"/>
         <bundles name="org.antlr.runtime" versionRange="[3.2.0,3.3.0]"/>
         <bundles name="org.aopalliance" versionRange="1.0.0"/>
       </repositories>
     </contributions>
     <contributions label="EMF">
-      <repositories location="http://download.eclipse.org/releases/2024-12">
-        <bundles name="org.eclipse.emf.common" versionRange="2.30.0"/>
-        <bundles name="org.eclipse.emf.ecore" versionRange="2.36.0"/>
-        <bundles name="org.eclipse.emf.ecore.change" versionRange="2.16.0"/>
-        <bundles name="org.eclipse.emf.ecore.xmi" versionRange="2.37.0"/>
-        <bundles name="org.eclipse.emf.edit" versionRange="2.21.0"/>
+      <repositories location="http://download.eclipse.org/releases/2025-12">
+        <bundles name="org.eclipse.emf.common" versionRange="2.44.0"/>
+        <bundles name="org.eclipse.emf.ecore" versionRange="2.41.0"/>
+        <bundles name="org.eclipse.emf.ecore.change" versionRange="2.17.0"/>
+        <bundles name="org.eclipse.emf.ecore.xmi" versionRange="2.39.0"/>
+        <bundles name="org.eclipse.emf.edit" versionRange="2.23.0"/>
       </repositories>
     </contributions>
     <contributions label="OCL">
-      <repositories location="http://download.eclipse.org/releases/2024-12">
-        <bundles name="org.eclipse.ocl.common" versionRange="1.20.0"/>
-        <bundles name="org.eclipse.ocl.pivot" versionRange="1.20.0"/>
-        <bundles name="org.eclipse.ocl.xtext.base" versionRange="1.20.0"/>
-        <bundles name="org.eclipse.ocl.xtext.completeocl" versionRange="1.20.0"/>
-        <bundles name="org.eclipse.ocl.xtext.essentialocl" versionRange="1.20.0"/>
-        <bundles name="org.eclipse.ocl.xtext.oclinecore" versionRange="1.20.0"/>
-        <bundles name="org.eclipse.ocl.xtext.oclstdlib" versionRange="1.20.0"/>
-        <bundles name="org.eclipse.xtext" versionRange="2.34.0"/>
-        <bundles name="org.eclipse.xtext.util" versionRange="2.34.0"/>
+      <repositories location="http://download.eclipse.org/releases/2025-12">
+        <bundles name="org.eclipse.ocl.common" versionRange="1.22.0"/>
+        <bundles name="org.eclipse.ocl.pivot" versionRange="1.22.0"/>
+        <bundles name="org.eclipse.ocl.xtext.base" versionRange="1.22.0"/>
+        <bundles name="org.eclipse.ocl.xtext.completeocl" versionRange="1.22.0"/>
+        <bundles name="org.eclipse.ocl.xtext.essentialocl" versionRange="1.22.0"/>
+        <bundles name="org.eclipse.ocl.xtext.oclinecore" versionRange="1.22.0"/>
+        <bundles name="org.eclipse.ocl.xtext.oclstdlib" versionRange="1.22.0"/>
+        <bundles name="org.eclipse.xtext" versionRange="2.41.0"/>
+        <bundles name="org.eclipse.xtext.util" versionRange="2.41.0"/>
       </repositories>
     </contributions>
     <contributions label="From Orbit">
-      <repositories location="https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/release/4.34.0">
-        <bundles name="org.apache.commons.cli" versionRange="1.6.0"/>
-        <bundles name="org.apache.commons.lang3" versionRange="3.14.0"/>
+      <repositories location="https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/release/4.38.0">
+        <bundles name="org.apache.commons.cli" versionRange="1.11.0"/>
+        <bundles name="org.apache.commons.lang3" versionRange="3.20.0"/>
       </repositories>
     </contributions>
   </validationSets>

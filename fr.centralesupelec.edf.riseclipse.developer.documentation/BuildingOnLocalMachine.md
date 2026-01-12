@@ -1,5 +1,5 @@
 ----
-Copyright (c) 2023-24 CentraleSupélec & EDF.
+Copyright (c) 2023-26 CentraleSupélec & EDF.
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
@@ -28,7 +28,7 @@ This scenario corresponds to the introduction of new versions of the tools used 
 
 ## Needed Tools
 
-- JDK 17 or higher ([here for example](https://adoptium.net/))
+- JDK 21 or higher ([here for example](https://adoptium.net/))
 
 - [**Maven**](https://maven.apache.org)
 
@@ -68,7 +68,7 @@ This scenario corresponds to the introduction of new versions of the tools used 
 
 - Commit to `develop` (but don't push to GitHub, building on GitHub will fail in this state)
 
-- Use a `~/.m2/toolchains.xml` file to specify which jdk to use for the build (see [https://maven.apache.org/guides/mini/guide-using-toolchains.html](https://maven.apache.org/guides/mini/guide-using-toolchains.html), version should be `17` and vendor `temur`)
+- Use a `~/.m2/toolchains.xml` file to specify which jdk to use for the build (see [https://maven.apache.org/guides/mini/guide-using-toolchains.html](https://maven.apache.org/guides/mini/guide-using-toolchains.html), version should be `21` and vendor `temur`)
 
 - In a Terminal, go to `riseclipse-developper` and run `mvn clean install`
 - Go to `riseclipse-developper/fr.centralesupelec.edf.riseclipse.developer.p2_to_m2` and run `mvn clean install`

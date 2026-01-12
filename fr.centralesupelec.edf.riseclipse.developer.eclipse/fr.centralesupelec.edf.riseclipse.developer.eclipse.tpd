@@ -3,7 +3,7 @@ target "fr.centralesupelec.edf.riseclipse.developer.eclipse"
 
 environment JavaSE-21
 
-location "http://download.eclipse.org/releases/2024-12" eclipse-2024-12 {
+location "http://download.eclipse.org/releases/2025-12" eclipse-2025-12 {
     com.google.guava
     com.google.inject
     org.antlr.runtime [3.2.0,3.2.1)
@@ -60,7 +60,7 @@ location "http://download.eclipse.org/releases/2024-12" eclipse-2024-12 {
     org.eclipse.xtext.util
 }
 
-location "https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/release/4.34.0" orbit-2024-12 {
+location "https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/release/4.38.0" orbit-2025-12 {
     org.apache.commons.cli
     org.apache.commons.lang3
 }
