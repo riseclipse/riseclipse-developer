@@ -89,7 +89,7 @@ jobs:
       if: inputs.run_sonarqube
       run: |
         cd ${{ github.event.repository.name }}
-        mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar:5.5.0.6356 -Dsonar.organization=riseclipse \
+        mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:5.5.0.6356:sonar -Dsonar.organization=riseclipse \
           -Dsonar.host.url=http://sonarcloud.io -Dsonar.token=${{ secrets.SONAR_TOKEN }} \
           -Dsonar.projectKey=riseclipse_${{ github.event.repository.name }}
       env:
