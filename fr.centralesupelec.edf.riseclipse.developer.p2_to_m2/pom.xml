@@ -42,13 +42,13 @@
  
   <groupId>io.github.riseclipse</groupId>
   <artifactId>fr.centralesupelec.edf.riseclipse.developer.p2_to_m2</artifactId>
-  <version>1.2.16-SNAPSHOT</version>
+  <version>1.2.17-SNAPSHOT</version>
   <packaging>pom</packaging>
   
   <parent>
     <groupId>io.github.riseclipse</groupId>
     <artifactId>fr.centralesupelec.edf.riseclipse.developer.maven</artifactId>
-    <version>1.2.16-SNAPSHOT</version>
+    <version>1.2.17-SNAPSHOT</version>
     <!-- See https://maven.apache.org/ref/3.8.1/maven-model/maven.html#class_parent -->
     <relativePath></relativePath>
   </parent>
