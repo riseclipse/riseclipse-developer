@@ -26,14 +26,14 @@
  
   <groupId>io.github.riseclipse</groupId>
   <artifactId>riseclipse-developer</artifactId>
-  <version>1.2.15-SNAPSHOT</version>
+  <version>1.2.16-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>[aggregator] RiseClipse Developer</name>
   
   <parent>
     <groupId>io.github.riseclipse</groupId>
     <artifactId>fr.centralesupelec.edf.riseclipse.developer.maven</artifactId>
-    <version>1.2.15-SNAPSHOT</version>
+    <version>1.2.16-SNAPSHOT</version>
     <relativePath>fr.centralesupelec.edf.riseclipse.developer.maven/pom.xml</relativePath>
   </parent>
 
