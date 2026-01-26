@@ -57,5 +57,9 @@ The following is an extract of the `pom.xml` file present in the archive :
 The `src/main/resources/riseclipse.aggr` file should be edited with the 
 [CBI/aggregator](https://wiki.eclipse.org/CBI/aggregator) tool.
 
+Update sites:
+* https://download.eclipse.org/cbi/updates/p2-aggregator/products/nightly
+* https://download.eclipse.org/cbi/updates/p2-aggregator/tools/nightly/latest
+
 Changes in this file should usually also be done in the target platform 
 (project `fr.centralesupelec.edf.riseclipse.developer.eclipse`).
