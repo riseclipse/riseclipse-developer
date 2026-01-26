@@ -35,14 +35,6 @@ location "http://download.eclipse.org/releases/2025-12" eclipse-2025-12 {
     org.eclipse.jdt.debug
     org.eclipse.jdt.launching
     org.eclipse.jface
-    org.eclipse.ocl.common
-    org.eclipse.ocl.pivot
-    org.eclipse.ocl.pivot.uml
-    org.eclipse.ocl.xtext.base
-    org.eclipse.ocl.xtext.completeocl
-    org.eclipse.ocl.xtext.essentialocl
-    org.eclipse.ocl.xtext.oclinecore
-    org.eclipse.ocl.xtext.oclstdlib
     org.eclipse.osgi
     org.eclipse.osgi.compatibility.state
     org.eclipse.swt
@@ -58,6 +50,17 @@ location "http://download.eclipse.org/releases/2025-12" eclipse-2025-12 {
     org.eclipse.xtext
     org.eclipse.xtext.xbase.lib
     org.eclipse.xtext.util
+}
+
+location "https://wdi.centralesupelec.fr/ocl-7-update-site/latest/" eclipse-ocl-7 {
+    org.eclipse.ocl.common
+    org.eclipse.ocl.pivot
+    org.eclipse.ocl.pivot.uml
+    org.eclipse.ocl.xtext.base
+    org.eclipse.ocl.xtext.completeocl
+    org.eclipse.ocl.xtext.essentialocl
+    org.eclipse.ocl.xtext.oclinecore
+    org.eclipse.ocl.xtext.oclstdlib	
 }
 
 location "https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/release/4.38.0" orbit-2025-12 {

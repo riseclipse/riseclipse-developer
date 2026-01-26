@@ -29,10 +29,12 @@
         <bundles name="org.eclipse.emf.ecore.change" versionRange="2.17.0"/>
         <bundles name="org.eclipse.emf.ecore.xmi" versionRange="2.39.0"/>
         <bundles name="org.eclipse.emf.edit" versionRange="2.23.0"/>
+        <bundles name="org.eclipse.xtext" versionRange="2.41.0"/>
+        <bundles name="org.eclipse.xtext.util" versionRange="2.41.0"/>
       </repositories>
     </contributions>
     <contributions label="OCL">
-      <repositories location="http://download.eclipse.org/releases/2025-12">
+      <repositories location="https://wdi.centralesupelec.fr/ocl-7-update-site/latest/">
         <bundles name="org.eclipse.ocl.common" versionRange="1.22.0"/>
         <bundles name="org.eclipse.ocl.pivot" versionRange="1.22.0"/>
         <bundles name="org.eclipse.ocl.xtext.base" versionRange="1.22.0"/>
@@ -40,8 +42,6 @@
         <bundles name="org.eclipse.ocl.xtext.essentialocl" versionRange="1.22.0"/>
         <bundles name="org.eclipse.ocl.xtext.oclinecore" versionRange="1.22.0"/>
         <bundles name="org.eclipse.ocl.xtext.oclstdlib" versionRange="1.22.0"/>
-        <bundles name="org.eclipse.xtext" versionRange="2.41.0"/>
-        <bundles name="org.eclipse.xtext.util" versionRange="2.41.0"/>
       </repositories>
     </contributions>
     <contributions label="From Orbit">
