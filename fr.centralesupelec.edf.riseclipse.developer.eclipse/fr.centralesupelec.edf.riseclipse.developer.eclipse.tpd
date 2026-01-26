@@ -52,7 +52,7 @@ location "http://download.eclipse.org/releases/2025-12" eclipse-2025-12 {
     org.eclipse.xtext.util
 }
 
-location "https://wdi.centralesupelec.fr/ocl-7-update-site/latest/" eclipse-ocl-7 {
+location "http://download.eclipse.org/releases/2025-12" eclipse-2025-12 {
     org.eclipse.ocl.common
     org.eclipse.ocl.pivot
     org.eclipse.ocl.pivot.uml

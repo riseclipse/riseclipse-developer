@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde?>
 <!-- generated with https://github.com/eclipse-cbi/targetplatform-dsl -->
-<target name="fr.centralesupelec.edf.riseclipse.developer.eclipse" sequenceNumber="1769170687">
+<target name="fr.centralesupelec.edf.riseclipse.developer.eclipse" sequenceNumber="1769434968">
   <locations>
     <location includeMode="slicer" includeAllPlatforms="false" includeSource="false" includeConfigurePhase="false" type="InstallableUnit">
+      <unit id="org.eclipse.ocl.common" version="1.22.0.v20240902-1518"/>
+      <unit id="org.eclipse.ocl.pivot" version="1.22.0.v20240902-1518"/>
+      <unit id="org.eclipse.ocl.pivot.uml" version="1.22.0.v20240902-1518"/>
+      <unit id="org.eclipse.ocl.xtext.base" version="1.22.0.v20240902-1518"/>
+      <unit id="org.eclipse.ocl.xtext.completeocl" version="1.22.0.v20240902-1518"/>
+      <unit id="org.eclipse.ocl.xtext.essentialocl" version="1.22.0.v20240902-1518"/>
+      <unit id="org.eclipse.ocl.xtext.oclinecore" version="1.22.0.v20240902-1518"/>
+      <unit id="org.eclipse.ocl.xtext.oclstdlib" version="1.22.0.v20240902-1518"/>
       <unit id="com.google.guava" version="33.5.0.jre"/>
       <unit id="com.google.inject" version="7.0.0"/>
       <unit id="org.antlr.runtime" version="3.2.0.v20230929-1400"/>
@@ -51,17 +59,6 @@
       <unit id="org.eclipse.xtext.xbase.lib" version="2.41.0.v20251124-0739"/>
       <unit id="org.eclipse.xtext.util" version="2.41.0.v20251124-0739"/>
       <repository id="eclipse-2025-12" location="http://download.eclipse.org/releases/2025-12"/>
-    </location>
-    <location includeMode="slicer" includeAllPlatforms="false" includeSource="false" includeConfigurePhase="false" type="InstallableUnit">
-      <unit id="org.eclipse.ocl.common" version="1.23.0.v20260115-1314"/>
-      <unit id="org.eclipse.ocl.pivot" version="7.0.0.v20260115-1314"/>
-      <unit id="org.eclipse.ocl.pivot.uml" version="7.0.0.v20260115-1314"/>
-      <unit id="org.eclipse.ocl.xtext.base" version="7.0.0.v20260115-1314"/>
-      <unit id="org.eclipse.ocl.xtext.completeocl" version="7.0.0.v20260115-1314"/>
-      <unit id="org.eclipse.ocl.xtext.essentialocl" version="7.0.0.v20260115-1314"/>
-      <unit id="org.eclipse.ocl.xtext.oclinecore" version="7.0.0.v20260115-1314"/>
-      <unit id="org.eclipse.ocl.xtext.oclstdlib" version="7.0.0.v20260115-1314"/>
-      <repository id="eclipse-ocl-7" location="https://wdi.centralesupelec.fr/ocl-7-update-site/latest/"/>
     </location>
     <location includeMode="slicer" includeAllPlatforms="false" includeSource="false" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.apache.commons.cli" version="1.11.0"/>
