@@ -35,14 +35,6 @@ location "http://download.eclipse.org/releases/2024-12" eclipse-2024-12 {
     org.eclipse.jdt.debug
     org.eclipse.jdt.launching
     org.eclipse.jface
-    org.eclipse.ocl.common
-    org.eclipse.ocl.pivot
-    org.eclipse.ocl.pivot.uml
-    org.eclipse.ocl.xtext.base
-    org.eclipse.ocl.xtext.completeocl
-    org.eclipse.ocl.xtext.essentialocl
-    org.eclipse.ocl.xtext.oclinecore
-    org.eclipse.ocl.xtext.oclstdlib
     org.eclipse.osgi
     org.eclipse.osgi.compatibility.state
     org.eclipse.swt
