@@ -60,6 +60,18 @@ location "http://download.eclipse.org/releases/2024-12" eclipse-2024-12 {
     org.eclipse.xtext.util
 }
 
+location "http://download.eclipse.org/releases/2024-12" eclipse-2024-12 {
+    org.eclipse.ocl.common
+    org.eclipse.ocl.tools.feature.group
+    org.eclipse.ocl.pivot
+    org.eclipse.ocl.pivot.uml
+    org.eclipse.ocl.xtext.base
+    org.eclipse.ocl.xtext.completeocl
+    org.eclipse.ocl.xtext.essentialocl
+    org.eclipse.ocl.xtext.oclinecore
+    org.eclipse.ocl.xtext.oclstdlib	
+}
+
 location "https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/release/4.34.0" orbit-2024-12 {
     org.apache.commons.cli
     org.apache.commons.lang3
