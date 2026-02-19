@@ -57,6 +57,7 @@ jobs:
       uses: actions/checkout@v4
       with:
         path: ${{ github.event.repository.name }}
+        ref: develop
         fetch-depth: 0
 
     - name: Setup Java
@@ -120,7 +121,7 @@ jobs:
     - name: Release artifacts
       uses: ncipollo/release-action@v1
       with:
-        artifacts: "${{ github.workspace }}/artifacts/**/*.jar"
+        artifacts: ${{ steps.artifacts_metadata.outputs.artifact_path }}
         body: "This development version contains the latest build of this RiseClipse tool."
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: ${{ github.event.repository.name }}-${{ steps.artifacts_metadata.outputs.artifact_version }}
