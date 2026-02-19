@@ -21,7 +21,7 @@ name: Build and deploy snapshot tools
 
 # This CI workflow builds development versions of RiseClipse tools,
 # runs Sonar + Unit tests. It uses snapshot components from Maven Central snapshot repository
-# Development versions are uploaded to RiseClipseWeb
+# Development versions are uploaded to GitHub
 # It send email about these new development versions
 
 on:
