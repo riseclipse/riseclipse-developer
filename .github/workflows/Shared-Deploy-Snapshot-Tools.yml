@@ -106,28 +106,16 @@ jobs:
       id: get_version
       if: ${{ always() }}
 
-    # This step is tricky but allows to keep the version in the uploaded artifacts
-    - name: Get artifact name and basedir from jar path
-      run: |
-        TOOL_NAME="${{ inputs.tool_name }}"
-        PROJECT_VERSION="${{ steps.get_version.outputs.project_version }}"
-        ARTIFACT_NAME="${TOOL_NAME}-${PROJECT_VERSION}.jar"
-        ARTIFACT_PATH="$(find ${{ github.event.repository.name }} -name ${ARTIFACT_NAME})"
-        echo "artifact_name=${ARTIFACT_NAME}" >> $GITHUB_OUTPUT
-        echo "artifact_path=${ARTIFACT_PATH}" >> $GITHUB_OUTPUT
-        echo "artifact_version=${PROJECT_VERSION}" >> $GITHUB_OUTPUT
-      id: artifacts_metadata
-
     - name: Release artifacts
       uses: ncipollo/release-action@v1
       with:
-        artifacts: "${{ github.event.repository.name }}/**/*.jar"
+        artifacts: "${{ github.event.repository.name }}/**/${{ inputs.tool_name }}*.jar"
         body: "This development version contains the latest build of this RiseClipse tool."
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: ${{ github.event.repository.name }}-${{ steps.artifacts_metadata.outputs.artifact_version }}
+        tag: ${{ github.event.repository.name }}-${{ steps.get_version.outputs.project_version }}
         prerelease: true
         allowUpdates: true
-        name: ${{ github.event.repository.name }} v${{ steps.artifacts_metadata.outputs.artifact_version }}
+        name: ${{ github.event.repository.name }} v${{ steps.get_version.outputs.project_version }}
       id: release_artifacts
 
     - name: Send email about this new development version
