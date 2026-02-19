@@ -121,11 +121,12 @@ jobs:
     - name: Release artifacts
       uses: ncipollo/release-action@v1
       with:
-        artifacts: ${{ steps.artifacts_metadata.outputs.artifact_path }}
+        artifacts: "${{ github.event.repository.name }}/**/*.jar"
         body: "This development version contains the latest build of this RiseClipse tool."
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: ${{ github.event.repository.name }}-${{ steps.artifacts_metadata.outputs.artifact_version }}
         prerelease: true
+        allowUpdates: true
         name: ${{ github.event.repository.name }} v${{ steps.artifacts_metadata.outputs.artifact_version }}
       id: release_artifacts
 
