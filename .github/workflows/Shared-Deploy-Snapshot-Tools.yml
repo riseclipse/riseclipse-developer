@@ -1,5 +1,5 @@
 # *************************************************************************
-# **  Copyright (c) 2025 CentraleSupélec & EDF.
+# **  Copyright (c) 2025-2026 CentraleSupélec & EDF.
 # **  All rights reserved. This program and the accompanying materials
 # **  are made available under the terms of the Eclipse Public License v2.0
 # **  which accompanies this distribution, and is available at
@@ -34,10 +34,6 @@ on:
         type: boolean
         required: false
         default: true
-      dest_folder:
-        description: Destination folder on the remote machine
-        type: string
-        required: true
       email_to:
         description: comma separated email addresses who will receive a message about the new version
         type: string
@@ -45,14 +41,6 @@ on:
     secrets:
       SONAR_TOKEN:
         required: false
-      RISECLIPSE_WEB_HOSTNAME:
-        required: true
-      RISECLIPSE_WEB_USERNAME:
-        required: true
-      RISECLIPSE_WEB_SSHKEY:
-        required: true
-      RISECLIPSE_WEB_PASSPHRASE:
-        required: true
       MAIL_USERNAME:
         required: false
       MAIL_PASSWORD:
@@ -126,19 +114,19 @@ jobs:
         ARTIFACT_PATH="$(find ${{ github.event.repository.name }} -name ${ARTIFACT_NAME})"
         echo "artifact_name=${ARTIFACT_NAME}" >> $GITHUB_OUTPUT
         echo "artifact_path=${ARTIFACT_PATH}" >> $GITHUB_OUTPUT
+        echo "artifact_version=${PROJECT_VERSION}" >> $GITHUB_OUTPUT
       id: artifacts_metadata
 
-    - name: Copy JAR file and overwrite previous
-      uses: appleboy/scp-action@master
+    - name: Release artifacts
+      uses: ncipollo/release-action@v1
       with:
-        host: ${{ secrets.RISECLIPSE_WEB_HOSTNAME }}
-        username: ${{ secrets.RISECLIPSE_WEB_USERNAME }}
-        key: ${{ secrets.RISECLIPSE_WEB_SSHKEY }}
-        passphrase: ${{ secrets.RISECLIPSE_WEB_PASSPHRASE }}
-        source: "${{ steps.artifacts_metadata.outputs.artifact_path }}"
-        target: "${{ inputs.dest_folder }}"
-        strip_components: 3
-        overwrite: true
+        artifacts: "${{ github.workspace }}/artifacts/**/*.jar"
+        body: "This development version contains the latest build of this RiseClipse tool."
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: ${{ github.event.repository.name }}-${{ steps.artifacts_metadata.outputs.artifact_version }}
+        prerelease: true
+        name: ${{ github.event.repository.name }} v${{ steps.artifacts_metadata.outputs.artifact_version }}
+      id: release_artifacts
 
     - name: Send email about this new development version
       uses: dawidd6/action-send-mail@v5
@@ -159,5 +147,5 @@ jobs:
         # Required sender full name (address can be skipped):
         from: riseclipse@gmail.com
         # Optional plain body:
-        body: The new version is available at https://rise-clipse.pam-retd.fr/front_v2/develop/${{ steps.artifacts_metadata.outputs.artifact_name }}
+        body: The new development version is available at ${{ steps.release_artifacts.outputs.html_url }}
 
