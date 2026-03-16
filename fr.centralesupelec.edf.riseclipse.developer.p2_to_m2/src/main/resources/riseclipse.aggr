@@ -31,17 +31,21 @@
         <bundles name="org.eclipse.emf.edit" versionRange="2.21.0"/>
       </repositories>
     </contributions>
-    <contributions label="OCL">
+    <contributions label="XText">
       <repositories location="http://download.eclipse.org/releases/2024-12">
-        <bundles name="org.eclipse.ocl.common" versionRange="1.20.0"/>
-        <bundles name="org.eclipse.ocl.pivot" versionRange="1.20.0"/>
-        <bundles name="org.eclipse.ocl.xtext.base" versionRange="1.20.0"/>
-        <bundles name="org.eclipse.ocl.xtext.completeocl" versionRange="1.20.0"/>
-        <bundles name="org.eclipse.ocl.xtext.essentialocl" versionRange="1.20.0"/>
-        <bundles name="org.eclipse.ocl.xtext.oclinecore" versionRange="1.20.0"/>
-        <bundles name="org.eclipse.ocl.xtext.oclstdlib" versionRange="1.20.0"/>
         <bundles name="org.eclipse.xtext" versionRange="2.34.0"/>
         <bundles name="org.eclipse.xtext.util" versionRange="2.34.0"/>
+      </repositories>
+    </contributions>
+    <contributions label="OCL">
+      <repositories location="https://github.com/riseclipse/org.eclipse.ocl/releases/download/nightly/">
+        <bundles name="org.eclipse.ocl.common" versionRange="1.23.0"/>
+        <bundles name="org.eclipse.ocl.pivot" versionRange="1.23.0"/>
+        <bundles name="org.eclipse.ocl.xtext.base" versionRange="1.23.0"/>
+        <bundles name="org.eclipse.ocl.xtext.completeocl" versionRange="1.23.0"/>
+        <bundles name="org.eclipse.ocl.xtext.essentialocl" versionRange="1.23.0"/>
+        <bundles name="org.eclipse.ocl.xtext.oclinecore" versionRange="1.23.0"/>
+        <bundles name="org.eclipse.ocl.xtext.oclstdlib" versionRange="1.23.0"/>
       </repositories>
     </contributions>
     <contributions label="From Orbit">
