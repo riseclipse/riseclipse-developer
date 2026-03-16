@@ -1,5 +1,11 @@
 #!/bin/sh
 
+# Exit on error
+set -e
+
+# Trap SIGINT (Ctrl+C) and exit the script
+trap 'echo -e "\nScript interrupted. Exiting..."; exit 130' SIGINT
+
 GOALS=$*
 
 cd ../riseclipse-developer
