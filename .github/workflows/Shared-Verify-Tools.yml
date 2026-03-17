@@ -53,20 +53,20 @@ jobs:
 
     steps:
     - name: Checkout ${{ github.event.repository.name }}
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
       with:
         path: ${{ github.event.repository.name }}
         fetch-depth: 0
 
     - name: Setup Java
-      uses: actions/setup-java@v4
+      uses: actions/setup-java@v5
       with:
         distribution: "temurin"
         java-version: "21"
         cache: "maven"
 
     - name: Checkout riseclipse-developper
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
       with:
         repository: riseclipse/riseclipse-developer
         path: riseclipse-developer
@@ -118,14 +118,14 @@ jobs:
       id: artifacts_metadata
 
     - name: Upload artifact 1
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ steps.artifacts_metadata.outputs.artifact_1_filename }}
         path: ${{ steps.artifacts_metadata.outputs.artifact_1_path }}
 
     - name: Upload artifact 2 if exists
       if: "${{ inputs.jar_path_2 != '' }}"
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ steps.artifacts_metadata.outputs.artifact_2_filename }}
         path: ${{ steps.artifacts_metadata.outputs.artifact_2_path }}
