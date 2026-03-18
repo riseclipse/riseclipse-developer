@@ -137,5 +137,10 @@ jobs:
         # Required sender full name (address can be skipped):
         from: riseclipse@gmail.com
         # Optional plain body:
-        body: The new development version is available at ${{ steps.release_artifacts.outputs.html_url }}
+        body: |
+            Hi,
+            A new development version is available at ${{ steps.release_artifacts.outputs.html_url }}.
+            See changes at "${{ github.event.repository.name }}/blob/develop/CHANGELOG.md"
+            ----
+            The RiseClipse Team (https://riseclipse.github.io/)
 
