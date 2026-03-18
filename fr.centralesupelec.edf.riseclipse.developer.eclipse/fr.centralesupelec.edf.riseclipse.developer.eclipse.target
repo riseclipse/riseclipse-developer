@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde?>
 <!-- generated with https://github.com/eclipse-cbi/targetplatform-dsl -->
-<target name="fr.centralesupelec.edf.riseclipse.developer.eclipse" sequenceNumber="1737635701">
+<target name="fr.centralesupelec.edf.riseclipse.developer.eclipse" sequenceNumber="1773329593">
   <locations>
     <location includeMode="slicer" includeAllPlatforms="false" includeSource="false" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="com.google.guava" version="33.3.1.jre"/>
@@ -35,14 +35,6 @@
       <unit id="org.eclipse.jdt.debug" version="3.21.600.v20241021-1521"/>
       <unit id="org.eclipse.jdt.launching" version="3.23.100.v20241028-0746"/>
       <unit id="org.eclipse.jface" version="3.35.100.v20241003-1431"/>
-      <unit id="org.eclipse.ocl.common" version="1.22.0.v20240902-1518"/>
-      <unit id="org.eclipse.ocl.pivot" version="1.22.0.v20240902-1518"/>
-      <unit id="org.eclipse.ocl.pivot.uml" version="1.22.0.v20240902-1518"/>
-      <unit id="org.eclipse.ocl.xtext.base" version="1.22.0.v20240902-1518"/>
-      <unit id="org.eclipse.ocl.xtext.completeocl" version="1.22.0.v20240902-1518"/>
-      <unit id="org.eclipse.ocl.xtext.essentialocl" version="1.22.0.v20240902-1518"/>
-      <unit id="org.eclipse.ocl.xtext.oclinecore" version="1.22.0.v20240902-1518"/>
-      <unit id="org.eclipse.ocl.xtext.oclstdlib" version="1.22.0.v20240902-1518"/>
       <unit id="org.eclipse.osgi" version="3.22.0.v20241030-2121"/>
       <unit id="org.eclipse.osgi.compatibility.state" version="1.2.1000.v20240213-1057"/>
       <unit id="org.eclipse.swt" version="3.128.0.v20241113-2009"/>
@@ -59,6 +51,18 @@
       <unit id="org.eclipse.xtext.xbase.lib" version="2.37.0.v20241119-0857"/>
       <unit id="org.eclipse.xtext.util" version="2.37.0.v20241119-0857"/>
       <repository id="eclipse-2024-12" location="http://download.eclipse.org/releases/2024-12"/>
+    </location>
+    <location includeMode="slicer" includeAllPlatforms="false" includeSource="false" includeConfigurePhase="false" type="InstallableUnit">
+      <unit id="org.eclipse.ocl.common" version="1.23.0.v20260312-1306"/>
+      <unit id="org.eclipse.ocl.tools.feature.group" version="3.23.1.v20260312-1306"/>
+      <unit id="org.eclipse.ocl.pivot" version="1.23.0.v20260312-1306"/>
+      <unit id="org.eclipse.ocl.pivot.uml" version="1.23.0.v20260312-1306"/>
+      <unit id="org.eclipse.ocl.xtext.base" version="1.23.0.v20260312-1306"/>
+      <unit id="org.eclipse.ocl.xtext.completeocl" version="1.23.0.v20260312-1306"/>
+      <unit id="org.eclipse.ocl.xtext.essentialocl" version="1.23.0.v20260312-1306"/>
+      <unit id="org.eclipse.ocl.xtext.oclinecore" version="1.23.0.v20260312-1306"/>
+      <unit id="org.eclipse.ocl.xtext.oclstdlib" version="1.23.0.v20260312-1306"/>
+      <repository id="ocl-with-extended-stdlib" location="https://github.com/riseclipse/org.eclipse.ocl/releases/download/nightly/"/>
     </location>
     <location includeMode="slicer" includeAllPlatforms="false" includeSource="false" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.apache.commons.cli" version="1.9.0"/>

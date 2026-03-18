@@ -83,6 +83,11 @@
       <layout>p2</layout>
     </repository>
     <repository>
+      <id>ocl-with-extended-stdlib</id>
+      <url>https://github.com/riseclipse/org.eclipse.ocl/releases/download/nightly/</url>
+      <layout>p2</layout>
+    </repository>
+    <repository>
       <id>license-feature</id>
       <url>http://download.eclipse.org/cbi/updates/license/</url>
       <layout>p2</layout>
@@ -90,7 +95,7 @@
   </repositories>
   
   <properties>
-    <riseclipse-target-platform-version>1.2.16</riseclipse-target-platform-version>
+    <riseclipse-target-platform-version>1.2.17-SNAPSHOT</riseclipse-target-platform-version>
     
     <maven-group-id>org.apache.maven.plugins</maven-group-id>
     <maven-clean-plugin-version>3.4.0</maven-clean-plugin-version>
@@ -110,7 +115,7 @@
 
 
     <tycho-group-id>org.eclipse.tycho</tycho-group-id>
-    <tycho-version>4.0.10</tycho-version>
+    <tycho-version>4.0.13</tycho-version>
     
     <central-publishing-maven-plugin-version>0.7.0</central-publishing-maven-plugin-version>
     
@@ -148,13 +153,13 @@
     <org-eclipse-equinox-registry-version>3.12.200</org-eclipse-equinox-registry-version>
     <org-eclipse-jdt-annotation-version>2.3.100</org-eclipse-jdt-annotation-version>
     <org-eclipse-jface-version>3.35.0</org-eclipse-jface-version>
-    <org-eclipse-ocl-common-version>1.22.0</org-eclipse-ocl-common-version>
-    <org-eclipse-ocl-pivot-version>1.22.0</org-eclipse-ocl-pivot-version>
-    <org-eclipse-ocl-xtext-base-version>1.22.0</org-eclipse-ocl-xtext-base-version>
-    <org-eclipse-ocl-xtext-completeocl-version>1.22.0</org-eclipse-ocl-xtext-completeocl-version>
-    <org-eclipse-ocl-xtext-essentialocl-version>1.22.0</org-eclipse-ocl-xtext-essentialocl-version>
-    <org-eclipse-ocl-xtext-oclinecore-version>1.22.0</org-eclipse-ocl-xtext-oclinecore-version>
-    <org-eclipse-ocl-xtext-oclstdlib-version>1.22.0</org-eclipse-ocl-xtext-oclstdlib-version>
+    <org-eclipse-ocl-common-version>1.23.0</org-eclipse-ocl-common-version>
+    <org-eclipse-ocl-pivot-version>1.23.0</org-eclipse-ocl-pivot-version>
+    <org-eclipse-ocl-xtext-base-version>1.23.0</org-eclipse-ocl-xtext-base-version>
+    <org-eclipse-ocl-xtext-completeocl-version>1.23.0</org-eclipse-ocl-xtext-completeocl-version>
+    <org-eclipse-ocl-xtext-essentialocl-version>1.23.0</org-eclipse-ocl-xtext-essentialocl-version>
+    <org-eclipse-ocl-xtext-oclinecore-version>1.23.0</org-eclipse-ocl-xtext-oclinecore-version>
+    <org-eclipse-ocl-xtext-oclstdlib-version>1.23.0</org-eclipse-ocl-xtext-oclstdlib-version>
     <org-eclipse-osgi-compatibility-state-version>1.2.1000</org-eclipse-osgi-compatibility-state-version>
     <org-eclipse-osgi-version>3.22.0</org-eclipse-osgi-version>
     <org-eclipse-swt-version>3.128.0</org-eclipse-swt-version>
