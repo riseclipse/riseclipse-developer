@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde?>
 <!-- generated with https://github.com/eclipse-cbi/targetplatform-dsl -->
-<target name="fr.centralesupelec.edf.riseclipse.developer.eclipse" sequenceNumber="1773329593">
+<target name="fr.centralesupelec.edf.riseclipse.developer.eclipse" sequenceNumber="1774017222">
   <locations>
     <location includeMode="slicer" includeAllPlatforms="false" includeSource="false" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="com.google.guava" version="33.3.1.jre"/>
@@ -53,15 +53,15 @@
       <repository id="eclipse-2024-12" location="http://download.eclipse.org/releases/2024-12"/>
     </location>
     <location includeMode="slicer" includeAllPlatforms="false" includeSource="false" includeConfigurePhase="false" type="InstallableUnit">
-      <unit id="org.eclipse.ocl.common" version="1.23.0.v20260312-1306"/>
-      <unit id="org.eclipse.ocl.tools.feature.group" version="3.23.1.v20260312-1306"/>
-      <unit id="org.eclipse.ocl.pivot" version="1.23.0.v20260312-1306"/>
-      <unit id="org.eclipse.ocl.pivot.uml" version="1.23.0.v20260312-1306"/>
-      <unit id="org.eclipse.ocl.xtext.base" version="1.23.0.v20260312-1306"/>
-      <unit id="org.eclipse.ocl.xtext.completeocl" version="1.23.0.v20260312-1306"/>
-      <unit id="org.eclipse.ocl.xtext.essentialocl" version="1.23.0.v20260312-1306"/>
-      <unit id="org.eclipse.ocl.xtext.oclinecore" version="1.23.0.v20260312-1306"/>
-      <unit id="org.eclipse.ocl.xtext.oclstdlib" version="1.23.0.v20260312-1306"/>
+      <unit id="org.eclipse.ocl.common" version="1.23.0.v20260320-1414"/>
+      <unit id="org.eclipse.ocl.tools.feature.group" version="3.23.1.v20260320-1414"/>
+      <unit id="org.eclipse.ocl.pivot" version="1.23.0.v20260320-1414"/>
+      <unit id="org.eclipse.ocl.pivot.uml" version="1.23.0.v20260320-1414"/>
+      <unit id="org.eclipse.ocl.xtext.base" version="1.23.0.v20260320-1414"/>
+      <unit id="org.eclipse.ocl.xtext.completeocl" version="1.23.0.v20260320-1414"/>
+      <unit id="org.eclipse.ocl.xtext.essentialocl" version="1.23.0.v20260320-1414"/>
+      <unit id="org.eclipse.ocl.xtext.oclinecore" version="1.23.0.v20260320-1414"/>
+      <unit id="org.eclipse.ocl.xtext.oclstdlib" version="1.23.0.v20260320-1414"/>
       <repository id="ocl-with-extended-stdlib" location="https://github.com/riseclipse/org.eclipse.ocl/releases/download/nightly/"/>
     </location>
     <location includeMode="slicer" includeAllPlatforms="false" includeSource="false" includeConfigurePhase="false" type="InstallableUnit">
