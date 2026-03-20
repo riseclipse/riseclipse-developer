@@ -139,8 +139,10 @@ jobs:
         # Optional plain body:
         body: |
             Hi,
+            
             A new development version is available at ${{ steps.release_artifacts.outputs.html_url }}.
-            See changes at "${{ github.event.repository.name }}/blob/develop/CHANGELOG.md"
+            See changes at "https://github.com/riseclipse/${{ github.event.repository.name }}/blob/develop/CHANGELOG.md"
+            
             ----
             The RiseClipse Team (https://riseclipse.github.io/)
 
