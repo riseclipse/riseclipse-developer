@@ -95,7 +95,7 @@
   </repositories>
   
   <properties>
-    <riseclipse-target-platform-version>1.2.17-SNAPSHOT</riseclipse-target-platform-version>
+    <riseclipse-target-platform-version>1.2.17</riseclipse-target-platform-version>
     
     <maven-group-id>org.apache.maven.plugins</maven-group-id>
     <maven-clean-plugin-version>3.4.0</maven-clean-plugin-version>
@@ -115,7 +115,7 @@
 
 
     <tycho-group-id>org.eclipse.tycho</tycho-group-id>
-    <tycho-version>4.0.13</tycho-version>
+    <tycho-version>5.0.2</tycho-version>
     
     <central-publishing-maven-plugin-version>0.7.0</central-publishing-maven-plugin-version>
     
