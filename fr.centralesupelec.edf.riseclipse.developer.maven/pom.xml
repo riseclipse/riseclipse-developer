@@ -115,7 +115,7 @@
 
 
     <tycho-group-id>org.eclipse.tycho</tycho-group-id>
-    <tycho-version>4.0.13</tycho-version>
+    <tycho-version>5.0.2</tycho-version>
     
     <central-publishing-maven-plugin-version>0.7.0</central-publishing-maven-plugin-version>
     
