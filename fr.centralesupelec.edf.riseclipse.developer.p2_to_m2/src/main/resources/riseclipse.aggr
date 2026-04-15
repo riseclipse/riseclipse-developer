@@ -56,7 +56,9 @@
     </contributions>
   </validationSets>
   <configurations architecture="x86_64"/>
+  <configurations architecture="aarch64"/>
   <configurations operatingSystem="linux" windowSystem="gtk" architecture="x86_64"/>
+  <configurations operatingSystem="linux" windowSystem="gtk" architecture="aarch64"/>
   <configurations operatingSystem="macosx" windowSystem="cocoa" architecture="x86_64"/>
   <configurations operatingSystem="macosx" windowSystem="cocoa" architecture="aarch64"/>
 </aggregator:Aggregation>
