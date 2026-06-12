@@ -2,7 +2,7 @@
 <aggregator:Aggregation xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:aggregator="http://www.eclipse.org/cbi/p2repo/2011/aggregator/1.1.0" label="Eclipse Projects for RiseClipse" packedStrategy="UNPACK" mavenResult="true" versionFormat="MavenRelease">
   <validationSets label="Eclipse needed projects for RiseClipse">
     <contributions label="Eclipse Platform">
-      <repositories location="http://download.eclipse.org/releases/2025-12">
+      <repositories location="http://download.eclipse.org/releases/2026-03">
         <bundles name="org.eclipse.core.commands" versionRange="3.12.0"/>
         <bundles name="org.eclipse.core.contenttype" versionRange="3.9.300"/>
         <bundles name="org.eclipse.core.jobs" versionRange="3.15.200"/>
@@ -24,7 +24,7 @@
       </repositories>
     </contributions>
     <contributions label="EMF">
-      <repositories location="http://download.eclipse.org/releases/2025-12">
+      <repositories location="http://download.eclipse.org/releases/2026-03">
         <bundles name="org.eclipse.emf.common" versionRange="2.30.0"/>
         <bundles name="org.eclipse.emf.ecore" versionRange="2.36.0"/>
         <bundles name="org.eclipse.emf.ecore.change" versionRange="2.16.0"/>
@@ -33,7 +33,7 @@
       </repositories>
     </contributions>
     <contributions label="XText">
-      <repositories location="http://download.eclipse.org/releases/2025-12">
+      <repositories location="http://download.eclipse.org/releases/2026-03">
         <bundles name="org.eclipse.xtext" versionRange="2.34.0"/>
         <bundles name="org.eclipse.xtext.util" versionRange="2.34.0"/>
       </repositories>
@@ -50,7 +50,7 @@
       </repositories>
     </contributions>
     <contributions label="From Orbit">
-      <repositories location="https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/release/4.38.0">
+      <repositories location="https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/release/4.39.0">
         <bundles name="org.apache.commons.cli" versionRange="1.6.0"/>
         <bundles name="org.apache.commons.lang3" versionRange="3.14.0"/>
       </repositories>
