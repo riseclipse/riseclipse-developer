@@ -22,7 +22,7 @@ This file is part of the RiseClipse tool
 
 ## Scenario
 
-This scenario describes the deployment of a develop version of tools.
+This scenario describes the deployment of a development version of tools.
 
 The expected initial state is:
 - The needed RiseClipse git projects are available on the computer
