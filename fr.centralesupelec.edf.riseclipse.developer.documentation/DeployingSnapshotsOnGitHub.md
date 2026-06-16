@@ -102,7 +102,7 @@ The expected initial state is:
 
     - Run manually the workflow `Deploy snapshot tool` (**choose** the `develop` branch!)
 
-    - Switch to branch  `iec-61850-6-3-snapshot`
+    - Switch to branch  `iec61850-6-3-snapshot`
         - Merge branch `develop` into `iec-61850-6-3-snapshot`
         - Update `RELEASE_VERSION` in `.github/workflows/Release-On-DockerHub.yml`
         - Commit, push to GitHub
