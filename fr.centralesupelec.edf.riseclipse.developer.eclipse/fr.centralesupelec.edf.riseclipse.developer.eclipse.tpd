@@ -3,8 +3,9 @@ target "fr.centralesupelec.edf.riseclipse.developer.eclipse"
 
 environment JavaSE-21
 
-location "http://download.eclipse.org/releases/2024-12" eclipse-2024-12 {
+location "https://download.eclipse.org/releases/2026-06" eclipse-2026-06 {
     com.google.guava
+    com.google.guava.failureaccess
     com.google.inject
     org.antlr.runtime [3.2.0,3.2.1)
     org.aopalliance
@@ -64,7 +65,7 @@ location "https://github.com/riseclipse/org.eclipse.ocl/releases/download/nightl
     org.eclipse.ocl.xtext.oclstdlib	
 }
 
-location "https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/release/4.34.0" orbit-2024-12 {
+location "https://download.eclipse.org/tools/orbit/simrel/orbit-aggregation/release/4.40.0" orbit-2026-06 {
     org.apache.commons.cli
     org.apache.commons.lang3
 }
