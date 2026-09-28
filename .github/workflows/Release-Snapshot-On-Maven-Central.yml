@@ -17,7 +17,7 @@
 # **      https://riseclipse.github.io
 # *************************************************************************
 
-name: Release snapshots on Central
+name: Release snapshots on Maven Central
 
 on:
   workflow_dispatch: # Allow manual trigger for expired snapshot
